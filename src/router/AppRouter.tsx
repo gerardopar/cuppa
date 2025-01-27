@@ -8,8 +8,11 @@ const AppRouter = () => {
     <AppLayout>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/tab1" element={<div>Tab1</div>} />
-        <Route path="/tab2" element={<div>Tab2</div>} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/saved" element={<div>Saved</div>} />
+        <Route path="/search" element={<div>Search</div>} />
+        <Route path="/settings" element={<div>Settings</div>} />
+        <Route path="/profile" element={<div>Profile</div>} />
       </Routes>
     </AppLayout>
   );
