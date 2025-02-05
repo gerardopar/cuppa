@@ -37,7 +37,7 @@ const Home: React.FC = () => {
       </div>
       <ArticleCardList
         articles={ARTICLE_DUMMY_DATA.articles}
-        listTitle="Categories"
+        listTitle="Trending"
       />
     </div>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 
 import CloseIcon from "@mui/icons-material/Close";
+import ArticleSlider from "../articles/ArticleSlider/ArticleSlider";
 
 import { GeneralCategoryEnum } from "./newCategories.helpers";
 
@@ -24,6 +25,8 @@ export const NewsCategoryOverlay: React.FC<{
             {category}
           </h1>
         </div>
+
+        <ArticleSlider />
       </div>
     </>
   );
