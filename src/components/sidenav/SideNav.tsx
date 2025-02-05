@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router";
 
-import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-
+import { Slide } from "@mui/material";
 import Logo from "../../assets/images/itl-logo-black.png";
+import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+
+import { navStore } from "../../stores/navStore";
 
 const routes = {
   home: "/home",
@@ -25,12 +27,17 @@ export const SideNav: React.FC = () => {
 
   const handleNavigation = (route: string) => navigate(route);
 
+  const isSlideOpen = navStore.useTracked("isSlideOpen");
+
   useEffect(() => {
     setActiveRoute(location.pathname);
   }, [location.pathname]);
 
   return (
-    <nav className="w-[100px] h-[100vh] bg-gray-100">
+    <nav className="w-[100px] h-[100vh] bg-gray-100 relative">
+      <Slide direction="down" in={isSlideOpen} mountOnEnter unmountOnExit>
+        <div className="w-full h-full bg-black/30 z-10 absolute top-0 left-0" />
+      </Slide>
       <ul className="w-full h-full flex items-center justify-start flex-col pt-8">
         <li
           className="py-8 px-4"

@@ -11,8 +11,9 @@ export const NewsCategoryOverlay: React.FC<{
   return (
     <>
       <button
+        type="button"
         onClick={handleCloseModal}
-        className="bg-gray-200 w-[70px] h-[70px] absolute top-0 right-0"
+        className="bg-gray-200 w-[70px] h-[70px] absolute top-0 right-0 cursor-pointer"
       >
         <CloseIcon fontSize="large" />
       </button>
