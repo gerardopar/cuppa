@@ -7,7 +7,12 @@ import { Article } from "../../types/article";
 
 const ArticleCard: React.FC<{ article: Article }> = ({ article }) => {
   return (
-    <div className="flex pr-8 w-[32.5%] items-center mr-2 mb-6 relative cursor-pointer">
+    <a
+      href={article?.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex pr-8 w-[32.5%] items-center mr-2 mb-6 relative cursor-pointer"
+    >
       <div className="h-[100px] w-[100px] min-h-[100px] min-w-[100px] mr-4 shadow-sm">
         <img
           className="w-full h-full object-cover"
@@ -29,7 +34,7 @@ const ArticleCard: React.FC<{ article: Article }> = ({ article }) => {
       <button type="button" className="absolute top-0 right-0 cursor-pointer">
         <MoreVertIcon className="text-gray-500" />
       </button>
-    </div>
+    </a>
   );
 };
 

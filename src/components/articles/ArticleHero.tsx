@@ -13,8 +13,11 @@ const ArticleHero: React.FC = () => {
   const publishDate = moment(article.publishedAt).format("MMMM Do, YYYY");
 
   return (
-    <div
-      className="w-[75%] h-full relative bg-center bg-cover p-20"
+    <a
+      href={article?.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-[75%] h-full relative bg-center bg-cover p-20 cursor-pointer"
       style={{
         backgroundImage: `url(${article.urlToImage})`,
       }}
@@ -37,7 +40,7 @@ const ArticleHero: React.FC = () => {
           </p>
         </div>
       </div>
-    </div>
+    </a>
   );
 };
 
