@@ -1,4 +1,7 @@
 import React from "react";
+
+import NewsEmptyPlaceholder from "../../../assets/images/news-empty-placeholder.jpg";
+
 import { Article } from "../../../types/article";
 
 export const ArticleSliderCard: React.FC<{ article: Article }> = ({
@@ -8,7 +11,7 @@ export const ArticleSliderCard: React.FC<{ article: Article }> = ({
     <div
       className="relative bg-center bg-cover p-4 h-[300px] w-[400px] min-h-[300px] min-w-[400px] mr-4"
       style={{
-        backgroundImage: `url(${article.urlToImage})`,
+        backgroundImage: `url(${article?.urlToImage || NewsEmptyPlaceholder})`,
       }}
     >
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10" />

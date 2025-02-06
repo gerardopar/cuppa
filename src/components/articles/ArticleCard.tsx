@@ -1,6 +1,7 @@
 import React from "react";
 
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import NewsEmptyPlaceholder from "../../assets/images/news-empty-placeholder.jpg";
 
 import { Article } from "../../types/article";
 
@@ -10,7 +11,7 @@ const ArticleCard: React.FC<{ article: Article }> = ({ article }) => {
       <div className="h-[100px] w-[100px] min-h-[100px] min-w-[100px] mr-4 shadow-sm">
         <img
           className="w-full h-full object-cover"
-          src={article?.urlToImage ?? ""}
+          src={article?.urlToImage || NewsEmptyPlaceholder}
           alt="article img"
         />
       </div>
