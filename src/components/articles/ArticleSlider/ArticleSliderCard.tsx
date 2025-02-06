@@ -9,7 +9,7 @@ export const ArticleSliderCard: React.FC<{ article: Article }> = ({
 }) => {
   return (
     <div
-      className="group relative bg-center bg-cover p-4 h-[300px] w-[400px] min-h-[300px] min-w-[400px] mr-4 cursor-pointer"
+      className="group relative bg-center bg-cover p-4 h-[300px] w-[400px] min-h-[300px] min-w-[400px] mr-4 cursor-pointer shadow-sm"
       style={{
         backgroundImage: `url(${article?.urlToImage || NewsEmptyPlaceholder})`,
       }}

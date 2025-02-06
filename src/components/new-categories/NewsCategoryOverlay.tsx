@@ -1,9 +1,12 @@
 import React from "react";
 
 import CloseIcon from "@mui/icons-material/Close";
+import ArticleCardList from "../articles/ArticleCardList";
 import ArticleSlider from "../articles/ArticleSlider/ArticleSlider";
 
 import { GeneralCategoryEnum } from "./newCategories.helpers";
+
+import { ARTICLE_DUMMY_DATA } from "../../data/ARTICLE_DUMMY_DATA";
 
 export const NewsCategoryOverlay: React.FC<{
   category: GeneralCategoryEnum;
@@ -27,6 +30,13 @@ export const NewsCategoryOverlay: React.FC<{
         </div> */}
 
         <ArticleSlider category={category} />
+
+        <ArticleCardList
+          articles={ARTICLE_DUMMY_DATA.articles}
+          listTitle="Recommendations"
+          listContainerClassName="w-full"
+          listLimit={12}
+        />
       </div>
     </>
   );

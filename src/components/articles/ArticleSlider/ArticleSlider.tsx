@@ -40,7 +40,7 @@ export const ArticleSlider: React.FC<{ category?: GeneralCategoryEnum }> = ({
         </div>
       </div>
 
-      <div className="w-full ml-4 mt-4 flex">
+      <div className="w-full ml-4 mt-4 flex overflow-hidden">
         <Swiper
           onSwiper={(swiper) => {
             swiperRef.current = swiper;

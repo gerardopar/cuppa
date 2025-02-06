@@ -9,6 +9,7 @@ import ArticleHero from "../components/articles/ArticleHero";
 import { GeneralCategoryEnum } from "../components/new-categories/newCategories.helpers";
 import { ARTICLE_DUMMY_DATA } from "../data/ARTICLE_DUMMY_DATA";
 import { navStore } from "../stores/navStore";
+import WeatherWidget from "../components/weather-widget/WeatherWidget";
 
 const Home: React.FC = () => {
   const [activeCategory, setActiveCategory] =
@@ -27,7 +28,7 @@ const Home: React.FC = () => {
         <ArticleHero />
         <NewsCategories handleCategoryClick={handleCategoryClick} />
         <Slide direction="left" in={isSlideOpen} mountOnEnter unmountOnExit>
-          <div className="bg-gray-100 w-full h-full absolute z-[9999]">
+          <div className="bg-gray-100 w-full h-full absolute z-[9999] overflow-y-scroll">
             <NewsCategoryOverlay
               handleCloseModal={() => handleCategoryClick(null)}
               category={activeCategory as GeneralCategoryEnum}
@@ -35,10 +36,15 @@ const Home: React.FC = () => {
           </div>
         </Slide>
       </div>
-      <ArticleCardList
-        articles={ARTICLE_DUMMY_DATA.articles}
-        listTitle="Trending"
-      />
+      <div className="w-full flex items-center">
+        <ArticleCardList
+          articles={ARTICLE_DUMMY_DATA.articles}
+          listTitle="Trending"
+          className="!w-[75%]"
+          listContainerClassName="!w-full"
+        />
+        <WeatherWidget />
+      </div>
     </div>
   );
 };
