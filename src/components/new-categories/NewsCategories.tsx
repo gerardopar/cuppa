@@ -70,7 +70,7 @@ export const NewsCategories: React.FC<{
             return (
               <button
                 key={index}
-                className="w-[50%] flex flex-col justify-center items-center px-4 py-[60px] odd:border-r-2 odd:border-gray-100 border-b-2 border-gray-100 nth-[5]:border-b-transparent nth-[6]:border-b-transparent hover:bg-gray-200 transition-all duration-[1s] cursor-pointer"
+                className="w-[50%] flex flex-col justify-center items-center px-4 py-[60px] odd:border-r-2 odd:border-gray-100 border-b-2 border-gray-100 nth-[5]:border-b-transparent nth-[6]:border-b-transparent hover:bg-gray-200 transition-all duration-[.5s] cursor-pointer"
                 onClick={() => handleCategoryClick(type)}
               >
                 <IconComponent className="text-gray-600" />

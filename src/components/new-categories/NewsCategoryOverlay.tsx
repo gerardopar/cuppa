@@ -35,7 +35,7 @@ export const NewsCategoryOverlay: React.FC<{
           articles={ARTICLE_DUMMY_DATA.articles}
           listTitle="Recommendations"
           listContainerClassName="w-full"
-          listLimit={12}
+          listLimit={9}
         />
       </div>
     </>
