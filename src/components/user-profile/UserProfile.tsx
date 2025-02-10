@@ -1,10 +1,11 @@
 import React from "react";
 
 import {
-  CloseOutlined,
+  EditOutlined,
   KeyboardArrowRightOutlined,
   LogoutOutlined,
 } from "@mui/icons-material";
+import CloseButton from "../shared/CloseButton";
 
 export const UserProfile: React.FC<{ handleCloseModal: () => void }> = ({
   handleCloseModal,
@@ -12,22 +13,25 @@ export const UserProfile: React.FC<{ handleCloseModal: () => void }> = ({
   return (
     <div className="flex items-center justify-center h-full bg-transparent shadow-sm relative">
       <div className="bg-white w-full max-w-[375px] flex items-center justify-center flex-col bg-transparent z-10 px-4 py-6 rounded-[12px] relative">
-        <button
-          type="button"
-          onClick={handleCloseModal}
+        <CloseButton
+          iconSize="small"
           className="bg-gray-200 w-[40px] h-[40px] absolute top-0 right-0 cursor-pointer"
-        >
-          <CloseOutlined fontSize="small" />
-        </button>
+          handleCloseModal={handleCloseModal}
+        />
         <h4 className="text-gray-900 text-xl font-semibold font-montserrat">
           Profile
         </h4>
-        <div className="flex items-center justify-center overflow-hidden w-[80px] h-[80px] rounded-full mt-6">
-          <img
-            src="https://flomaster.top/uploads/posts/2022-12/1672490333_flomaster-club-p-betmen-risunok-detskii-instagram-1.jpg"
-            alt="user thumb"
-            className="object-fit"
-          />
+        <div className="relative">
+          <div className="flex items-center justify-center overflow-hidden w-[80px] h-[80px] rounded-full mt-6 relative border-gray-100 border-solid border-2 border-gray-100">
+            <img
+              src="https://flomaster.top/uploads/posts/2022-12/1672490333_flomaster-club-p-betmen-risunok-detskii-instagram-1.jpg"
+              alt="user thumb"
+              className="object-fit"
+            />
+          </div>
+          <button className="flex items-center justify-center absolute bg-gray-200 rounded-full p-[2px] top-[25px] right-[-12px] opacity-90 border-gray-100 border-solid border-2 border-gray-100 cursor-pointer">
+            <EditOutlined className="text-gray-900" />
+          </button>
         </div>
         <div className="mt-2 flex items-center justify-center">
           <h3 className="text-gray-900 text-2xl font-semibold font-montserrat">
@@ -57,7 +61,7 @@ export const UserProfile: React.FC<{ handleCloseModal: () => void }> = ({
         <div className="items-center justify-center w-full">
           <button
             type="button"
-            className="w-full flex items-center justify-between py-4 border-gray-100 border-b-solid border-b-2 border-gray-100 text-gray-900 text-base cursor-pointer"
+            className="w-full flex items-center justify-between py-4 border-gray-100 border-b-solid border-b-2 border-gray-100 text-gray-900 text-base cursor-pointer font-medium"
           >
             Account Settings{" "}
             <span>
@@ -66,7 +70,7 @@ export const UserProfile: React.FC<{ handleCloseModal: () => void }> = ({
           </button>
           <button
             type="button"
-            className="w-full flex items-center justify-center py-2 mt-[32px] cursor-pointer rounded-[12px] border-solid border-2 border-gray-100 hover:bg-gray-300 hover:border-gray-300"
+            className="w-full flex items-center justify-center py-2 mt-[32px] cursor-pointer rounded-[12px] border-solid border-2 border-gray-100 hover:bg-gray-100 hover:border-gray-100"
           >
             Logout <LogoutOutlined className="ml-2" />
           </button>

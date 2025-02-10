@@ -1,6 +1,6 @@
 import React from "react";
 
-import CloseIcon from "@mui/icons-material/Close";
+import CloseButton from "../shared/CloseButton";
 import ArticleCardList from "../articles/ArticleCardList";
 import ArticleSlider from "../articles/ArticleSlider/ArticleSlider";
 
@@ -14,13 +14,11 @@ export const NewsCategoryOverlay: React.FC<{
 }> = ({ category, handleCloseModal }) => {
   return (
     <>
-      <button
-        type="button"
-        onClick={handleCloseModal}
+      <CloseButton
+        handleCloseModal={handleCloseModal}
         className="bg-gray-200 w-[70px] h-[70px] absolute top-0 right-0 cursor-pointer"
-      >
-        <CloseIcon fontSize="large" />
-      </button>
+        iconSize="large"
+      />
 
       <div className="w-full">
         {/* <div className="mt-[100px] px-4">
