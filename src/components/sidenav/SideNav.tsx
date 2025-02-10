@@ -1,24 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router";
 
-import { Slide, Backdrop, Modal, Fade } from "@mui/material";
+import { Slide, Backdrop, Modal } from "@mui/material";
 import Logo from "../../assets/images/itl-logo-black.png";
-import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-
-import { navStore } from "../../stores/navStore";
 import UserProfile from "../user-profile/UserProfile";
 
-const routes = {
-  home: "/home",
-  saved: "/saved",
-  search: "/search",
-  settings: "/settings",
-  profile: "/profile",
-};
+import { navStore } from "../../stores/navStore";
+
+import { routes } from "./sidenav.helpers";
 
 export const SideNav: React.FC = () => {
   const navigate = useNavigate();
@@ -51,53 +40,36 @@ export const SideNav: React.FC = () => {
             {" "}
             <img src={Logo} className="h-auto w-[30px]" />
           </li>
-          <NavLink
-            to={routes.home}
-            className={`py-8 px-4 ${
-              activeRoute === routes.home ? "text-gray-900" : "text-gray-600"
-            }`}
-            onClick={() => handleNavigation(routes.home)}
-          >
-            <FeedOutlinedIcon />
-          </NavLink>
-          <NavLink
-            to={routes.saved}
-            className={`py-8 px-4 ${
-              activeRoute === routes.saved ? "text-gray-900" : "text-gray-600"
-            }`}
-            onClick={() => handleNavigation(routes.saved)}
-          >
-            <FavoriteBorderOutlinedIcon />
-          </NavLink>
-          <NavLink
-            to={routes.search}
-            className={`py-8 px-4 ${
-              activeRoute === routes.search ? "text-gray-900" : "text-gray-600"
-            }`}
-            onClick={() => handleNavigation(routes.search)}
-          >
-            <SearchOutlinedIcon />
-          </NavLink>
-          <button
-            type="button"
-            className={`py-8 px-4 ${
-              activeRoute === routes.profile ? "text-gray-900" : "text-gray-600"
-            }`}
-            onClick={() => setIsModalOpen(true)}
-          >
-            <AccountCircleOutlinedIcon />
-          </button>
-          <NavLink
-            to={routes.settings}
-            className={`py-8 px-4 ${
-              activeRoute === routes.settings
-                ? "text-gray-900"
-                : "text-gray-600"
-            }`}
-            onClick={() => handleNavigation(routes.settings)}
-          >
-            <SettingsOutlinedIcon />
-          </NavLink>
+
+          {routes.map((route) => {
+            const { Icon, path, id } = route;
+            if (path === "/profile")
+              return (
+                <button
+                  key={id}
+                  type="button"
+                  className={`py-8 px-4 ${
+                    isModalOpen ? "text-gray-900" : "text-gray-600"
+                  }`}
+                  onClick={() => setIsModalOpen(true)}
+                >
+                  <Icon />
+                </button>
+              );
+
+            return (
+              <NavLink
+                key={id}
+                to={route.path}
+                className={`py-8 px-4 ${
+                  activeRoute === route.path ? "text-gray-900" : "text-gray-600"
+                }`}
+                onClick={() => handleNavigation(route.path)}
+              >
+                <Icon />
+              </NavLink>
+            );
+          })}
         </ul>
       </nav>
 
