@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-import { z } from "zod";
 
 import CloseButton from "../shared/CloseButton";
 import Logo from "../../assets/images/itl-logo-black.png";
 
-const LoginStateValidator = z.object({
-  email: z.string().email("Invalid email address"),
-  confirmPassword: z.string(),
-});
+import { useLoginUser } from "../../react-query/mutations/auth";
+import { LoginStateValidator } from "./login.helpers";
 
 export const Login: React.FC<{ handleCloseModal: () => void }> = ({
   handleCloseModal,
@@ -16,6 +13,8 @@ export const Login: React.FC<{ handleCloseModal: () => void }> = ({
   const [password, setPassword] = useState<string>("");
 
   const [errors, setErrors] = useState<{ [key: string]: string[] }>({});
+
+  const { mutateAsync: loginUser } = useLoginUser();
 
   const validate = () => {
     const parsedData = LoginStateValidator.safeParse({
@@ -35,9 +34,14 @@ export const Login: React.FC<{ handleCloseModal: () => void }> = ({
     return false;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (validate()) {
-      // login here
+      const { token } = await loginUser({
+        email,
+        password,
+      });
+
+      console.log("token", token);
     }
   };
 
@@ -81,7 +85,7 @@ export const Login: React.FC<{ handleCloseModal: () => void }> = ({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className={`w-full border-solid p-2 rounded-[12px] mt-[2px] focus:outline-none ${
-                errors?.name
+                errors?.email
                   ? "border-red-400 border-1 focus:border-red-400"
                   : "border-gray-100 border-2 focus:border-gray-200"
               }`}

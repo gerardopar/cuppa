@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import CloseButton from "../shared/CloseButton";
 import Logo from "../../assets/images/itl-logo-black.png";
 
+import { useRegisterUser } from "../../react-query/mutations/auth";
+
 import { SignupErrorTypes, SignupStateValidator } from "./signup.helpers";
 
 export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
@@ -16,6 +18,8 @@ export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
   const [errors, setErrors] = useState<
     Partial<Record<SignupErrorTypes, string>>
   >({});
+
+  const { mutateAsync: registerUser } = useRegisterUser();
 
   const validate = (): boolean => {
     const parsedData = SignupStateValidator.safeParse({
@@ -48,9 +52,15 @@ export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
     return false;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (validate()) {
-      // register here
+      const { token } = await registerUser({
+        name,
+        email,
+        password,
+      });
+
+      console.log("token", token);
     }
   };
 
@@ -115,7 +125,7 @@ export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className={`w-full border-solid p-2 rounded-[12px] mt-[2px] focus:outline-none ${
-                errors?.name
+                errors?.email
                   ? "border-red-400 border-1 focus:border-red-400"
                   : "border-gray-100 border-2 focus:border-gray-200"
               }`}
