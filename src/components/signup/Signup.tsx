@@ -1,31 +1,9 @@
 import React, { useState } from "react";
-import { z } from "zod";
 
 import CloseButton from "../shared/CloseButton";
 import Logo from "../../assets/images/itl-logo-black.png";
 
-const SignupStateValidator = z
-  .object({
-    name: z.string().nonempty("Name is required"),
-    email: z.string().email("Invalid email address"),
-    password: z
-      .string()
-      .min(8, "Password must be at least 8 characters long")
-      .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
-      .regex(
-        /[?!.@]/,
-        "Password must contain at least one special character (?!.@)"
-      )
-      .regex(
-        /^[A-Za-z0-9?!.@]+$/,
-        "Password can only contain letters, numbers, and the special characters ?!.@"
-      ),
-    confirmPassword: z.string(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    path: ["confirmPassword"],
-    message: "Passwords do not match",
-  });
+import { SignupErrorTypes, SignupStateValidator } from "./signup.helpers";
 
 export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
   handleCloseModal,
@@ -35,9 +13,11 @@ export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-  const [errors, setErrors] = useState<{ [key: string]: string[] }>({});
+  const [errors, setErrors] = useState<
+    Partial<Record<SignupErrorTypes, string>>
+  >({});
 
-  const validate = () => {
+  const validate = (): boolean => {
     const parsedData = SignupStateValidator.safeParse({
       name,
       email,
@@ -51,7 +31,18 @@ export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
     }
 
     if (parsedData.error) {
-      setErrors(parsedData?.error?.flatten()?.fieldErrors);
+      const flattenedErrors = parsedData.error.flatten().fieldErrors;
+
+      const formattedErrors: Partial<Record<SignupErrorTypes, string>> = {};
+
+      for (const key in flattenedErrors) {
+        if (flattenedErrors[key as SignupErrorTypes]) {
+          formattedErrors[key as SignupErrorTypes] =
+            flattenedErrors[key as SignupErrorTypes]?.join(", ");
+        }
+      }
+
+      setErrors(formattedErrors);
     }
 
     return false;
