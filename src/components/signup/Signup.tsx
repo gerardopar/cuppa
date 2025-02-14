@@ -5,6 +5,8 @@ import Logo from "../../assets/images/itl-logo-black.png";
 
 import { useRegisterUser } from "../../react-query/mutations/auth";
 
+import userStore from "../../stores/userStore";
+
 import { SignupErrorTypes, SignupStateValidator } from "./signup.helpers";
 
 export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
@@ -14,10 +16,11 @@ export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-
   const [errors, setErrors] = useState<
     Partial<Record<SignupErrorTypes, string>>
   >({});
+
+  const { set } = userStore;
 
   const { mutateAsync: registerUser } = useRegisterUser();
 
@@ -54,13 +57,14 @@ export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
 
   const handleSubmit = async () => {
     if (validate()) {
-      const { token } = await registerUser({
+      const { token, user } = await registerUser({
         name,
         email,
         password,
       });
 
-      console.log("token", token);
+      set("user", user);
+      set("token", token);
     }
   };
 

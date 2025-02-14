@@ -4,6 +4,9 @@ import CloseButton from "../shared/CloseButton";
 import Logo from "../../assets/images/itl-logo-black.png";
 
 import { useLoginUser } from "../../react-query/mutations/auth";
+
+import userStore from "../../stores/userStore";
+
 import { LoginStateValidator } from "./login.helpers";
 
 export const Login: React.FC<{ handleCloseModal: () => void }> = ({
@@ -11,8 +14,9 @@ export const Login: React.FC<{ handleCloseModal: () => void }> = ({
 }) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
   const [errors, setErrors] = useState<{ [key: string]: string[] }>({});
+
+  const { set } = userStore;
 
   const { mutateAsync: loginUser } = useLoginUser();
 
@@ -41,10 +45,8 @@ export const Login: React.FC<{ handleCloseModal: () => void }> = ({
         password,
       });
 
-      console.log("res", {
-        token,
-        user,
-      });
+      set("user", user);
+      set("token", token);
     }
   };
 
