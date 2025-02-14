@@ -21,14 +21,14 @@ export interface Response {
 }
 
 export interface Article {
-  source?: Source; // The source of the article
-  author?: string | null; // Author of the article (null if unavailable)
-  title?: string | undefined; // Title of the article
-  description?: string | undefined; // Description or snippet of the article
+  source?: Source | null | undefined; // The source of the article
+  author?: string | null | undefined; // Author of the article (null if unavailable)
+  title?: string | null | undefined; // Title of the article
+  description?: string | null | undefined; // Description or snippet of the article
   url?: string; // Direct URL to the article
-  urlToImage?: string | null; // URL to an image relevant to the article
-  publishedAt?: string; // Published date and time in UTC
-  content?: string | null; // Truncated content of the article
+  urlToImage?: string | null | undefined; // URL to an image relevant to the article
+  publishedAt?: string | null | undefined; // Published date and time in UTC
+  content?: string | null | undefined; // Truncated content of the article
 }
 
 export interface Source {

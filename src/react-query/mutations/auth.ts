@@ -1,16 +1,17 @@
-import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
+
+import axiosClient from "../../axios/axiosClient";
+
+import { User } from "../../types/user";
 
 type RegisterUserInput = { name: string; email: string; password: string };
 
-const apiBaseURL = `http://localhost:8080`;
-
 export const useRegisterUser = () => {
-  return useMutation<{ token: string }, Error, RegisterUserInput>({
+  return useMutation<{ token: string; user: User }, Error, RegisterUserInput>({
     mutationFn: async ({ name, email, password }: RegisterUserInput) => {
       try {
-        const response = await axios.post<{ token: string }>(
-          `${apiBaseURL}/auth/register`,
+        const response = await axiosClient.post<{ token: string; user: User }>(
+          `/auth/register`,
           {
             name,
             email,
@@ -27,11 +28,15 @@ export const useRegisterUser = () => {
 };
 
 export const useLoginUser = () => {
-  return useMutation<{ token: string }, Error, Partial<RegisterUserInput>>({
+  return useMutation<
+    { token: string; user: User },
+    Error,
+    Partial<RegisterUserInput>
+  >({
     mutationFn: async ({ email, password }: Partial<RegisterUserInput>) => {
       try {
-        const response = await axios.post<{ token: string }>(
-          `${apiBaseURL}/auth/login`,
+        const response = await axiosClient.post<{ token: string; user: User }>(
+          `/auth/login`,
           {
             email,
             password,

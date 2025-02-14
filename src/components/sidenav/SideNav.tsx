@@ -3,8 +3,8 @@ import { NavLink, useNavigate, useLocation } from "react-router";
 
 import { Slide, Backdrop, Modal } from "@mui/material";
 import Logo from "../../assets/images/itl-logo-black.png";
-import UserProfile from "../user-profile/UserProfile";
-import Signup from "../signup/Signup";
+// import UserProfile from "../user-profile/UserProfile";
+// import Signup from "../signup/Signup";
 import Login from "../login/Login";
 
 import { navStore } from "../../stores/navStore";

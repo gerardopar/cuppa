@@ -36,12 +36,15 @@ export const Login: React.FC<{ handleCloseModal: () => void }> = ({
 
   const handleSubmit = async () => {
     if (validate()) {
-      const { token } = await loginUser({
+      const { token, user } = await loginUser({
         email,
         password,
       });
 
-      console.log("token", token);
+      console.log("res", {
+        token,
+        user,
+      });
     }
   };
 
