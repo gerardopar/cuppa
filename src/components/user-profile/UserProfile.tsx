@@ -6,10 +6,15 @@ import {
   LogoutOutlined,
 } from "@mui/icons-material";
 import CloseButton from "../shared/CloseButton";
+import { useGetCurrentUserById } from "../../react-query/queries/user";
 
 export const UserProfile: React.FC<{ handleCloseModal: () => void }> = ({
   handleCloseModal,
 }) => {
+  const { data, isLoading } = useGetCurrentUserById();
+
+  console.log("data", data);
+
   return (
     <div className="flex items-center justify-center h-full bg-transparent shadow-sm relative">
       <div className="bg-white w-full max-w-[375px] flex items-center justify-center flex-col bg-transparent z-10 px-4 py-6 rounded-[12px] relative">
