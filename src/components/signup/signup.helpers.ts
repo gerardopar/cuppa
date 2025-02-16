@@ -28,3 +28,8 @@ export const SignupStateValidator = z
     path: ["confirmPassword"],
     message: "Passwords do not match",
   });
+
+export enum SignupViewModeEnum {
+  signup = "signup",
+  login = "login",
+}

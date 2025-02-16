@@ -50,7 +50,7 @@ export const SideNav: React.FC = () => {
                 <button
                   key={id}
                   type="button"
-                  className={`py-8 px-4 ${
+                  className={`py-8 px-4 cursor-pointer ${
                     isModalOpen ? "text-gray-900" : "text-gray-600"
                   }`}
                   onClick={() => setIsModalOpen(true)}

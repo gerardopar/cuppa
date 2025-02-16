@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 
+import Signup from "../signup/Signup";
 import CloseButton from "../shared/CloseButton";
 import Logo from "../../assets/images/itl-logo-black.png";
+import ForgotPassword from "./forgotPassword/ForgotPassword";
 
 import { useLoginUser } from "../../react-query/mutations/auth";
 
 import userStore from "../../stores/userStore";
 
-import { LoginStateValidator } from "./login.helpers";
+import { LoginStateValidator, LoginViewModeEnum } from "./login.helpers";
 
 export const Login: React.FC<{ handleCloseModal: () => void }> = ({
   handleCloseModal,
@@ -15,6 +17,10 @@ export const Login: React.FC<{ handleCloseModal: () => void }> = ({
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errors, setErrors] = useState<{ [key: string]: string[] }>({});
+
+  const [activeViewMode, setActiveViewMode] = useState<LoginViewModeEnum>(
+    LoginViewModeEnum.login
+  );
 
   const { set } = userStore;
 
@@ -49,6 +55,12 @@ export const Login: React.FC<{ handleCloseModal: () => void }> = ({
       set("token", token);
     }
   };
+
+  if (activeViewMode === LoginViewModeEnum.signup) {
+    return <Signup handleCloseModal={handleCloseModal} />;
+  } else if (activeViewMode === LoginViewModeEnum.forgotPassword) {
+    return <ForgotPassword handleCloseModal={handleCloseModal} />;
+  }
 
   return (
     <div className="flex items-center justify-center h-full bg-transparent shadow-sm relative">
@@ -123,13 +135,41 @@ export const Login: React.FC<{ handleCloseModal: () => void }> = ({
             )}
           </div>
 
-          <button
-            onClick={handleSubmit}
-            type="button"
-            className="py-2 px-4 w-full bg-black text-white rounded-[12px] mt-6 cursor-pointer"
-          >
-            Login
-          </button>
+          <div className="flex flex-col items-center justify-end w-full mt-2">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setActiveViewMode(LoginViewModeEnum.forgotPassword);
+              }}
+              className="w-full text-right text-sm cursor-pointer"
+            >
+              Forgot Password?
+            </button>
+          </div>
+
+          <div className="flex flex-col items-center justify-end w-full mt-8">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setActiveViewMode(LoginViewModeEnum.signup);
+              }}
+              className="w-full text-center text-sm cursor-pointer"
+            >
+              Dont have an account?
+            </button>
+
+            <button
+              onClick={handleSubmit}
+              type="button"
+              className="py-2 px-4 w-full bg-black text-white rounded-[12px] mt-4 cursor-pointer"
+            >
+              Login
+            </button>
+          </div>
         </form>
       </div>
     </div>

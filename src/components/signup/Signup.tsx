@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import Login from "../login/Login";
 import CloseButton from "../shared/CloseButton";
 import Logo from "../../assets/images/itl-logo-black.png";
 
@@ -7,7 +8,11 @@ import { useRegisterUser } from "../../react-query/mutations/auth";
 
 import userStore from "../../stores/userStore";
 
-import { SignupErrorTypes, SignupStateValidator } from "./signup.helpers";
+import {
+  SignupErrorTypes,
+  SignupStateValidator,
+  SignupViewModeEnum,
+} from "./signup.helpers";
 
 export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
   handleCloseModal,
@@ -19,6 +24,10 @@ export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
   const [errors, setErrors] = useState<
     Partial<Record<SignupErrorTypes, string>>
   >({});
+
+  const [activeViewMode, setActiveViewMode] = useState<SignupViewModeEnum>(
+    SignupViewModeEnum.signup
+  );
 
   const { set } = userStore;
 
@@ -67,6 +76,10 @@ export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
       set("token", token);
     }
   };
+
+  if (activeViewMode === SignupViewModeEnum.login) {
+    return <Login handleCloseModal={handleCloseModal} />;
+  }
 
   return (
     <div className="flex items-center justify-center h-full bg-transparent shadow-sm relative">
@@ -183,13 +196,26 @@ export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
             )}
           </div>
 
-          <button
-            onClick={handleSubmit}
-            type="button"
-            className="py-2 px-4 w-full bg-black text-white rounded-[12px] mt-6 cursor-pointer"
-          >
-            Register
-          </button>
+          <div className="flex flex-col items-center justify-end w-full mt-8">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setActiveViewMode(SignupViewModeEnum.login);
+              }}
+              className="w-full text-center text-sm cursor-pointer"
+            >
+              Already have an account?
+            </button>
+            <button
+              onClick={handleSubmit}
+              type="button"
+              className="py-2 px-4 w-full bg-black text-white rounded-[12px] mt-6 cursor-pointer"
+            >
+              Register
+            </button>
+          </div>
         </form>
       </div>
     </div>
