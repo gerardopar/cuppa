@@ -3,17 +3,19 @@ import { NavLink, useNavigate, useLocation } from "react-router";
 
 import { Slide, Backdrop, Modal } from "@mui/material";
 import Logo from "../../assets/images/itl-logo-black.png";
-// import UserProfile from "../user-profile/UserProfile";
-// import Signup from "../signup/Signup";
+import UserProfile from "../user-profile/UserProfile";
 import Login from "../login/Login";
 
 import { navStore } from "../../stores/navStore";
+import { userStore } from "../../stores/userStore";
 
 import { routes } from "./sidenav.helpers";
 
 export const SideNav: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const isLoggedIn = userStore.useTracked("token");
 
   const [activeRoute, setActiveRoute] = useState<string>("");
 
@@ -22,6 +24,8 @@ export const SideNav: React.FC = () => {
   const handleNavigation = (route: string) => navigate(route);
 
   const isSlideOpen = navStore.useTracked("isSlideOpen");
+
+  const handleCloseModal = () => setIsModalOpen(false);
 
   useEffect(() => {
     setActiveRoute(location.pathname);
@@ -79,7 +83,7 @@ export const SideNav: React.FC = () => {
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={handleCloseModal}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
         slotProps={{
@@ -89,7 +93,11 @@ export const SideNav: React.FC = () => {
         }}
         className="bg-transparent"
       >
-        <Login handleCloseModal={() => setIsModalOpen(false)} />
+        {isLoggedIn ? (
+          <UserProfile handleCloseModal={handleCloseModal} />
+        ) : (
+          <Login handleCloseModal={handleCloseModal} />
+        )}
       </Modal>
     </>
   );
