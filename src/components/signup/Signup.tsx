@@ -74,6 +74,8 @@ export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
 
       set("user", user);
       set("token", token);
+
+      handleCloseModal();
     }
   };
 
