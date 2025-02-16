@@ -1,17 +1,14 @@
 import React from "react";
 
-import {
-  EditOutlined,
-  KeyboardArrowRightOutlined,
-  LogoutOutlined,
-} from "@mui/icons-material";
+import { EditOutlined, KeyboardArrowRightOutlined } from "@mui/icons-material";
 import CloseButton from "../shared/CloseButton";
 import { useGetCurrentUserById } from "../../react-query/queries/user";
+import LogoutButton from "../shared/LogoutButton";
 
 export const UserProfile: React.FC<{ handleCloseModal: () => void }> = ({
   handleCloseModal,
 }) => {
-  const { data, isLoading } = useGetCurrentUserById();
+  const { data } = useGetCurrentUserById();
 
   console.log("data", data);
 
@@ -73,12 +70,7 @@ export const UserProfile: React.FC<{ handleCloseModal: () => void }> = ({
               <KeyboardArrowRightOutlined className="text-gray-500" />
             </span>
           </button>
-          <button
-            type="button"
-            className="w-full flex items-center justify-center py-2 mt-[32px] cursor-pointer rounded-[12px] border-solid border-2 border-gray-100 hover:bg-gray-100 hover:border-gray-100"
-          >
-            Logout <LogoutOutlined className="ml-2" />
-          </button>
+          <LogoutButton handleCloseModal={handleCloseModal} />
         </div>
       </div>
     </div>
