@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 import CloseButton from "../shared/CloseButton";
 import LogoutButton from "../shared/LogoutButton";
@@ -6,13 +6,30 @@ import { ProfilePicture } from "../shared/ProfilePicture";
 import { EditOutlined, KeyboardArrowRightOutlined } from "@mui/icons-material";
 
 import { useGetCurrentUserById } from "../../react-query/queries/user";
+import { useUploadProfilePicture } from "../../react-query/mutations/user";
 
 export const UserProfile: React.FC<{ handleCloseModal: () => void }> = ({
   handleCloseModal,
 }) => {
-  const { data: user } = useGetCurrentUserById();
+  const fileInputRef = useRef(null);
 
-  console.log("user", user);
+  const { data: user } = useGetCurrentUserById();
+  const { mutateAsync } = useUploadProfilePicture();
+
+  const handleFileUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event?.target?.files?.[0];
+    if (!file) return;
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const { user } = await mutateAsync(formData);
+
+      console.log("updatedUser", user);
+    }
+  };
 
   return (
     <div className="flex items-center justify-center h-full bg-transparent shadow-sm relative">
@@ -29,9 +46,21 @@ export const UserProfile: React.FC<{ handleCloseModal: () => void }> = ({
           <div className="flex items-center justify-center overflow-hidden w-[80px] h-[80px] rounded-full mt-6 relative border-gray-100 border-solid border-2 border-gray-100 bg-gray-200">
             <ProfilePicture user={user} />
           </div>
-          <button className="flex items-center justify-center absolute bg-gray-200 rounded-full p-[2px] top-[25px] right-[-12px] opacity-90 border-gray-100 border-solid border-2 border-gray-100 cursor-pointer">
+          <button
+            onClick={() => {
+              fileInputRef?.current?.click();
+            }}
+            className="flex items-center justify-center absolute bg-gray-200 rounded-full p-[2px] top-[25px] right-[-12px] opacity-90 border-gray-100 border-solid border-2 border-gray-100 cursor-pointer"
+          >
             <EditOutlined className="text-gray-900" />
           </button>
+
+          <input
+            ref={fileInputRef}
+            type="file"
+            onChange={handleFileUpload}
+            className="hidden"
+          />
         </div>
         <div className="mt-2 flex items-center justify-center">
           <h3 className="text-gray-900 text-2xl font-semibold font-montserrat capitalize">
