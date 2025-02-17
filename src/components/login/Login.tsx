@@ -27,7 +27,7 @@ export const Login: React.FC<{ handleCloseModal: () => void }> = ({
 
   const { set } = userStore;
 
-  const { mutateAsync: loginUser } = useLoginUser();
+  const { mutateAsync: loginUser, isPending } = useLoginUser();
 
   const validate = () => {
     const parsedData = LoginStateValidator.safeParse({
@@ -182,11 +182,14 @@ export const Login: React.FC<{ handleCloseModal: () => void }> = ({
             </button>
 
             <button
+              disabled={isPending}
               onClick={handleSubmit}
-              type="button"
-              className="py-2 px-4 w-full bg-black text-white rounded-[12px] mt-4 cursor-pointer"
+              type="submit"
+              className={`py-2 px-4 w-full rounded-[12px] mt-4 cursor-pointer ${
+                isPending ? "bg-gray-300 text-white" : "bg-black text-white"
+              }`}
             >
-              Login
+              {isPending ? "Loading..." : "Login"}
             </button>
           </div>
         </form>

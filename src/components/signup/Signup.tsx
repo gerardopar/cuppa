@@ -36,7 +36,7 @@ export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
 
   const { set } = userStore;
 
-  const { mutateAsync: registerUser } = useRegisterUser();
+  const { mutateAsync: registerUser, isPending } = useRegisterUser();
 
   const validate = (): boolean => {
     const parsedData = SignupStateValidator.safeParse({
@@ -244,11 +244,14 @@ export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
               Already have an account?
             </button>
             <button
+              disabled={isPending}
               onClick={handleSubmit}
-              type="button"
-              className="py-2 px-4 w-full bg-black text-white rounded-[12px] mt-6 cursor-pointer"
+              type="submit"
+              className={`py-2 px-4 w-full rounded-[12px] mt-6 cursor-pointer ${
+                isPending ? "bg-gray-300 text-white" : "bg-black text-white"
+              }`}
             >
-              Register
+              {isPending ? "Loading..." : "Register"}
             </button>
           </div>
         </form>
