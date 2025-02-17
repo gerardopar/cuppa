@@ -1,16 +1,18 @@
 import React from "react";
 
-import { EditOutlined, KeyboardArrowRightOutlined } from "@mui/icons-material";
 import CloseButton from "../shared/CloseButton";
-import { useGetCurrentUserById } from "../../react-query/queries/user";
 import LogoutButton from "../shared/LogoutButton";
+import { ProfilePicture } from "../shared/ProfilePicture";
+import { EditOutlined, KeyboardArrowRightOutlined } from "@mui/icons-material";
+
+import { useGetCurrentUserById } from "../../react-query/queries/user";
 
 export const UserProfile: React.FC<{ handleCloseModal: () => void }> = ({
   handleCloseModal,
 }) => {
-  const { data } = useGetCurrentUserById();
+  const { data: user } = useGetCurrentUserById();
 
-  console.log("data", data);
+  console.log("user", user);
 
   return (
     <div className="flex items-center justify-center h-full bg-transparent shadow-sm relative">
@@ -24,20 +26,16 @@ export const UserProfile: React.FC<{ handleCloseModal: () => void }> = ({
           Profile
         </h4>
         <div className="relative">
-          <div className="flex items-center justify-center overflow-hidden w-[80px] h-[80px] rounded-full mt-6 relative border-gray-100 border-solid border-2 border-gray-100">
-            <img
-              src="https://flomaster.top/uploads/posts/2022-12/1672490333_flomaster-club-p-betmen-risunok-detskii-instagram-1.jpg"
-              alt="user thumb"
-              className="object-fit"
-            />
+          <div className="flex items-center justify-center overflow-hidden w-[80px] h-[80px] rounded-full mt-6 relative border-gray-100 border-solid border-2 border-gray-100 bg-gray-200">
+            <ProfilePicture user={user} />
           </div>
           <button className="flex items-center justify-center absolute bg-gray-200 rounded-full p-[2px] top-[25px] right-[-12px] opacity-90 border-gray-100 border-solid border-2 border-gray-100 cursor-pointer">
             <EditOutlined className="text-gray-900" />
           </button>
         </div>
         <div className="mt-2 flex items-center justify-center">
-          <h3 className="text-gray-900 text-2xl font-semibold font-montserrat">
-            The Batman
+          <h3 className="text-gray-900 text-2xl font-semibold font-montserrat capitalize">
+            {user?.name}
           </h3>
         </div>
 
