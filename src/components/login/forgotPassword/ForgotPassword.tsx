@@ -5,6 +5,8 @@ import Login from "../Login";
 import CloseButton from "../../shared/CloseButton";
 import Logo from "../../../assets/images/itl-logo-black.png";
 
+import { useGetResetPasswordLink } from "../../../react-query/mutations/auth";
+
 import { LoginViewModeEnum } from "../login.helpers";
 
 export const ForgotPasswordStateValidator = z.object({
@@ -20,6 +22,8 @@ export const ForgotPassword: React.FC<{ handleCloseModal: () => void }> = ({
   const [activeViewMode, setActiveViewMode] = useState<LoginViewModeEnum>(
     LoginViewModeEnum.forgotPassword
   );
+
+  const { mutateAsync: getResetPasswordLink } = useGetResetPasswordLink();
 
   const validate = () => {
     const parsedData = ForgotPasswordStateValidator.safeParse({
@@ -40,7 +44,9 @@ export const ForgotPassword: React.FC<{ handleCloseModal: () => void }> = ({
 
   const handleSubmit = async () => {
     if (validate()) {
-      //
+      const response = await getResetPasswordLink({ email });
+
+      console.log(response);
     }
   };
 
@@ -115,7 +121,7 @@ export const ForgotPassword: React.FC<{ handleCloseModal: () => void }> = ({
               type="button"
               className="py-2 px-4 w-full bg-black text-white rounded-[12px] mt-4 cursor-pointer"
             >
-              Login
+              Get Reset Link
             </button>
           </div>
         </form>
