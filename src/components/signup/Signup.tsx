@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Login from "../login/Login";
 import CloseButton from "../shared/CloseButton";
 import Logo from "../../assets/images/itl-logo-black.png";
+import { VisibilityOffOutlined, VisibilityOutlined } from "@mui/icons-material";
 
 import { useRegisterUser } from "../../react-query/mutations/auth";
 
@@ -21,6 +22,10 @@ export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+
+  const [showPW, setShowPW] = useState<boolean>(false);
+  const [showPWConfirm, setShowPWConfirm] = useState<boolean>(false);
+
   const [errors, setErrors] = useState<
     Partial<Record<SignupErrorTypes, string>>
   >({});
@@ -156,12 +161,12 @@ export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
             )}
           </div>
 
-          <div className="flex flex-col items-center justify-start w-full mt-2">
+          <div className="flex flex-col items-center justify-start w-full mt-2 relative">
             <label className="w-full text-left ml-2 text-xs text-gray-500">
               Password
             </label>
             <input
-              type="password"
+              type={showPW ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className={`w-full border-solid p-2 rounded-[12px] mt-[2px] focus:outline-none ${
@@ -175,14 +180,28 @@ export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
                 {errors?.password}
               </p>
             )}
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setShowPW(!showPW);
+              }}
+              className="absolute right-[10px] top-[25px] text-gray-500"
+            >
+              {showPW ? (
+                <VisibilityOutlined fontSize="small" />
+              ) : (
+                <VisibilityOffOutlined fontSize="small" />
+              )}
+            </button>
           </div>
 
-          <div className="flex flex-col items-center justify-start w-full mt-2">
+          <div className="flex flex-col items-center justify-start w-full mt-2 relative">
             <label className="w-full text-left ml-2 text-xs text-gray-500">
               Set Password
             </label>
             <input
-              type="password"
+              type={showPWConfirm ? "text" : "password"}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               className={`w-full border-solid p-2 rounded-[12px] mt-[2px] focus:outline-none ${
@@ -196,6 +215,20 @@ export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
                 {errors?.confirmPassword}
               </p>
             )}
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setShowPWConfirm(!showPWConfirm);
+              }}
+              className="absolute right-[10px] top-[25px] text-gray-500"
+            >
+              {showPWConfirm ? (
+                <VisibilityOutlined fontSize="small" />
+              ) : (
+                <VisibilityOffOutlined fontSize="small" />
+              )}
+            </button>
           </div>
 
           <div className="flex flex-col items-center justify-end w-full mt-8">

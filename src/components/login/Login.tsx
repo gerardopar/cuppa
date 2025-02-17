@@ -4,6 +4,7 @@ import Signup from "../signup/Signup";
 import CloseButton from "../shared/CloseButton";
 import Logo from "../../assets/images/itl-logo-black.png";
 import ForgotPassword from "./forgotPassword/ForgotPassword";
+import { VisibilityOffOutlined, VisibilityOutlined } from "@mui/icons-material";
 
 import { useLoginUser } from "../../react-query/mutations/auth";
 
@@ -16,6 +17,8 @@ export const Login: React.FC<{ handleCloseModal: () => void }> = ({
 }) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [showPW, setShowPW] = useState<boolean>(false);
+
   const [errors, setErrors] = useState<{ [key: string]: string[] }>({});
 
   const [activeViewMode, setActiveViewMode] = useState<LoginViewModeEnum>(
@@ -116,15 +119,15 @@ export const Login: React.FC<{ handleCloseModal: () => void }> = ({
             )}
           </div>
 
-          <div className="flex flex-col items-center justify-start w-full mt-2">
+          <div className="flex flex-col items-center justify-start w-full mt-2 relative">
             <label className="w-full text-left ml-2 text-xs text-gray-500">
               Password
             </label>
             <input
-              type="password"
+              type={showPW ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className={`w-full border-solid p-2 rounded-[12px] mt-[2px] focus:outline-none ${
+              className={`w-full border-solid p-2 rounded-[12px] mt-[2px] focus:outline-none pr-8 ${
                 errors?.password
                   ? "border-red-400 border-1 focus:border-red-400"
                   : "border-gray-100 border-2 focus:border-gray-200"
@@ -135,6 +138,20 @@ export const Login: React.FC<{ handleCloseModal: () => void }> = ({
                 {errors?.password}
               </p>
             )}
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setShowPW(!showPW);
+              }}
+              className="absolute right-[10px] top-[25px] text-gray-500"
+            >
+              {showPW ? (
+                <VisibilityOutlined fontSize="small" />
+              ) : (
+                <VisibilityOffOutlined fontSize="small" />
+              )}
+            </button>
           </div>
 
           <div className="flex flex-col items-center justify-end w-full mt-2">
