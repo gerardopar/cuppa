@@ -96,8 +96,8 @@ export const ResetPassword: React.FC<{ handleCloseModal: () => void }> = ({
           </h3>
         </div>
 
-        <div className="w-full flex items-center justify-center mt-4">
-          {error && (
+        {error && (
+          <div className="w-full flex items-center justify-center mt-4">
             <Alert
               variant="outlined"
               severity="error"
@@ -105,8 +105,8 @@ export const ResetPassword: React.FC<{ handleCloseModal: () => void }> = ({
             >
               {error?.message}
             </Alert>
-          )}
-        </div>
+          </div>
+        )}
 
         <form
           onSubmit={(e) => {

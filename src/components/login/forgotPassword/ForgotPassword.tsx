@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import { z } from "zod";
 
 import Login from "../Login";
@@ -17,6 +18,8 @@ export const ForgotPasswordStateValidator = z.object({
 export const ForgotPassword: React.FC<{ handleCloseModal: () => void }> = ({
   handleCloseModal,
 }) => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState<string>("");
   const [errors, setErrors] = useState<{ [key: string]: string[] }>({});
 
@@ -50,7 +53,14 @@ export const ForgotPassword: React.FC<{ handleCloseModal: () => void }> = ({
 
   const handleSubmit = async () => {
     if (validate()) {
-      await getResetPasswordLink({ email });
+      await getResetPasswordLink(
+        { email },
+        {
+          onSuccess: () => {
+            navigate("/", { replace: true });
+          },
+        }
+      );
     }
   };
 
@@ -78,8 +88,8 @@ export const ForgotPassword: React.FC<{ handleCloseModal: () => void }> = ({
           </h3>
         </div>
 
-        <div className="w-full flex items-center justify-center mt-4">
-          {error && (
+        {error && (
+          <div className="w-full flex items-center justify-center mt-4">
             <Alert
               variant="outlined"
               severity="error"
@@ -87,8 +97,8 @@ export const ForgotPassword: React.FC<{ handleCloseModal: () => void }> = ({
             >
               {error?.message}
             </Alert>
-          )}
-        </div>
+          </div>
+        )}
 
         <form
           onSubmit={(e) => {
