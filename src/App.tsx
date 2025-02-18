@@ -17,3 +17,7 @@ const App: React.FC = () => {
 };
 
 export default App;
+
+// TODOS:
+// add forgot password email confirmation
+// add password reset modal
