@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { z } from "zod";
 
 import Login from "../Login";
+import { Alert } from "@mui/material";
 import CloseButton from "../../shared/CloseButton";
 import Logo from "../../../assets/images/itl-logo-black.png";
 
@@ -23,7 +24,12 @@ export const ForgotPassword: React.FC<{ handleCloseModal: () => void }> = ({
     LoginViewModeEnum.forgotPassword
   );
 
-  const { mutateAsync: getResetPasswordLink } = useGetResetPasswordLink();
+  const {
+    mutateAsync: getResetPasswordLink,
+    isPending,
+    isSuccess,
+    error,
+  } = useGetResetPasswordLink();
 
   const validate = () => {
     const parsedData = ForgotPasswordStateValidator.safeParse({
@@ -44,9 +50,7 @@ export const ForgotPassword: React.FC<{ handleCloseModal: () => void }> = ({
 
   const handleSubmit = async () => {
     if (validate()) {
-      const response = await getResetPasswordLink({ email });
-
-      console.log(response);
+      await getResetPasswordLink({ email });
     }
   };
 
@@ -74,6 +78,18 @@ export const ForgotPassword: React.FC<{ handleCloseModal: () => void }> = ({
           </h3>
         </div>
 
+        <div className="w-full flex items-center justify-center mt-4">
+          {error && (
+            <Alert
+              variant="outlined"
+              severity="error"
+              className="w-full !rounded-[12px]"
+            >
+              {error?.message}
+            </Alert>
+          )}
+        </div>
+
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -82,24 +98,36 @@ export const ForgotPassword: React.FC<{ handleCloseModal: () => void }> = ({
           className="w-full flex flex-col items-center justify-start mt-2"
         >
           <div className="flex flex-col items-center justify-start w-full mt-2">
-            <label className="w-full text-left ml-2 text-xs text-gray-500">
-              Email
-            </label>
-            <input
-              type="text"
-              placeholder="john@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className={`w-full border-solid p-2 rounded-[12px] mt-[2px] focus:outline-none ${
-                errors?.email
-                  ? "border-red-400 border-1 focus:border-red-400"
-                  : "border-gray-100 border-2 focus:border-gray-200"
-              }`}
-            />
-            {errors?.email && (
-              <p className="text-red-500 w-full text-left text-xs ml-2 mt-1">
-                {errors?.email}
-              </p>
+            {isSuccess ? (
+              <Alert
+                variant="outlined"
+                severity="success"
+                className="w-full !rounded-[12px]"
+              >
+                Reset password link sent!
+              </Alert>
+            ) : (
+              <>
+                <label className="w-full text-left ml-2 text-xs text-gray-500">
+                  Email
+                </label>
+                <input
+                  type="text"
+                  placeholder="john@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className={`w-full border-solid p-2 rounded-[12px] mt-[2px] focus:outline-none ${
+                    errors?.email
+                      ? "border-red-400 border-1 focus:border-red-400"
+                      : "border-gray-100 border-2 focus:border-gray-200"
+                  }`}
+                />
+                {errors?.email && (
+                  <p className="text-red-500 w-full text-left text-xs ml-2 mt-1">
+                    {errors?.email}
+                  </p>
+                )}
+              </>
             )}
           </div>
 
@@ -116,13 +144,17 @@ export const ForgotPassword: React.FC<{ handleCloseModal: () => void }> = ({
               Back to Login
             </button>
 
-            <button
-              onClick={handleSubmit}
-              type="button"
-              className="py-2 px-4 w-full bg-black text-white rounded-[12px] mt-4 cursor-pointer"
-            >
-              Get Reset Link
-            </button>
+            {!isSuccess && (
+              <button
+                onClick={handleSubmit}
+                type="button"
+                className={`py-2 px-4 w-full rounded-[12px] mt-4 cursor-pointer ${
+                  isPending ? "bg-gray-300 text-white" : "bg-black text-white"
+                }`}
+              >
+                {isPending ? "Loading..." : "Get Reset Link"}
+              </button>
+            )}
           </div>
         </form>
       </div>
