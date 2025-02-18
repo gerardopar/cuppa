@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import Login from "../login/Login";
+import { Alert } from "@mui/material";
 import CloseButton from "../shared/CloseButton";
 import Logo from "../../assets/images/itl-logo-black.png";
 import { VisibilityOffOutlined, VisibilityOutlined } from "@mui/icons-material";
@@ -36,7 +37,7 @@ export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
 
   const { set } = userStore;
 
-  const { mutateAsync: registerUser, isPending } = useRegisterUser();
+  const { mutateAsync: registerUser, isPending, error } = useRegisterUser();
 
   const validate = (): boolean => {
     const parsedData = SignupStateValidator.safeParse({
@@ -110,6 +111,18 @@ export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
             In The Loop
           </h2>
         </div>
+
+        {error && (
+          <div className="w-full flex items-center justify-center mt-4">
+            <Alert
+              variant="outlined"
+              severity="error"
+              className="w-full !rounded-[12px]"
+            >
+              {error?.message}
+            </Alert>
+          </div>
+        )}
 
         <form
           onSubmit={(e) => {

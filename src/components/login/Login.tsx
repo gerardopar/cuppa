@@ -11,6 +11,7 @@ import { useLoginUser } from "../../react-query/mutations/auth";
 import userStore from "../../stores/userStore";
 
 import { LoginStateValidator, LoginViewModeEnum } from "./login.helpers";
+import { Alert } from "@mui/material";
 
 export const Login: React.FC<{ handleCloseModal: () => void }> = ({
   handleCloseModal,
@@ -27,7 +28,7 @@ export const Login: React.FC<{ handleCloseModal: () => void }> = ({
 
   const { set } = userStore;
 
-  const { mutateAsync: loginUser, isPending } = useLoginUser();
+  const { mutateAsync: loginUser, isPending, error } = useLoginUser();
 
   const validate = () => {
     const parsedData = LoginStateValidator.safeParse({
@@ -89,6 +90,18 @@ export const Login: React.FC<{ handleCloseModal: () => void }> = ({
             In The Loop
           </h2>
         </div>
+
+        {error && (
+          <div className="w-full flex items-center justify-center mt-4">
+            <Alert
+              variant="outlined"
+              severity="error"
+              className="w-full !rounded-[12px]"
+            >
+              {error?.message}
+            </Alert>
+          </div>
+        )}
 
         <form
           onSubmit={(e) => {
