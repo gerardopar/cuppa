@@ -1,6 +1,7 @@
 import React from "react";
 
 import ArticleCard from "./ArticleCard";
+import DividerLine from "../shared/DividerLine";
 
 import { Article } from "../../types/article";
 
@@ -20,8 +21,10 @@ export const ArticleCardList: React.FC<{
 }) => {
   return (
     <div className={`w-full ${className}`}>
-      <h1 className="px-4 pt-4 relative text-gray-900 text-3xl font-bold font-montserrat w-[55%] line-clamp-2 z-20">
+      <h1 className="flex items-center justify-start px-4 pt-4 relative text-gray-900 text-3xl font-bold font-montserrat w-full line-clamp-2 z-20">
         {listTitle}
+
+        <DividerLine containerClassName="ml-5" lineClassName="w-full" />
       </h1>
 
       <div

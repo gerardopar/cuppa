@@ -9,6 +9,7 @@ import LargeArticleCard from "../components/articles/LargeArticleCard";
 import SmallArticleCard from "../components/articles/SmallArticleCard";
 import MediumArticleCard from "../components/articles/MediumArticleCard";
 import ArticleCardList from "../components/articles/ArticleCardList";
+import DividerLine from "../components/shared/DividerLine";
 import { Backdrop, Modal } from "@mui/material";
 
 import { navStore } from "../stores/navStore";
@@ -49,7 +50,8 @@ export const Home: React.FC = () => {
     <div className="relative">
       <div className="w-full h-full px-8">
         <NewsCategoriesBar handleCategoryClick={handleCategoryClick} />
-        <div className="flex w-full h-full max-h-[50%] pt-8">
+        <DividerLine containerClassName="mt-4" lineClassName="w-[25%]" />
+        <div className="flex w-full h-full max-h-[50%] mt-4">
           <LargeArticleCard article={largeArticle} />
           <div className="flex-1 flex-col h-full">
             <div className="flex h-[60%]">
