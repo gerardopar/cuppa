@@ -14,7 +14,7 @@ export const MediumArticleCard: React.FC<{
 
   return (
     <div
-      className={`w-full h-[37.75%] relative mt-4 flex-1 flex items-end justify-start bg-center bg-cover p-4 rounded-[12px] ${containerClassName}`}
+      className={`w-full h-[36.5%] relative mt-4 flex-1 flex items-end justify-start bg-center bg-cover p-4 rounded-[12px] ${containerClassName}`}
       style={{
         backgroundImage: `url(${article.urlToImage || NewsEmptyPlaceholder})`,
       }}

@@ -13,7 +13,7 @@ const ArticleCard: React.FC<{ article: Article }> = ({ article }) => {
       rel="noopener noreferrer"
       className="flex pr-8 w-[32.5%] items-center mr-2 mb-6 relative cursor-pointer"
     >
-      <div className="h-[100px] w-[100px] min-h-[100px] min-w-[100px] mr-4 shadow-sm">
+      <div className="h-[100px] w-[100px] min-h-[100px] min-w-[100px] mr-4 shadow-sm rounded-[12px] overflow-hidden">
         <img
           className="w-full h-full object-cover"
           src={article?.urlToImage || NewsEmptyPlaceholder}
