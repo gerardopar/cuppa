@@ -57,7 +57,7 @@ export const NewsCategoriesBar: React.FC<{
   ];
 
   return (
-    <div className="w-full px-8 mt-4 ">
+    <div className="w-full mt-4">
       <div className="h-full w-full bg-gray-100 rounded-[12px]">
         <ul className="flex flex-wrap items-center justify-around">
           {generalCategories?.map((category, index) => {
