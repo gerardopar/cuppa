@@ -48,7 +48,7 @@ export const Home: React.FC = () => {
 
   return (
     <div className="relative">
-      <div className="w-full h-full px-8">
+      <div className="w-full h-full px-8 overflow-y-scroll">
         <NewsCategoriesBar handleCategoryClick={handleCategoryClick} />
         <DividerLine containerClassName="mt-4" lineClassName="w-[25%]" />
         <div className="flex w-full h-full max-h-[50%] mt-4">

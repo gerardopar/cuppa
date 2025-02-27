@@ -20,7 +20,7 @@ export const NewsCategoryOverlay: React.FC<{
         iconSize="large"
       />
 
-      <div className="w-full">
+      <div className="w-full pl-4">
         {/* <div className="mt-[100px] px-4">
           <h1 className="relative text-gray-900 text-4xl font-bold font-montserrat w-[55%] line-clamp-2 z-20">
             {category}
