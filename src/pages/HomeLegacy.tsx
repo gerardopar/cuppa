@@ -3,20 +3,20 @@ import { useSearchParams } from "react-router";
 import Slide from "@mui/material/Slide";
 
 import NewsCategoryOverlay from "../components/new-categories/NewsCategoryOverlay";
-import NewsCategoriesBar from "../components/new-categories/NewsCategoriesBar";
 import ResetPassword from "../components/login/forgotPassword/ResetPassword";
-import LargeArticleCard from "../components/articles/LargeArticleCard";
-import SmallArticleCard from "../components/articles/SmallArticleCard";
-import MediumArticleCard from "../components/articles/MediumArticleCard";
+import NewsCategories from "../components/new-categories/NewsCategories";
+import WeatherWidget from "../components/weather-widget/WeatherWidget";
+import ArticleCardList from "../components/articles/ArticleCardList";
+import ArticleHero from "../components/articles/ArticleHero";
 import { Backdrop, Modal } from "@mui/material";
-
-import { navStore } from "../stores/navStore";
-import { authStore } from "../stores/authStore";
 
 import { GeneralCategoryEnum } from "../components/new-categories/newCategories.helpers";
 import { ARTICLE_DUMMY_DATA } from "../data/ARTICLE_DUMMY_DATA";
 
-export const Home: React.FC = () => {
+import { navStore } from "../stores/navStore";
+import { authStore } from "../stores/authStore";
+
+const Home: React.FC = () => {
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
   const showResetPasswordModal = searchParams.get("resetPassword") ?? false;
@@ -30,10 +30,6 @@ export const Home: React.FC = () => {
     }
   }, [showResetPasswordModal, token]);
 
-  const articles = ARTICLE_DUMMY_DATA?.articles;
-
-  const [largeArticle, mediumArticle, smallArticle1, smallArticle2] = articles;
-
   const [activeCategory, setActiveCategory] =
     useState<GeneralCategoryEnum | null>(null);
 
@@ -45,32 +41,31 @@ export const Home: React.FC = () => {
   };
 
   return (
-    <div className="relative">
-      <div className="w-full h-full">
-        <NewsCategoriesBar handleCategoryClick={handleCategoryClick} />
-        <div className="flex w-full h-full max-h-[50%] pt-8 px-8">
-          <LargeArticleCard article={largeArticle} />
-          <div className="flex-1 flex-col h-full">
-            <div className="flex h-[60%]">
-              <SmallArticleCard
-                article={smallArticle1}
-                containerClassName="mr-4"
+    <>
+      <div className="w-full flex flex-col relative">
+        <div className="h-[600px] flex">
+          <ArticleHero />
+          <NewsCategories handleCategoryClick={handleCategoryClick} />
+          <Slide direction="left" in={isSlideOpen} mountOnEnter unmountOnExit>
+            <div className="bg-gray-100 w-full h-full absolute z-[9999] overflow-y-scroll">
+              <NewsCategoryOverlay
+                handleCloseModal={() => handleCategoryClick(null)}
+                category={activeCategory as GeneralCategoryEnum}
               />
-              <SmallArticleCard article={smallArticle2} />
             </div>
-
-            <MediumArticleCard article={mediumArticle} />
-          </div>
+          </Slide>
+        </div>
+        <div className="w-full flex items-center">
+          <ArticleCardList
+            articles={ARTICLE_DUMMY_DATA.articles}
+            listTitle="Trending"
+            className="!w-[75%]"
+            listContainerClassName="!w-full"
+          />
+          <WeatherWidget />
         </div>
       </div>
-      <Slide direction="left" in={isSlideOpen} mountOnEnter unmountOnExit>
-        <div className="bg-gray-100 w-full h-full top-0 absolute z-[9999] overflow-y-scroll">
-          <NewsCategoryOverlay
-            handleCloseModal={() => handleCategoryClick(null)}
-            category={activeCategory as GeneralCategoryEnum}
-          />
-        </div>
-      </Slide>
+
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -87,7 +82,7 @@ export const Home: React.FC = () => {
       >
         <ResetPassword handleCloseModal={() => setShowModal(false)} />
       </Modal>
-    </div>
+    </>
   );
 };
 
