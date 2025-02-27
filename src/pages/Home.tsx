@@ -8,6 +8,7 @@ import ResetPassword from "../components/login/forgotPassword/ResetPassword";
 import LargeArticleCard from "../components/articles/LargeArticleCard";
 import SmallArticleCard from "../components/articles/SmallArticleCard";
 import MediumArticleCard from "../components/articles/MediumArticleCard";
+import ArticleCardList from "../components/articles/ArticleCardList";
 import { Backdrop, Modal } from "@mui/material";
 
 import { navStore } from "../stores/navStore";
@@ -46,9 +47,9 @@ export const Home: React.FC = () => {
 
   return (
     <div className="relative">
-      <div className="w-full h-full">
+      <div className="w-full h-full px-8">
         <NewsCategoriesBar handleCategoryClick={handleCategoryClick} />
-        <div className="flex w-full h-full max-h-[50%] pt-8 px-8">
+        <div className="flex w-full h-full max-h-[50%] pt-8">
           <LargeArticleCard article={largeArticle} />
           <div className="flex-1 flex-col h-full">
             <div className="flex h-[60%]">
@@ -61,6 +62,15 @@ export const Home: React.FC = () => {
 
             <MediumArticleCard article={mediumArticle} />
           </div>
+        </div>
+
+        <div className="w-full flex items-cente">
+          <ArticleCardList
+            articles={ARTICLE_DUMMY_DATA.articles}
+            listTitle="Trending"
+            className="!w-full"
+            listContainerClassName="!w-full"
+          />
         </div>
       </div>
       <Slide direction="left" in={isSlideOpen} mountOnEnter unmountOnExit>
