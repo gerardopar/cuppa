@@ -12,8 +12,11 @@ export const LargeArticleCard: React.FC<{ article: Article }> = ({
   const publishedDate = moment(article.publishedAt).format("MMM Do, YYYY");
 
   return (
-    <div
-      className="flex-1 flex items-end justify-start h-full relative mr-4 bg-center bg-cover p-4 rounded-[12px]"
+    <a
+      href={article?.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex-1 flex items-end justify-start h-full relative mr-4 bg-center bg-cover p-4 rounded-[12px] cursor-pointer"
       style={{
         backgroundImage: `url(${article.urlToImage || NewsEmptyPlaceholder})`,
       }}
@@ -35,7 +38,7 @@ export const LargeArticleCard: React.FC<{ article: Article }> = ({
           </div>
         </div>
       </div>
-    </div>
+    </a>
   );
 };
 

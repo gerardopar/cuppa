@@ -13,8 +13,11 @@ export const MediumArticleCard: React.FC<{
   const publishedDate = moment(article.publishedAt).format("MMM Do, YYYY");
 
   return (
-    <div
-      className={`w-full h-[36.5%] relative mt-4 flex-1 flex items-end justify-start bg-center bg-cover p-4 rounded-[12px] ${containerClassName}`}
+    <a
+      href={article?.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`w-full h-[36.5%] relative mt-4 flex-1 flex items-end justify-start bg-center bg-cover p-4 rounded-[12px] cursor-pointer ${containerClassName}`}
       style={{
         backgroundImage: `url(${article.urlToImage || NewsEmptyPlaceholder})`,
       }}
@@ -35,7 +38,7 @@ export const MediumArticleCard: React.FC<{
           </div>
         </div>
       </div>
-    </div>
+    </a>
   );
 };
 

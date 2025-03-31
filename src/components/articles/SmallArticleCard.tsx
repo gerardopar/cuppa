@@ -13,8 +13,11 @@ export const SmallArticleCard: React.FC<{
   const publishedDate = moment(article.publishedAt).format("MMM Do, YYYY");
 
   return (
-    <div
-      className={`flex-1 flex items-end justify-start h-full relative bg-center bg-cover p-4 rounded-[12px] ${containerClassName}`}
+    <a
+      href={article?.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`flex-1 flex items-end justify-start h-full relative bg-center bg-cover p-4 rounded-[12px] cursor-pointer ${containerClassName}`}
       style={{
         backgroundImage: `url(${article.urlToImage || NewsEmptyPlaceholder})`,
       }}
@@ -35,7 +38,7 @@ export const SmallArticleCard: React.FC<{
           </div>
         </div>
       </div>
-    </div>
+    </a>
   );
 };
 
