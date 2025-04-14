@@ -5,13 +5,16 @@ import NewsEmptyPlaceholder from "../../assets/images/news-empty-placeholder.jpg
 
 import { Article } from "../../types/article";
 
-const ArticleCard: React.FC<{ article: Article }> = ({ article }) => {
+const ArticleCard: React.FC<{ article: Article; className?: string }> = ({
+  article,
+  className,
+}) => {
   return (
     <a
       href={article?.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex pr-8 w-[32.5%] items-center mr-2 mb-6 relative cursor-pointer"
+      className={`flex pr-8 w-[32.5%] items-center mr-2 mb-6 relative cursor-pointer ${className}`}
     >
       <div className="h-[100px] w-[100px] min-h-[100px] min-w-[100px] mr-4 shadow-sm rounded-[12px] overflow-hidden">
         <img

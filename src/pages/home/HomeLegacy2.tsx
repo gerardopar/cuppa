@@ -2,21 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import Slide from "@mui/material/Slide";
 
-import NewsCategoryOverlay from "../components/new-categories/NewsCategoryOverlay";
-import NewsCategoriesBar from "../components/new-categories/NewsCategoriesBar";
-import ResetPassword from "../components/login/forgotPassword/ResetPassword";
-import LargeArticleCard from "../components/articles/LargeArticleCard";
-import SmallArticleCard from "../components/articles/SmallArticleCard";
-import MediumArticleCard from "../components/articles/MediumArticleCard";
-import ArticleCardList from "../components/articles/ArticleCardList";
-import DividerLine from "../components/shared/DividerLine";
+import NewsCategoryOverlay from "../../components/new-categories/NewsCategoryOverlay";
+import NewsCategoriesBar from "../../components/new-categories/NewsCategoriesBar";
+import ResetPassword from "../../components/login/forgotPassword/ResetPassword";
+import LargeArticleCard from "../../components/articles/LargeArticleCard";
+import SmallArticleCard from "../../components/articles/SmallArticleCard";
+import MediumArticleCard from "../../components/articles/MediumArticleCard";
+import ArticleCardList from "../../components/articles/ArticleCardList";
+import DividerLine from "../../components/shared/DividerLine";
 import { Backdrop, Modal } from "@mui/material";
 
-import { navStore } from "../stores/navStore";
-import { authStore } from "../stores/authStore";
+import { navStore } from "../../stores/navStore";
+import { authStore } from "../../stores/authStore";
 
-import { GeneralCategoryEnum } from "../components/new-categories/newCategories.helpers";
-import { ARTICLE_DUMMY_DATA } from "../data/ARTICLE_DUMMY_DATA";
+import { GeneralCategoryEnum } from "../../components/new-categories/newCategories.helpers";
+import { ARTICLE_DUMMY_DATA } from "../../data/ARTICLE_DUMMY_DATA";
 
 export const Home: React.FC = () => {
   const [searchParams] = useSearchParams();

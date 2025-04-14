@@ -33,7 +33,7 @@ export const SideNav: React.FC = () => {
 
   return (
     <>
-      <nav className="w-[220px] h-[100vh] bg-gray-100 relative">
+      <nav className="w-[120px] max-w-[120px] h-[100vh] bg-gray-100 relative">
         <Slide direction="down" in={isSlideOpen} mountOnEnter unmountOnExit>
           <div className="w-full h-full bg-black/30 z-10 absolute top-0 left-0" />
         </Slide>

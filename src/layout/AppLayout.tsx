@@ -12,3 +12,5 @@ export const AppLayout: React.FC<{ children: React.ReactNode }> = ({
     </main>
   );
 };
+
+export default AppLayout;

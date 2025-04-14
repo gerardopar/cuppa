@@ -2,19 +2,19 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import Slide from "@mui/material/Slide";
 
-import NewsCategoryOverlay from "../components/new-categories/NewsCategoryOverlay";
-import ResetPassword from "../components/login/forgotPassword/ResetPassword";
-import NewsCategories from "../components/new-categories/NewsCategories";
-import WeatherWidget from "../components/weather-widget/WeatherWidget";
-import ArticleCardList from "../components/articles/ArticleCardList";
-import ArticleHero from "../components/articles/ArticleHero";
+import NewsCategoryOverlay from "../../components/new-categories/NewsCategoryOverlay";
+import ResetPassword from "../../components/login/forgotPassword/ResetPassword";
+import NewsCategories from "../../components/new-categories/NewsCategories";
+import WeatherWidget from "../../components/weather-widget/WeatherWidget";
+import ArticleCardList from "../../components/articles/ArticleCardList";
+import ArticleHero from "../../components/articles/ArticleHero";
 import { Backdrop, Modal } from "@mui/material";
 
-import { GeneralCategoryEnum } from "../components/new-categories/newCategories.helpers";
-import { ARTICLE_DUMMY_DATA } from "../data/ARTICLE_DUMMY_DATA";
+import { GeneralCategoryEnum } from "../../components/new-categories/newCategories.helpers";
+import { ARTICLE_DUMMY_DATA } from "../../data/ARTICLE_DUMMY_DATA";
 
-import { navStore } from "../stores/navStore";
-import { authStore } from "../stores/authStore";
+import { navStore } from "../../stores/navStore";
+import { authStore } from "../../stores/authStore";
 
 const Home: React.FC = () => {
   const [searchParams] = useSearchParams();
