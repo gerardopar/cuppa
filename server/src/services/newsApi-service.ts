@@ -12,7 +12,9 @@ const newsApiEverythingUrl = "https://newsapi.org/v2/everything";
 const newsApiTopHeadlinesUrl = "https://newsapi.org/v2/top-headlines";
 
 const newsApiDefaults = {
-  defaultDate: new Date().toISOString().split("T")[0],
+  defaultDate: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+    .toISOString()
+    .split("T")[0], // 7 days ago
   defaultSortBy: "popularity",
   defaultCountry: "us",
   defaultLanguage: "en",
@@ -37,16 +39,14 @@ export const getNewsEverything = async (
     url.searchParams.append("from", options?.from || defaultDate);
     url.searchParams.append("sortBy", options?.sortBy || defaultSortBy);
     url.searchParams.append("language", options?.language || defaultLanguage);
-    if (options?.pageSize)
-      url.searchParams.append(
-        "pageSize",
-        options?.pageSize.toString() || defaultPageSize.toString()
-      );
-    if (options?.page)
-      url.searchParams.append(
-        "page",
-        options?.page.toString() || defaultPage.toString()
-      );
+    url.searchParams.append(
+      "pageSize",
+      options?.pageSize?.toString() || defaultPageSize.toString()
+    );
+    url.searchParams.append(
+      "page",
+      options?.page?.toString() || defaultPage.toString()
+    );
     url.searchParams.append("apiKey", process.env.NEWS_API_KEY as string);
 
     const response = await fetch(url);
@@ -67,23 +67,19 @@ export const getNewsTopHeadlines = async (
 
     const url = new URL(newsApiTopHeadlinesUrl);
 
-    if (options?.q) url.searchParams.append("q", options?.q);
-    if (options?.country)
-      url.searchParams.append("country", options?.country || defaultCountry);
+    url.searchParams.append("q", options?.q || "");
+    url.searchParams.append("country", options?.country || defaultCountry);
+    url.searchParams.append(
+      "pageSize",
+      options?.pageSize?.toString() || defaultPageSize.toString()
+    );
+    url.searchParams.append(
+      "page",
+      options?.page?.toString() || defaultPage.toString()
+    );
     if (options?.category)
       url.searchParams.append("category", options?.category);
     if (options?.sources) url.searchParams.append("sources", options?.sources);
-    if (options?.pageSize)
-      url.searchParams.append(
-        "pageSize",
-        options?.pageSize.toString() || defaultPageSize.toString()
-      );
-    if (options?.page)
-      url.searchParams.append(
-        "page",
-        options?.page.toString() || defaultPage.toString()
-      );
-
     url.searchParams.append("apiKey", process.env.NEWS_API_KEY as string);
 
     const response = await fetch(url);
