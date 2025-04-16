@@ -7,7 +7,7 @@ export type NewsSearchIn = "title" | "description" | "content";
 
 export interface NewsEverythingParams {
   /** Your API key (can also be passed in the X-Api-Key header) */
-  apiKey: string;
+  apiKey?: string;
 
   /** Keywords or phrases to search for (URL-encoded if advanced query used) */
   q: string;
@@ -150,7 +150,7 @@ export type NewsCategory =
 
 export interface TopHeadlinesParams {
   /** Your API key */
-  apiKey: string;
+  apiKey?: string;
 
   /** The 2-letter ISO 3166-1 code of the country */
   country?: NewsCountryCode;
