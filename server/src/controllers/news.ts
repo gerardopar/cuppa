@@ -1,22 +1,69 @@
 import { Request, Response } from "express";
+import redisClient from "../cache/redis/redisClient";
 
 import {
   getNewsEverything,
   getNewsTopHeadlines,
 } from "../services/newsApi-service";
+
 import { NewsSortBy } from "../types/newsApi";
+
+import { NewsCategoriesEnum } from "../helpers/news.helpers";
+
+const CACHE_TTL = 3600; // 1 hour
 
 export const getNews = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { q, from, sortBy } = req.query;
+    const {
+      q,
+      from,
+      sortBy = "popularity",
+      language = "en",
+      pageSize = "20",
+    } = req.query;
 
-    const news = await getNewsEverything({
-      q: q as string,
-      from: from as string,
-      sortBy: sortBy as NewsSortBy,
-    });
+    const cacheableCategories = [
+      NewsCategoriesEnum.mostTrendingNews,
+      NewsCategoriesEnum.politicsWorldAffairs,
+      NewsCategoriesEnum.healthLifestyle,
+    ];
 
-    res.json(news);
+    const shouldCache = cacheableCategories.includes(q as NewsCategoriesEnum);
+    const cacheKey = `news:category:${q}`;
+
+    if (shouldCache) {
+      const cached = await redisClient.get(cacheKey);
+
+      if (cached) {
+        res.json(JSON.parse(cached));
+      } else {
+        const news = await getNewsEverything({
+          q: q as string,
+          from: from as string,
+          sortBy: sortBy as NewsSortBy,
+          language: language as string,
+          pageSize: parseInt(pageSize as string),
+        });
+
+        if (shouldCache && news.status === "ok") {
+          await redisClient.set(cacheKey, JSON.stringify(news), {
+            EX: CACHE_TTL,
+          });
+        }
+
+        res.json(news);
+      }
+    } else {
+      const news = await getNewsEverything({
+        q: q as string,
+        from: from as string,
+        sortBy: sortBy as NewsSortBy,
+        language: language as string,
+        pageSize: parseInt(pageSize as string),
+      });
+
+      res.json(news);
+    }
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch news" });
   }
