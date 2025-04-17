@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router";
 
 import { Slide, Backdrop, Modal } from "@mui/material";
-import Logo from "../../assets/images/itl-logo-black.png";
+import Logo from "../../assets/images/cuppa-app-icon.png";
 import UserProfile from "../user-profile/UserProfile";
 import Login from "../login/Login";
 
@@ -44,7 +44,7 @@ export const SideNav: React.FC = () => {
             onClick={() => handleNavigation("/")}
           >
             {" "}
-            <img src={Logo} className="h-auto w-[30px]" />
+            <img src={Logo} className="h-auto w-[60px] rounded-full" />
           </li>
 
           {routes.map((route) => {

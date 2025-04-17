@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import Signup from "../signup/Signup";
 import CloseButton from "../shared/CloseButton";
-import Logo from "../../assets/images/itl-logo-black.png";
+import Logo from "../../assets/images/cuppa-app-icon.png";
 import ForgotPassword from "./forgotPassword/ForgotPassword";
 import { VisibilityOffOutlined, VisibilityOutlined } from "@mui/icons-material";
 
@@ -87,7 +87,7 @@ export const Login: React.FC<{ handleCloseModal: () => void }> = ({
             Welcome Back To
           </h3>
           <h2 className="text-gray-900 text-3xl font-bold font-montserrat text-center">
-            In The Loop
+            Cuppa
           </h2>
         </div>
 

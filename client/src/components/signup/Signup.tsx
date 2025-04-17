@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Login from "../login/Login";
 import { Alert } from "@mui/material";
 import CloseButton from "../shared/CloseButton";
-import Logo from "../../assets/images/itl-logo-black.png";
+import Logo from "../../assets/images/cuppa-app-icon.png";
 import { VisibilityOffOutlined, VisibilityOutlined } from "@mui/icons-material";
 
 import { useRegisterUser } from "../../react-query/mutations/auth";
@@ -108,7 +108,7 @@ export const Signup: React.FC<{ handleCloseModal: () => void }> = ({
             Welcome To
           </h3>
           <h2 className="text-gray-900 text-3xl font-bold font-montserrat text-center">
-            In The Loop
+            Cuppa
           </h2>
         </div>
 

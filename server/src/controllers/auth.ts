@@ -127,7 +127,7 @@ export const requestResetPasswordLink = async (
 
     await sendEmail(
       user.email,
-      "inTheLoop - Password Reset",
+      "Cuppa - Password Reset",
       `Click here to reset your password: ${resetLink}`
     );
 

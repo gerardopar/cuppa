@@ -5,7 +5,7 @@ import { z } from "zod";
 import Login from "../Login";
 import { Alert } from "@mui/material";
 import CloseButton from "../../shared/CloseButton";
-import Logo from "../../../assets/images/itl-logo-black.png";
+import Logo from "../../../assets/images/cuppa-app-icon.png";
 
 import { useGetResetPasswordLink } from "../../../react-query/mutations/auth";
 
