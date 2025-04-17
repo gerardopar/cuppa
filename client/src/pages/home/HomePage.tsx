@@ -10,7 +10,9 @@ import ResetPassword from "../../components/login/forgotPassword/ResetPassword";
 
 import { authStore } from "../../stores/authStore";
 
-import { ARTICLE_DUMMY_DATA } from "../../data/ARTICLE_DUMMY_DATA";
+import { useGetNews } from "../../react-query/queries/news";
+
+import { HomePageCategoriesEnum } from "./home-page.helpers";
 
 export const Home: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -19,6 +21,24 @@ export const Home: React.FC = () => {
 
   const [showModal, setShowModal] = useState<boolean>(false);
 
+  const { data: mostTrendingNews } = useGetNews({
+    q: HomePageCategoriesEnum.mostTrendingNews,
+    language: "en",
+    pageSize: 20,
+  });
+
+  const { data: politicsWorldAffairs } = useGetNews({
+    q: HomePageCategoriesEnum.politicsWorldAffairs,
+    language: "en",
+    pageSize: 20,
+  });
+
+  const { data: healthLifestyle } = useGetNews({
+    q: HomePageCategoriesEnum.healthLifestyle,
+    language: "en",
+    pageSize: 20,
+  });
+
   useEffect(() => {
     if (token && showResetPasswordModal) {
       authStore.set("resetToken", token);
@@ -26,11 +46,10 @@ export const Home: React.FC = () => {
     }
   }, [showResetPasswordModal, token]);
 
-  const articles = ARTICLE_DUMMY_DATA?.articles;
-
-  const leftColumnRow1Articles = articles?.slice(0, 4);
-  const leftColumnRow2Articles = articles?.slice(4, 8);
-  const rightColumnArticles = articles?.slice(8, 16);
+  const leftColumnRow1Articles = mostTrendingNews?.articles?.slice(0, 4) ?? [];
+  const leftColumnRow2Articles =
+    politicsWorldAffairs?.articles?.slice(0, 4) ?? [];
+  const rightColumnArticles = healthLifestyle?.articles?.slice(0, 7) ?? [];
 
   return (
     <div className="relative w-full h-full">
@@ -49,7 +68,7 @@ export const Home: React.FC = () => {
               </div>
 
               <div className="flex flex-col w-full items-center justify-between h-full">
-                {leftColumnRow1Articles?.slice(1, 4).map((a) => {
+                {leftColumnRow1Articles?.slice(1, 4)?.map((a) => {
                   return <ArticleCard article={a} className="w-full !m-0" />;
                 })}
               </div>
@@ -61,7 +80,7 @@ export const Home: React.FC = () => {
             <div className="flex items-center justify-items-start w-full">
               <h2 className="font-bold text-xl">Politics & World Affairs</h2>
             </div>
-            {leftColumnRow2Articles.map((a) => {
+            {leftColumnRow2Articles?.map((a) => {
               return (
                 <MediumArticleCard
                   article={a}

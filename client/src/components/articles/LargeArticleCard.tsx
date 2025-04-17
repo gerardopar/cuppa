@@ -9,7 +9,7 @@ import { Article } from "../../types/article";
 export const LargeArticleCard: React.FC<{ article: Article }> = ({
   article,
 }) => {
-  const publishedDate = moment(article.publishedAt).format("MMM Do, YYYY");
+  const publishedDate = moment(article?.publishedAt)?.format("MMM Do, YYYY");
 
   return (
     <a
@@ -18,19 +18,19 @@ export const LargeArticleCard: React.FC<{ article: Article }> = ({
       rel="noopener noreferrer"
       className="flex-1 flex items-end justify-start h-full relative mr-4 bg-center bg-cover p-4 rounded-[12px] cursor-pointer"
       style={{
-        backgroundImage: `url(${article.urlToImage || NewsEmptyPlaceholder})`,
+        backgroundImage: `url(${article?.urlToImage || NewsEmptyPlaceholder})`,
       }}
     >
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-1 rounded-[12px]" />
 
       <div className="flex flex-col z-10">
         <h3 className="line-clamp-2 font-montserrat text-2xl font-bold text-white">
-          {article.title}
+          {article?.title}
         </h3>
         <div className="flex mt-2">
           <div className="flex items-center justify-start text-gray-100 mr-4">
             <AccountBoxOutlined className="text-gray-100" />
-            <p className="ml-1 text-xs">{article.author}</p>
+            <p className="ml-1 text-xs">{article?.author}</p>
           </div>
           <div className="flex items-center justify-start text-gray-100">
             <CalendarMonthOutlined className="text-gray-100" />
