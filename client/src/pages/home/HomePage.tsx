@@ -28,8 +28,8 @@ export const Home: React.FC = () => {
     pageSize: 20,
   });
 
-  const { data: politicsWorldAffairs } = useGetNews({
-    q: HomePageCategoriesEnum.politicsWorldAffairs,
+  const { data: politics } = useGetNews({
+    q: HomePageCategoriesEnum.politics,
     language: "en",
     pageSize: 20,
   });
@@ -57,10 +57,7 @@ export const Home: React.FC = () => {
     mostTrendingNews?.articles ?? [],
     4
   );
-  const politicsWorldAffairsArticles = getRandomArticles(
-    politicsWorldAffairs?.articles ?? [],
-    4
-  );
+  const politicsArticles = getRandomArticles(politics?.articles ?? [], 4);
   const healthLifestyleArticles = getRandomArticles(
     healthLifestyle?.articles ?? [],
     4
@@ -96,7 +93,7 @@ export const Home: React.FC = () => {
             <div className="flex items-center justify-items-start w-full">
               <h2 className="font-bold text-xl">Politics & World Affairs</h2>
             </div>
-            {politicsWorldAffairsArticles?.map((a) => {
+            {politicsArticles?.map((a) => {
               return (
                 <MediumArticleCard
                   article={a}

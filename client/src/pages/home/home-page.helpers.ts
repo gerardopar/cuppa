@@ -1,6 +1,6 @@
 export enum HomePageCategoriesEnum {
   mostTrendingNews = "Most Trending News",
-  politicsWorldAffairs = "Politics & World Affairs",
+  politics = "Politics",
   healthLifestyle = "Health & Lifestyle",
   sports = "Sports",
 }

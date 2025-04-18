@@ -1,6 +1,6 @@
 export enum NewsCategoriesEnum {
   mostTrendingNews = "Most Trending News",
-  politicsWorldAffairs = "Politics & World Affairs",
+  politics = "Politics",
   healthLifestyle = "Health & Lifestyle",
   sports = "Sports",
 }
@@ -22,7 +22,7 @@ export const newsCategories = {
       "time",
     ],
   },
-  [NewsCategoriesEnum.politicsWorldAffairs]: {
+  [NewsCategoriesEnum.politics]: {
     sources: [
       "politico",
       "axios",

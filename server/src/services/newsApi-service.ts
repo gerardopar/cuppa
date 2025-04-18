@@ -12,7 +12,7 @@ const newsApiEverythingUrl = "https://newsapi.org/v2/everything";
 const newsApiTopHeadlinesUrl = "https://newsapi.org/v2/top-headlines";
 
 const newsApiDefaults = {
-  defaultFrom: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000)
+  defaultFrom: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
     .toISOString()
     .split("T")[0],
   defaultTo: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000)
