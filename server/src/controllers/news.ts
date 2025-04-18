@@ -8,7 +8,7 @@ import {
 
 import { NewsSortBy } from "../types/newsApi";
 
-import { NewsCategoriesEnum } from "../helpers/news.helpers";
+import { newsCategories, NewsCategoriesEnum } from "../helpers/news.helpers";
 
 const CACHE_TTL = 3600; // 1 hour
 
@@ -38,12 +38,14 @@ export const getNews = async (req: Request, res: Response): Promise<void> => {
       if (cached) {
         res.json(JSON.parse(cached));
       } else {
+        const category = newsCategories[q as NewsCategoriesEnum];
         const news = await getNewsEverything({
           q: q as string,
           from: from as string,
           sortBy: sortBy as NewsSortBy,
           language: language as string,
           pageSize: parseInt(pageSize as string),
+          sources: category?.sources?.join(","),
         });
 
         if (shouldCache && news.status === "ok") {

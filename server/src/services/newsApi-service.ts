@@ -12,9 +12,12 @@ const newsApiEverythingUrl = "https://newsapi.org/v2/everything";
 const newsApiTopHeadlinesUrl = "https://newsapi.org/v2/top-headlines";
 
 const newsApiDefaults = {
-  defaultDate: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+  defaultFrom: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000)
     .toISOString()
-    .split("T")[0], // 7 days ago
+    .split("T")[0],
+  defaultTo: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000)
+    .toISOString()
+    .split("T")[0],
   defaultSortBy: "popularity",
   defaultCountry: "us",
   defaultLanguage: "en",
@@ -27,7 +30,8 @@ export const getNewsEverything = async (
 ): Promise<NewsEverythingResponse> => {
   try {
     const {
-      defaultDate,
+      defaultFrom,
+      defaultTo,
       defaultSortBy,
       defaultLanguage,
       defaultPageSize,
@@ -36,7 +40,8 @@ export const getNewsEverything = async (
 
     const url = new URL(newsApiEverythingUrl);
     url.searchParams.append("q", options?.q);
-    url.searchParams.append("from", options?.from || defaultDate);
+    url.searchParams.append("from", options?.from || defaultFrom);
+    url.searchParams.append("to", options?.to || defaultTo);
     url.searchParams.append("sortBy", options?.sortBy || defaultSortBy);
     url.searchParams.append("language", options?.language || defaultLanguage);
     url.searchParams.append(
@@ -47,6 +52,7 @@ export const getNewsEverything = async (
       "page",
       options?.page?.toString() || defaultPage.toString()
     );
+    if (options?.sources) url.searchParams.append("sources", options?.sources);
     url.searchParams.append("apiKey", process.env.NEWS_API_KEY as string);
 
     const response = await fetch(url);
