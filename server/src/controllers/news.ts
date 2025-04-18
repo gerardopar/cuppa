@@ -26,6 +26,7 @@ export const getNews = async (req: Request, res: Response): Promise<void> => {
       NewsCategoriesEnum.mostTrendingNews,
       NewsCategoriesEnum.politicsWorldAffairs,
       NewsCategoriesEnum.healthLifestyle,
+      NewsCategoriesEnum.sports,
     ];
 
     const shouldCache = cacheableCategories.includes(q as NewsCategoriesEnum);

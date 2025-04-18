@@ -13,6 +13,7 @@ import { authStore } from "../../stores/authStore";
 import { useGetNews } from "../../react-query/queries/news";
 
 import { HomePageCategoriesEnum } from "./home-page.helpers";
+import { getRandomArticles } from "../../components/articles/article.helpers";
 
 export const Home: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -39,6 +40,12 @@ export const Home: React.FC = () => {
     pageSize: 20,
   });
 
+  const { data: sports } = useGetNews({
+    q: HomePageCategoriesEnum.sports,
+    language: "en",
+    pageSize: 20,
+  });
+
   useEffect(() => {
     if (token && showResetPasswordModal) {
       authStore.set("resetToken", token);
@@ -46,10 +53,19 @@ export const Home: React.FC = () => {
     }
   }, [showResetPasswordModal, token]);
 
-  const leftColumnRow1Articles = mostTrendingNews?.articles?.slice(0, 4) ?? [];
-  const leftColumnRow2Articles =
-    politicsWorldAffairs?.articles?.slice(0, 4) ?? [];
-  const rightColumnArticles = healthLifestyle?.articles?.slice(0, 7) ?? [];
+  const mostTrendingNewsArticles = getRandomArticles(
+    mostTrendingNews?.articles ?? [],
+    4
+  );
+  const politicsWorldAffairsArticles = getRandomArticles(
+    politicsWorldAffairs?.articles ?? [],
+    4
+  );
+  const healthLifestyleArticles = getRandomArticles(
+    healthLifestyle?.articles ?? [],
+    4
+  );
+  const sportsArticles = getRandomArticles(sports?.articles ?? [], 3);
 
   return (
     <div className="relative w-full h-full">
@@ -64,11 +80,11 @@ export const Home: React.FC = () => {
             </div>
             <div className="w-full h-full flex items-center justify-center">
               <div className="flex w-full h-full">
-                <LargeArticleCard article={leftColumnRow1Articles?.[0]} />
+                <LargeArticleCard article={mostTrendingNewsArticles?.[0]} />
               </div>
 
               <div className="flex flex-col w-full items-center justify-between h-full">
-                {leftColumnRow1Articles?.slice(1, 4)?.map((a) => {
+                {mostTrendingNewsArticles?.slice(1, 4)?.map((a) => {
                   return <ArticleCard article={a} className="w-full !m-0" />;
                 })}
               </div>
@@ -80,7 +96,7 @@ export const Home: React.FC = () => {
             <div className="flex items-center justify-items-start w-full">
               <h2 className="font-bold text-xl">Politics & World Affairs</h2>
             </div>
-            {leftColumnRow2Articles?.map((a) => {
+            {politicsWorldAffairsArticles?.map((a) => {
               return (
                 <MediumArticleCard
                   article={a}
@@ -97,7 +113,15 @@ export const Home: React.FC = () => {
             <div className="flex items-center justify-items-start w-full mb-2">
               <h2 className="font-bold text-xl">Health & Lifestyle</h2>
             </div>
-            {rightColumnArticles?.map((a) => {
+            {healthLifestyleArticles?.map((a) => {
+              return <ArticleCard article={a} className="w-full mb-1" />;
+            })}
+          </div>
+          <div className="p-4 pb-0 border-solid border-[1px] border-gray-100 rounded-[20px] mt-4">
+            <div className="flex items-center justify-items-start w-full mb-2">
+              <h2 className="font-bold text-xl">Sports</h2>
+            </div>
+            {sportsArticles?.map((a) => {
               return <ArticleCard article={a} className="w-full mb-1" />;
             })}
           </div>

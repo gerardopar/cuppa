@@ -4,9 +4,9 @@ import axiosClient from "../../axios/axiosClient";
 
 import {
   NewsEverythingParams,
-  NewsEverythingResponse,
+  NewsEverythingSuccessResponse,
   TopHeadlinesParams,
-  TopHeadlinesResponse,
+  TopHeadlinesSuccessResponse,
 } from "../types/newsApi";
 
 export const useGetNews = (options: NewsEverythingParams) => {
@@ -19,12 +19,13 @@ export const useGetNews = (options: NewsEverythingParams) => {
     }, {} as Record<string, string>)
   ).toString();
 
-  return useQuery<NewsEverythingResponse | null, Error>({
+  return useQuery<NewsEverythingSuccessResponse | null, Error>({
     queryKey: ["getNews", options],
     queryFn: async () => {
-      const response = await axiosClient.get<NewsEverythingResponse>(
+      const response = await axiosClient.get<NewsEverythingSuccessResponse>(
         `/news/search?${queryString}`
       );
+
       return response.data;
     },
     enabled: !!options.q, // Optional: only run if `q` is defined
@@ -41,10 +42,10 @@ export const useGetTopHeadlines = (options: TopHeadlinesParams) => {
     }, {} as Record<string, string>)
   ).toString();
 
-  return useQuery<TopHeadlinesResponse | null, Error>({
+  return useQuery<TopHeadlinesSuccessResponse | null, Error>({
     queryKey: ["getTopHeadlines", options],
     queryFn: async () => {
-      const response = await axiosClient.get<TopHeadlinesResponse>(
+      const response = await axiosClient.get<TopHeadlinesSuccessResponse>(
         `/news/top-headlines?${queryString}`
       );
       return response.data;
