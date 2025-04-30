@@ -1,2 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+:root {
+  --font-roboto: "Roboto", sans-serif;
+  --font-montserrat: "Montserrat", sans-serif;
+
+  --primary-dark: #121212;
+  --primary-light: #ffffff;
+  --primary-gray: #738290;
+  --secondary-dark: #af1b3f;
+  --secondary-light: #fe4a49;
+  --secondary-lighter: #ef6351;
+}
