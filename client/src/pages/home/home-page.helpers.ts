@@ -14,6 +14,6 @@ export enum NewsCategoriesEnum {
   food = "Food & Drink",
 }
 
-export const NewsCategoriesArray: NewsCategoriesEnum[] = Object.values(
+export const newsCategories: NewsCategoriesEnum[] = Object.values(
   NewsCategoriesEnum
 ) as NewsCategoriesEnum[];

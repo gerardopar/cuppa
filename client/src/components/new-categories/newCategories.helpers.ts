@@ -1,3 +1,5 @@
+import { NewsCategoriesEnum } from "../../pages/home/home-page.helpers";
+
 export enum GeneralCategoryEnum {
   breakingNews = "Breaking News",
   politics = "Politics",
@@ -6,3 +8,14 @@ export enum GeneralCategoryEnum {
   sports = "Sports",
   entertainment = "Entertainment",
 }
+
+export const getActiveCategory = (
+  pathname: string,
+  category: NewsCategoriesEnum
+) => {
+  if (pathname === "/" || pathname === "/home") {
+    return NewsCategoriesEnum.mostTrendingNews;
+  }
+
+  return category;
+};

@@ -7,6 +7,7 @@ import ArticleCard from "../../components/articles/ArticleCard";
 import LargeArticleCard from "../../components/articles/LargeArticleCard";
 import MediumArticleCard from "../../components/articles/MediumArticleCard";
 import ResetPassword from "../../components/login/forgotPassword/ResetPassword";
+import NewsCategoryButtonList from "../../components/new-categories/NewsCategoryButtonList";
 
 import { authStore } from "../../stores/authStore";
 
@@ -14,7 +15,7 @@ import { useGetNews } from "../../react-query/queries/news";
 import { useGetTrends } from "../../react-query/queries/trends";
 import { useSearchNews } from "../../react-query/mutations/news";
 
-import { HomePageCategoriesEnum } from "./home-page.helpers";
+import { NewsCategoriesEnum } from "./home-page.helpers";
 import { getRandomArticles } from "../../components/articles/article.helpers";
 
 export const Home: React.FC = () => {
@@ -25,25 +26,25 @@ export const Home: React.FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const { data: mostTrendingNews } = useGetNews({
-    q: HomePageCategoriesEnum.mostTrendingNews,
+    q: NewsCategoriesEnum.mostTrendingNews,
     language: "en",
     pageSize: 20,
   });
 
   const { data: politics } = useGetNews({
-    q: HomePageCategoriesEnum.politics,
+    q: NewsCategoriesEnum.politics,
     language: "en",
     pageSize: 20,
   });
 
   const { data: healthLifestyle } = useGetNews({
-    q: HomePageCategoriesEnum.healthLifestyle,
+    q: NewsCategoriesEnum.healthLifestyle,
     language: "en",
     pageSize: 20,
   });
 
   const { data: sports } = useGetNews({
-    q: HomePageCategoriesEnum.sports,
+    q: NewsCategoriesEnum.sports,
     language: "en",
     pageSize: 20,
   });
@@ -72,7 +73,9 @@ export const Home: React.FC = () => {
   return (
     <div className="relative w-full h-full">
       <TopBar />
-      <div className="w-full h-full p-8 overflow-y-scroll flex pt-[100px]">
+
+      <NewsCategoryButtonList />
+      <div className="w-full h-full px-8 pb-8 pt-4 overflow-y-scroll flex">
         {/* left column */}
         <div className="max-w-[70%] w-[70%] mr-4">
           {/* left column row 1 */}
