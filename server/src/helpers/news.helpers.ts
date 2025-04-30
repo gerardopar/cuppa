@@ -3,7 +3,20 @@ export enum NewsCategoriesEnum {
   politics = "Politics",
   healthLifestyle = "Health & Lifestyle",
   sports = "Sports",
+  business = "Business & Finance",
+  technology = "Technology",
+  entertainment = "Entertainment",
+  scienceEnvironment = "Science & Environment",
+  world = "World News",
+  opinion = "Opinion & Editorial",
+  culture = "Culture & Arts",
+  travel = "Travel",
+  food = "Food & Drink",
 }
+
+export const newsCategoriesArray: NewsCategoriesEnum[] = Object.values(
+  NewsCategoriesEnum
+) as NewsCategoriesEnum[];
 
 export const newsCategories = {
   [NewsCategoriesEnum.mostTrendingNews]: {
@@ -56,5 +69,32 @@ export const newsCategories = {
       "nfl-news",
       "nhl-news",
     ],
+  },
+  [NewsCategoriesEnum.business]: {
+    sources: [],
+  },
+  [NewsCategoriesEnum.technology]: {
+    sources: [],
+  },
+  [NewsCategoriesEnum.entertainment]: {
+    sources: [],
+  },
+  [NewsCategoriesEnum.scienceEnvironment]: {
+    sources: [],
+  },
+  [NewsCategoriesEnum.world]: {
+    sources: [],
+  },
+  [NewsCategoriesEnum.opinion]: {
+    sources: [],
+  },
+  [NewsCategoriesEnum.culture]: {
+    sources: [],
+  },
+  [NewsCategoriesEnum.travel]: {
+    sources: [],
+  },
+  [NewsCategoriesEnum.food]: {
+    sources: [],
   },
 };

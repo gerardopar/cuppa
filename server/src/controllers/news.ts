@@ -22,12 +22,9 @@ export const getNews = async (req: Request, res: Response): Promise<void> => {
       pageSize = "20",
     } = req.query;
 
-    const cacheableCategories = [
-      NewsCategoriesEnum.mostTrendingNews,
-      NewsCategoriesEnum.politics,
-      NewsCategoriesEnum.healthLifestyle,
-      NewsCategoriesEnum.sports,
-    ];
+    const cacheableCategories = Object.values(
+      NewsCategoriesEnum
+    ) as NewsCategoriesEnum[];
 
     const shouldCache = cacheableCategories.includes(q as NewsCategoriesEnum);
     const cacheKey = `news:category:${q}`;
