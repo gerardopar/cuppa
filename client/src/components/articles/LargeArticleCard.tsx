@@ -16,14 +16,23 @@ export const LargeArticleCard: React.FC<{ article: Article }> = ({
       href={article?.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex-1 flex items-end justify-start h-full relative mr-4 bg-center bg-cover p-4 rounded-[12px] cursor-pointer"
-      style={{
-        backgroundImage: `url(${article?.urlToImage || NewsEmptyPlaceholder})`,
-      }}
+      className="group flex-1 flex items-end justify-start h-full relative mr-4 p-4 rounded-[12px] cursor-pointer overflow-hidden"
     >
-      <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-1 rounded-[12px]" />
+      {/* Background image zoom layer */}
+      <div
+        className="absolute inset-0 bg-center bg-cover transition-transform duration-500 ease-in-out scale-100 group-hover:scale-105"
+        style={{
+          backgroundImage: `url(${
+            article?.urlToImage || NewsEmptyPlaceholder
+          })`,
+        }}
+      />
 
-      <div className="flex flex-col z-10">
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10 rounded-[12px]" />
+
+      {/* Article content */}
+      <div className="flex flex-col z-20">
         <h3 className="line-clamp-2 font-montserrat text-2xl font-bold text-white">
           {article?.title}
         </h3>

@@ -18,7 +18,7 @@ const ArticleCard: React.FC<{ article: Article; className?: string }> = ({
     >
       <div className="h-[100px] w-[100px] min-h-[100px] min-w-[100px] mr-4 shadow-sm rounded-[12px] overflow-hidden">
         <img
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover transform transition-transform duration-300 ease-in-out hover:scale-105"
           src={article?.urlToImage || NewsEmptyPlaceholder}
           alt="article img"
         />

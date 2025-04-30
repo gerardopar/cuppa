@@ -17,11 +17,18 @@ export const MediumArticleCard: React.FC<{
       href={article?.url}
       target="_blank"
       rel="noopener noreferrer"
-      className={`w-full h-[200px] relative mt-4 flex items-end justify-start bg-center bg-cover p-4 rounded-[12px] cursor-pointer ${containerClassName}`}
-      style={{
-        backgroundImage: `url(${article?.urlToImage || NewsEmptyPlaceholder})`,
-      }}
+      className={`group w-full h-[200px] relative mt-4 flex items-end justify-start bg-center bg-cover p-4 rounded-[12px] cursor-pointer overflow-hidden ${containerClassName}`}
     >
+      {/* Background image zoom layer */}
+      <div
+        className="absolute inset-0 bg-center bg-cover transition-transform duration-500 ease-in-out scale-100 group-hover:scale-105"
+        style={{
+          backgroundImage: `url(${
+            article?.urlToImage || NewsEmptyPlaceholder
+          })`,
+        }}
+      />
+
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-1 rounded-[12px]" />
       <div className="flex flex-col z-10">
         <h3 className="line-clamp-2 font-montserrat text-lg font-bold text-white text-left">
