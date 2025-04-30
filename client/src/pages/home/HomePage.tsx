@@ -11,6 +11,8 @@ import ResetPassword from "../../components/login/forgotPassword/ResetPassword";
 import { authStore } from "../../stores/authStore";
 
 import { useGetNews } from "../../react-query/queries/news";
+import { useGetTrends } from "../../react-query/queries/trends";
+import { useSearchNews } from "../../react-query/mutations/news";
 
 import { HomePageCategoriesEnum } from "./home-page.helpers";
 import { getRandomArticles } from "../../components/articles/article.helpers";
@@ -45,6 +47,9 @@ export const Home: React.FC = () => {
     language: "en",
     pageSize: 20,
   });
+
+  const { data: trends, isPending } = useGetTrends();
+  const { mutate: searchNews } = useSearchNews();
 
   useEffect(() => {
     if (token && showResetPasswordModal) {
@@ -81,8 +86,14 @@ export const Home: React.FC = () => {
               </div>
 
               <div className="flex flex-col w-full items-center justify-between h-full">
-                {mostTrendingNewsArticles?.slice(1, 4)?.map((a) => {
-                  return <ArticleCard article={a} className="w-full !m-0" />;
+                {mostTrendingNewsArticles?.slice(1, 4)?.map((a, i) => {
+                  return (
+                    <ArticleCard
+                      key={a?.url ?? i}
+                      article={a}
+                      className="w-full !m-0"
+                    />
+                  );
                 })}
               </div>
             </div>
@@ -93,9 +104,10 @@ export const Home: React.FC = () => {
             <div className="flex items-center justify-items-start w-full">
               <h2 className="font-bold text-xl">Politics & World Affairs</h2>
             </div>
-            {politicsArticles?.map((a) => {
+            {politicsArticles?.map((a, i) => {
               return (
                 <MediumArticleCard
+                  key={a?.url ?? i}
                   article={a}
                   containerClassName="!w-[49%] even:mr-4"
                 />
@@ -106,20 +118,49 @@ export const Home: React.FC = () => {
 
         {/* right column */}
         <div className="max-w-[30%] w-[30%]">
-          <div className="p-4 pb-0 border-solid border-[1px] border-gray-100 rounded-[20px]">
+          <div className="p-4 pb-2 border-solid border-[1px] border-gray-100 rounded-[20px]">
+            <div className="flex items-center justify-items-start w-full mb-2">
+              <h2 className="font-bold text-xl">Trendy Topics</h2>
+            </div>
+            {!isPending &&
+              trends?.slice(0, 10)?.map((trend, i) => {
+                return (
+                  <button
+                    onClick={() => searchNews({ q: trend, language: "en" })}
+                    key={i}
+                    className="rounded-full px-4 py-1 border-solid border-[2px] border-gray-100 mr-2 mb-2 capitalize cursor-pointer hover:bg-[var(--secondary-light)] hover:border-[var(--secondary-light)] hover:text-[var(--primary-light)] transition-all duration-300 ease-in-out"
+                  >
+                    {trend}
+                  </button>
+                );
+              })}
+          </div>
+          <div className="p-4 pb-0 border-solid border-[1px] border-gray-100 rounded-[20px] mt-4">
             <div className="flex items-center justify-items-start w-full mb-2">
               <h2 className="font-bold text-xl">Health & Lifestyle</h2>
             </div>
-            {healthLifestyleArticles?.map((a) => {
-              return <ArticleCard article={a} className="w-full mb-1" />;
+            {healthLifestyleArticles?.map((a, i) => {
+              return (
+                <ArticleCard
+                  key={a?.url ?? i}
+                  article={a}
+                  className="w-full mb-1"
+                />
+              );
             })}
           </div>
           <div className="p-4 pb-0 border-solid border-[1px] border-gray-100 rounded-[20px] mt-4">
             <div className="flex items-center justify-items-start w-full mb-2">
               <h2 className="font-bold text-xl">Sports</h2>
             </div>
-            {sportsArticles?.map((a) => {
-              return <ArticleCard article={a} className="w-full mb-1" />;
+            {sportsArticles?.map((a, i) => {
+              return (
+                <ArticleCard
+                  key={a?.url ?? i}
+                  article={a}
+                  className="w-full mb-1"
+                />
+              );
             })}
           </div>
         </div>
