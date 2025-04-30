@@ -13,7 +13,7 @@ export const NewsCategorySwiper: React.FC = () => {
   const location = useLocation();
 
   return (
-    <section className="w-full pt-[100px] px-4 md:px-8 overflow-x-hidden">
+    <section className="w-full pt-[75px] overflow-x-hidden">
       <Swiper
         modules={[FreeMode]}
         slidesPerView="auto"
