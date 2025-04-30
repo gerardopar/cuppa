@@ -8,6 +8,8 @@ import { connectRedis } from "./cache/redis/redisClient";
 import authRouter from "./routes/auth";
 import userRouter from "./routes/user";
 import newsRouter from "./routes/news";
+import trendsRouter from "./routes/trends";
+
 import { userContextMiddleware } from "./context/userContext";
 
 dotenv.config();
@@ -33,6 +35,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
 app.use("/news", newsRouter);
+app.use("/trends", trendsRouter);
 
 const startServer = async () => {
   try {
