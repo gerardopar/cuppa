@@ -1,5 +1,6 @@
 import React from "react";
 
+import NewsLogo from "../shared/NewsLogo";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import NewsEmptyPlaceholder from "../../assets/images/news-empty-placeholder.jpg";
 
@@ -28,9 +29,10 @@ const ArticleCard: React.FC<{ article: Article; className?: string }> = ({
           {article?.title}
         </p>
         <div className="relative flex items-center mt-1">
-          <p className="font-roboto text-gray-500 font-medium">
-            {article?.source?.name}
-          </p>
+          <NewsLogo
+            newsSource={article?.source?.id}
+            className="mr-2 !h-[30px] !w-[30px]"
+          />
         </div>
       </div>
 

@@ -1,8 +1,9 @@
 import React from "react";
 import moment from "moment";
 
+import NewsLogo from "../shared/NewsLogo";
 import NewsEmptyPlaceholder from "../../assets/images/news-empty-placeholder.jpg";
-import { AccountBoxOutlined, CalendarMonthOutlined } from "@mui/icons-material";
+import { CalendarMonthOutlined } from "@mui/icons-material";
 
 import { Article } from "../../types/article";
 
@@ -36,11 +37,8 @@ export const LargeArticleCard: React.FC<{ article: Article }> = ({
         <h3 className="line-clamp-2 font-montserrat text-2xl font-bold text-white">
           {article?.title}
         </h3>
-        <div className="flex mt-2">
-          <div className="flex items-center justify-start text-gray-100 mr-4">
-            <AccountBoxOutlined className="text-gray-100" />
-            <p className="ml-1 text-xs">{article?.author}</p>
-          </div>
+        <div className="flex items-center justify-start mt-2">
+          <NewsLogo newsSource={article?.source?.id} />
           <div className="flex items-center justify-start text-gray-100">
             <CalendarMonthOutlined className="text-gray-100" />
             <p className="ml-1 text-xs">{publishedDate}</p>
