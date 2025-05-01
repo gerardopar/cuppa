@@ -1,3 +1,4 @@
+import ABCNewsLogo from "../../assets/images/abc-logo.png";
 import CBSNewsLogo from "../../assets/images/cbs-logo.webp";
 import AxiosLogo from "../../assets/images/axios-logo.webp";
 import CNNLogo from "../../assets/images/cnn-logo.png";
@@ -9,6 +10,13 @@ import TheWashingtonPostLogo from "../../assets/images/washington-post-logo.png"
 import NewsweekLogo from "../../assets/images/newsweek-logo.webp";
 import TimeLogo from "../../assets/images/time-logo.png";
 import APLogo from "../../assets/images/ap-logo.svg";
+import PoliticoLogo from "../../assets/images/politico-logo.jpg";
+import TheHillLogo from "../../assets/images/the-hill-logo.png";
+import FoxSportsLogo from "../../assets/images/fox-sports-logo.svg";
+import ESPNLogo from "../../assets/images/espn-logo.webp";
+import ESPNCricketLogo from "../../assets/images/espn-ci-logo.png";
+import NFLNewsLogo from "../../assets/images/nfl-logo.jpg";
+import NHLNewsLogo from "../../assets/images/nhl-logo.jpg";
 
 export enum NewsCategoriesEnum {
   mostTrendingNews = "Most Trending News",
@@ -55,7 +63,22 @@ export const getNewsLogo = (source: string | null | undefined) => {
       return NewsweekLogo;
     case "time":
       return TimeLogo;
-
+    case "politico":
+      return PoliticoLogo;
+    case "the-hill":
+      return TheHillLogo;
+    case "fox-sports":
+      return FoxSportsLogo;
+    case "espn":
+      return ESPNLogo;
+    case "espn-cric-info":
+      return ESPNCricketLogo;
+    case "nfl-news":
+      return NFLNewsLogo;
+    case "nhl-news":
+      return NHLNewsLogo;
+    case "abc-news":
+      return ABCNewsLogo;
     default:
       return null;
   }

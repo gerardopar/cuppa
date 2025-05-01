@@ -13,6 +13,8 @@ export const MediumArticleCard: React.FC<{
 }> = ({ article, containerClassName = "" }) => {
   const publishedDate = moment(article.publishedAt).format("MMM Do, YYYY");
 
+  console.log("article", article);
+
   return (
     <a
       href={article?.url}
