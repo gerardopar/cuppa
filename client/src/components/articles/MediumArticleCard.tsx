@@ -7,10 +7,13 @@ import NewsLogo from "../shared/NewsLogo";
 
 import { Article } from "../../types/article";
 
+import Skeleton from "@mui/material/Skeleton";
+
 export const MediumArticleCard: React.FC<{
   article: Article;
   containerClassName?: string;
-}> = ({ article, containerClassName = "" }) => {
+  loading?: boolean;
+}> = ({ article, containerClassName = "", loading = false }) => {
   const publishedDate = moment(article.publishedAt).format("MMM Do, YYYY");
 
   const [bgUrl, setBgUrl] = useState<string>(
@@ -20,6 +23,30 @@ export const MediumArticleCard: React.FC<{
   useEffect(() => {
     setBgUrl(article?.urlToImage ?? NewsEmptyPlaceholder);
   }, [article?.urlToImage]);
+
+  if (loading || !article) {
+    return (
+      <div
+        className={`${containerClassName} group w-full h-[200px] relative mt-4 flex items-end justify-start p-4 rounded-[12px] overflow-hidden bg-gray-100`}
+      >
+        <div className="absolute inset-0">
+          <Skeleton variant="rectangular" width="100%" height="100%" />
+        </div>
+
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10 rounded-[12px]" />
+
+        <div className="flex flex-col z-20 w-full px-2 pb-8">
+          <Skeleton variant="text" width="80%" height={24} />
+          <Skeleton variant="text" width="60%" height={24} className="mt-2" />
+        </div>
+
+        <div className="absolute bottom-4 left-4 flex items-center space-x-2 z-20">
+          <Skeleton variant="circular" width={20} height={20} />
+          <Skeleton variant="text" width={40} height={16} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <a

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
+import Skeleton from "@mui/material/Skeleton";
 
 import NewsLogo from "../shared/NewsLogo";
 import NewsEmptyPlaceholder from "../../assets/images/news-empty-placeholder.jpg";
@@ -7,11 +8,18 @@ import { CalendarMonthOutlined } from "@mui/icons-material";
 
 import { Article } from "../../types/article";
 
-export const LargeArticleCard: React.FC<{ article: Article }> = ({
-  article,
-}) => {
-  const publishedDate = moment(article?.publishedAt)?.format("MMM Do, YYYY");
+interface LargeArticleCardProps {
+  article?: Article;
+  loading?: boolean;
+}
 
+export const LargeArticleCard: React.FC<LargeArticleCardProps> = ({
+  article,
+  loading = false,
+}) => {
+  const publishedDate = article
+    ? moment(article?.publishedAt)?.format("MMM Do, YYYY")
+    : "";
   const [bgUrl, setBgUrl] = useState<string>(
     article?.urlToImage ?? NewsEmptyPlaceholder
   );
@@ -19,6 +27,27 @@ export const LargeArticleCard: React.FC<{ article: Article }> = ({
   useEffect(() => {
     setBgUrl(article?.urlToImage ?? NewsEmptyPlaceholder);
   }, [article?.urlToImage]);
+
+  if (loading || !article) {
+    return (
+      <div className="h-full group flex-1 flex flex-col h-64 relative mr-4 p-4 rounded-[12px] overflow-hidden bg-gray-100">
+        <div className="absolute inset-0">
+          <Skeleton variant="rectangular" width="100%" height="100%" />
+        </div>
+
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10 rounded-[12px]" />
+
+        <div className="absolute bottom-16 left-4 right-4 z-20">
+          <Skeleton variant="text" width="70%" height={32} />
+        </div>
+
+        <div className="absolute bottom-4 left-4 flex items-center space-x-2 z-20">
+          <Skeleton variant="circular" width={30} height={30} />
+          <Skeleton variant="text" width={60} height={20} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <a
@@ -30,19 +59,14 @@ export const LargeArticleCard: React.FC<{ article: Article }> = ({
       <img
         src={article?.urlToImage ?? ""}
         alt=""
-        style={{ display: "none" }}
-        onLoad={() => {
-          setBgUrl(article?.urlToImage ?? "");
-        }}
-        onError={() => {
-          setBgUrl(NewsEmptyPlaceholder);
-        }}
+        className="hidden"
+        onLoad={() => setBgUrl(article?.urlToImage ?? "")}
+        onError={() => setBgUrl(NewsEmptyPlaceholder)}
       />
+
       <div
-        className="absolute inset-0 bg-center bg-cover transition-transform duration-500 ease-in-out scale-100 group-hover:scale-105"
-        style={{
-          backgroundImage: `url(${bgUrl})`,
-        }}
+        className="absolute inset-0 bg-center bg-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+        style={{ backgroundImage: `url(${bgUrl})` }}
       />
 
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10 rounded-[12px]" />
@@ -51,12 +75,10 @@ export const LargeArticleCard: React.FC<{ article: Article }> = ({
         <h3 className="line-clamp-2 font-montserrat text-2xl font-bold text-white">
           {article?.title}
         </h3>
-        <div className="flex items-center justify-start mt-2">
-          <NewsLogo newsSource={article?.source?.id} />
-          <div className="flex items-center justify-start text-gray-100">
-            <CalendarMonthOutlined className="text-gray-100" />
-            <p className="ml-1 text-xs">{publishedDate}</p>
-          </div>
+        <div className="flex items-center justify-start mt-2 text-gray-100">
+          <NewsLogo newsSource={article?.source?.id ?? ""} className="mr-2" />
+          <CalendarMonthOutlined className="mr-1 text-gray-100" />
+          <p className="text-xs">{publishedDate}</p>
         </div>
       </div>
     </a>

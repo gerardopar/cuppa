@@ -3,6 +3,9 @@ import { useSearchParams } from "react-router";
 
 import { Backdrop, Modal } from "@mui/material";
 import TopBar from "../../components/top-bar/TopBar";
+import TrendsButton, {
+  TrendsButtonSkeleton,
+} from "../../components/trends/TrendsButton";
 import ArticleCard from "../../components/articles/ArticleCard";
 import LargeArticleCard from "../../components/articles/LargeArticleCard";
 import MediumArticleCard from "../../components/articles/MediumArticleCard";
@@ -25,25 +28,27 @@ export const Home: React.FC = () => {
 
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  const { data: mostTrendingNews } = useGetNews({
-    q: NewsCategoriesEnum.mostTrendingNews,
-    language: "en",
-    pageSize: 20,
-  });
+  const { data: mostTrendingNews, isPending: mostTrendingNewsPending } =
+    useGetNews({
+      q: NewsCategoriesEnum.mostTrendingNews,
+      language: "en",
+      pageSize: 20,
+    });
 
-  const { data: politics } = useGetNews({
+  const { data: politics, isPending: politicsPending } = useGetNews({
     q: NewsCategoriesEnum.politics,
     language: "en",
     pageSize: 20,
   });
 
-  const { data: healthLifestyle } = useGetNews({
-    q: NewsCategoriesEnum.healthLifestyle,
-    language: "en",
-    pageSize: 20,
-  });
+  const { data: healthLifestyle, isPending: healthLifestylePending } =
+    useGetNews({
+      q: NewsCategoriesEnum.healthLifestyle,
+      language: "en",
+      pageSize: 20,
+    });
 
-  const { data: sports } = useGetNews({
+  const { data: sports, isPending: sportsPending } = useGetNews({
     q: NewsCategoriesEnum.sports,
     language: "en",
     pageSize: 20,
@@ -88,7 +93,10 @@ export const Home: React.FC = () => {
               </div>
               <div className="w-full h-full flex items-center justify-center">
                 <div className="flex w-full h-full">
-                  <LargeArticleCard article={mostTrendingNewsArticles?.[0]} />
+                  <LargeArticleCard
+                    article={mostTrendingNewsArticles?.[0]}
+                    loading={mostTrendingNewsPending}
+                  />
                 </div>
 
                 <div className="flex flex-col w-full items-center justify-between h-full">
@@ -98,6 +106,7 @@ export const Home: React.FC = () => {
                         key={a?.url ?? i}
                         article={a}
                         className="w-full !m-0"
+                        loading={mostTrendingNewsPending}
                       />
                     );
                   })}
@@ -116,6 +125,7 @@ export const Home: React.FC = () => {
                     key={a?.url ?? i}
                     article={a}
                     containerClassName="!w-[49%] even:mr-4"
+                    loading={politicsPending}
                   />
                 );
               })}
@@ -128,18 +138,23 @@ export const Home: React.FC = () => {
               <div className="flex items-center justify-items-start w-full mb-2">
                 <h2 className="font-bold text-xl">Trendy Topics</h2>
               </div>
-              {!isPending &&
+              {!isPending ? (
                 trends?.slice(0, 10)?.map((trend, i) => {
                   return (
-                    <button
-                      onClick={() => searchNews({ q: trend, language: "en" })}
+                    <TrendsButton
                       key={i}
-                      className="rounded-full px-4 py-1 border-solid border-[2px] border-gray-100 mr-2 mb-2 capitalize cursor-pointer hover:bg-[var(--secondary-light)] hover:border-[var(--secondary-light)] hover:text-[var(--primary-light)] transition-all duration-300 ease-in-out"
-                    >
-                      {trend}
-                    </button>
+                      trend={trend}
+                      onClick={() => searchNews({ q: trend, language: "en" })}
+                    />
                   );
-                })}
+                })
+              ) : (
+                <div className="flex flex-wrap w-full">
+                  {Array.from({ length: 10 }).map((_, i) => (
+                    <TrendsButtonSkeleton key={i} className="w-full inline" />
+                  ))}
+                </div>
+              )}
             </div>
             <div className="p-4 pb-0 border-solid border-[1px] border-gray-100 rounded-[20px] mt-4">
               <div className="flex items-center justify-items-start w-full mb-2">
@@ -151,6 +166,7 @@ export const Home: React.FC = () => {
                     key={a?.url ?? i}
                     article={a}
                     className="w-full mb-1"
+                    loading={healthLifestylePending}
                   />
                 );
               })}
@@ -165,6 +181,7 @@ export const Home: React.FC = () => {
                     key={a?.url ?? i}
                     article={a}
                     className="w-full mb-1"
+                    loading={sportsPending}
                   />
                 );
               })}
