@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import NewsLogo from "../shared/NewsLogo";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -10,6 +10,8 @@ const ArticleCard: React.FC<{ article: Article; className?: string }> = ({
   article,
   className,
 }) => {
+  const [imgSrc, setImgSrc] = useState(article?.urlToImage);
+
   return (
     <a
       href={article?.url}
@@ -20,8 +22,9 @@ const ArticleCard: React.FC<{ article: Article; className?: string }> = ({
       <div className="h-[100px] w-[100px] min-h-[100px] min-w-[100px] mr-4 shadow-sm rounded-[12px] overflow-hidden">
         <img
           className="w-full h-full object-cover transform transition-transform duration-300 ease-in-out hover:scale-105"
-          src={article?.urlToImage || NewsEmptyPlaceholder}
+          src={imgSrc! ?? NewsEmptyPlaceholder}
           alt="article img"
+          onError={() => setImgSrc(NewsEmptyPlaceholder)}
         />
       </div>
       <div className="flex flex-col">

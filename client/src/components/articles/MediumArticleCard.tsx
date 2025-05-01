@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 
 import NewsEmptyPlaceholder from "../../assets/images/news-empty-placeholder.jpg";
@@ -13,7 +13,13 @@ export const MediumArticleCard: React.FC<{
 }> = ({ article, containerClassName = "" }) => {
   const publishedDate = moment(article.publishedAt).format("MMM Do, YYYY");
 
-  console.log("article", article);
+  const [bgUrl, setBgUrl] = useState<string>(
+    article?.urlToImage ?? NewsEmptyPlaceholder
+  );
+
+  useEffect(() => {
+    setBgUrl(article?.urlToImage ?? NewsEmptyPlaceholder);
+  }, [article?.urlToImage]);
 
   return (
     <a
@@ -22,13 +28,21 @@ export const MediumArticleCard: React.FC<{
       rel="noopener noreferrer"
       className={`group w-full h-[200px] relative mt-4 flex items-end justify-start bg-center bg-cover p-4 rounded-[12px] cursor-pointer overflow-hidden ${containerClassName}`}
     >
-      {/* Background image zoom layer */}
+      <img
+        src={article?.urlToImage ?? ""}
+        alt=""
+        style={{ display: "none" }}
+        onLoad={() => {
+          setBgUrl(article?.urlToImage ?? "");
+        }}
+        onError={() => {
+          setBgUrl(NewsEmptyPlaceholder);
+        }}
+      />
       <div
         className="absolute inset-0 bg-center bg-cover transition-transform duration-500 ease-in-out scale-100 group-hover:scale-105"
         style={{
-          backgroundImage: `url(${
-            article?.urlToImage || NewsEmptyPlaceholder
-          })`,
+          backgroundImage: `url(${bgUrl})`,
         }}
       />
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 
 import NewsLogo from "../shared/NewsLogo";
@@ -12,6 +12,14 @@ export const LargeArticleCard: React.FC<{ article: Article }> = ({
 }) => {
   const publishedDate = moment(article?.publishedAt)?.format("MMM Do, YYYY");
 
+  const [bgUrl, setBgUrl] = useState<string>(
+    article?.urlToImage ?? NewsEmptyPlaceholder
+  );
+
+  useEffect(() => {
+    setBgUrl(article?.urlToImage ?? NewsEmptyPlaceholder);
+  }, [article?.urlToImage]);
+
   return (
     <a
       href={article?.url}
@@ -19,20 +27,26 @@ export const LargeArticleCard: React.FC<{ article: Article }> = ({
       rel="noopener noreferrer"
       className="group flex-1 flex items-end justify-start h-full relative mr-4 p-4 rounded-[12px] cursor-pointer overflow-hidden"
     >
-      {/* Background image zoom layer */}
+      <img
+        src={article?.urlToImage ?? ""}
+        alt=""
+        style={{ display: "none" }}
+        onLoad={() => {
+          setBgUrl(article?.urlToImage ?? "");
+        }}
+        onError={() => {
+          setBgUrl(NewsEmptyPlaceholder);
+        }}
+      />
       <div
         className="absolute inset-0 bg-center bg-cover transition-transform duration-500 ease-in-out scale-100 group-hover:scale-105"
         style={{
-          backgroundImage: `url(${
-            article?.urlToImage || NewsEmptyPlaceholder
-          })`,
+          backgroundImage: `url(${bgUrl})`,
         }}
       />
 
-      {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10 rounded-[12px]" />
 
-      {/* Article content */}
       <div className="flex flex-col z-20">
         <h3 className="line-clamp-2 font-montserrat text-2xl font-bold text-white">
           {article?.title}
