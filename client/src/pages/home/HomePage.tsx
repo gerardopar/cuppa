@@ -17,6 +17,7 @@ import { authStore } from "../../stores/authStore";
 import { useGetNews } from "../../react-query/queries/news";
 import { useGetTrends } from "../../react-query/queries/trends";
 import { useSearchNews } from "../../react-query/mutations/news";
+import { useYouTubeSearchQuery } from "../../react-query/queries/yt";
 
 import { NewsCategoriesEnum } from "./home-page.helpers";
 import { getRandomArticles } from "../../components/articles/article.helpers";
@@ -56,6 +57,10 @@ export const Home: React.FC = () => {
 
   const { data: trends, isPending } = useGetTrends();
   const { mutate: searchNews } = useSearchNews();
+
+  const { data: youtubeSearch } = useYouTubeSearchQuery();
+
+  console.log(youtubeSearch);
 
   useEffect(() => {
     if (token && showResetPasswordModal) {

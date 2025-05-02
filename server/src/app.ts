@@ -9,6 +9,7 @@ import authRouter from "./routes/auth";
 import userRouter from "./routes/user";
 import newsRouter from "./routes/news";
 import trendsRouter from "./routes/trends";
+import ytRouter from "./routes/yt";
 
 import { userContextMiddleware } from "./context/userContext";
 
@@ -36,6 +37,7 @@ app.use("/auth", authRouter);
 app.use("/user", userRouter);
 app.use("/news", newsRouter);
 app.use("/trends", trendsRouter);
+app.use("/yt", ytRouter);
 
 const startServer = async () => {
   try {
