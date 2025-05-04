@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ReactPlayer from "react-player/youtube";
 
+import { Backdrop, Modal } from "@mui/material";
 import Skeleton from "@mui/material/Skeleton";
 import PlayIcon from "../../svgs/PlayIcon";
 import NewsLogo from "../../shared/NewsLogo";
@@ -20,6 +21,8 @@ export const ArticleVideo: React.FC<ArticleVideoProps> = ({
 }) => {
   const videoUrl = `https://www.youtube.com/watch?v=${video?.id?.videoId}`;
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   if (loading || !video) {
     return (
@@ -47,13 +50,16 @@ export const ArticleVideo: React.FC<ArticleVideoProps> = ({
       <div
         className="w-full h-full relative rounded-[12px] overflow-hidden"
         onClick={() => {
-          if (!isPlaying) setIsPlaying(true);
+          if (!showModal && !isPlaying) {
+            setShowModal(true);
+            setIsPlaying(true);
+          }
         }}
       >
         <ReactPlayer
           url={videoUrl}
           controls={false}
-          playing={isPlaying}
+          playing={false}
           light={true} // Shows thumbnail with play button
           width="100%"
           height="100%"
@@ -99,6 +105,46 @@ export const ArticleVideo: React.FC<ArticleVideoProps> = ({
           </h3>
         </div>
       )}
+
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={showModal}
+        onClose={() => {
+          setShowModal(false);
+          setIsPlaying(false);
+        }}
+        closeAfterTransition
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+          },
+        }}
+      >
+        <div className="w-full h-full flex items-center justify-center p-4">
+          <div className="relative w-full max-w-4xl aspect-video rounded-2xl overflow-hidden">
+            <ReactPlayer
+              url={videoUrl}
+              playing={isPlaying}
+              controls={true}
+              width="100%"
+              height="100%"
+              config={{
+                // @ts-expect-error PlayerVars not in ReactPlayer types
+                youtube: {
+                  playerVars: {
+                    modestbranding: 1,
+                    rel: 0,
+                    showinfo: 0,
+                    fs: 0,
+                  },
+                },
+              }}
+            />
+          </div>
+        </div>
+      </Modal>
     </>
   );
 };
