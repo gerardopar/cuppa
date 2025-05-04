@@ -10,6 +10,7 @@ import ArticleCard from "../../components/articles/ArticleCard";
 import MediumArticleCard from "../../components/articles/MediumArticleCard";
 import ResetPassword from "../../components/login/forgotPassword/ResetPassword";
 import NewsCategoryButtonList from "../../components/new-categories/NewsCategoryButtonList";
+import ArticleVideo from "../../components/articles/media/ArticleVideo";
 
 import { authStore } from "../../stores/authStore";
 
@@ -23,7 +24,6 @@ import {
   getRandomArticles,
   getRandomVideos,
 } from "../../components/articles/article.helpers";
-import ArticleVideo from "../../components/articles/media/ArticleVideo";
 
 export const Home: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -101,14 +101,11 @@ export const Home: React.FC = () => {
                 <h2 className="font-bold text-xl mb-2">Most Trending News</h2>
               </div>
               <div className="w-full h-full flex items-center justify-center">
-                <div className="flex w-full h-full">
-                  {/* <LargeArticleCard
-                      article={mostTrendingNewsArticles?.[0]}
-                      loading={mostTrendingNewsPending}
-                    /> */}
+                <div className="flex w-full h-full flex-col mr-4">
                   <ArticleVideo
                     video={randomVideo}
                     loading={youtubeSearchPending}
+                    showDetails
                   />
                 </div>
 

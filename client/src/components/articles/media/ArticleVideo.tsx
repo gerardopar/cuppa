@@ -9,11 +9,13 @@ import { YouTubeSearchItem } from "../../../types/ytApi";
 interface ArticleVideoProps {
   video?: YouTubeSearchItem;
   loading?: boolean;
+  showDetails?: boolean;
 }
 
 export const ArticleVideo: React.FC<ArticleVideoProps> = ({
   video,
   loading = false,
+  showDetails = false,
 }) => {
   const videoUrl = `https://www.youtube.com/watch?v=${video?.id?.videoId}`;
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -40,40 +42,59 @@ export const ArticleVideo: React.FC<ArticleVideoProps> = ({
   }
 
   return (
-    <div
-      className="w-full h-full relative rounded-[12px] mr-4 overflow-hidden"
-      onClick={() => {
-        if (!isPlaying) setIsPlaying(true);
-      }}
-    >
-      <ReactPlayer
-        url={videoUrl}
-        controls={false}
-        playing={isPlaying}
-        light={true} // Shows thumbnail with play button
-        width="100%"
-        height="100%"
-        style={{ position: "absolute", top: 0, left: 0, borderRadius: "24px" }}
-        config={{
-          // @ts-expect-error PlayerVars not in ReactPlayer types
-          youtube: {
-            playerVars: {
-              modestbranding: 1,
-              rel: 0,
-              showinfo: 0,
-              fs: 0,
-            },
-          },
+    <>
+      <div
+        className="w-full h-full relative rounded-[12px] overflow-hidden"
+        onClick={() => {
+          if (!isPlaying) setIsPlaying(true);
         }}
-        playIcon={
-          <div
-            className={`flex items-center justify-center w-[64px] h-[64px] rounded-full bg-black/70 hover:bg-[var(--secondary-light)] transition-colors`}
-          >
-            <PlayIcon className="w-[32px] h-[32px] text-white" />
-          </div>
-        }
-      />
-    </div>
+      >
+        <ReactPlayer
+          url={videoUrl}
+          controls={false}
+          playing={isPlaying}
+          light={true} // Shows thumbnail with play button
+          width="100%"
+          height="100%"
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            borderRadius: "24px",
+          }}
+          config={{
+            // @ts-expect-error PlayerVars not in ReactPlayer types
+            youtube: {
+              playerVars: {
+                modestbranding: 1,
+                rel: 0,
+                showinfo: 0,
+                fs: 0,
+              },
+            },
+          }}
+          playIcon={
+            <div
+              className={`flex items-center justify-center w-[64px] h-[64px] rounded-full bg-black/70 hover:bg-[var(--secondary-light)] transition-colors z-20`}
+            >
+              <PlayIcon className="w-[32px] h-[32px] text-white" />
+            </div>
+          }
+        />
+
+        {!isPlaying && (
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10 rounded-[12px]" />
+        )}
+      </div>
+
+      {showDetails && (
+        <div className="w-full mt-2">
+          <h3 className="line-clamp-2 font-montserrat text-lg font-bold text-left text-gray-900">
+            {video?.snippet?.title}
+          </h3>
+        </div>
+      )}
+    </>
   );
 };
 
