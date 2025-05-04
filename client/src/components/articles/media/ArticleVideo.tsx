@@ -1,0 +1,80 @@
+import React, { useState } from "react";
+import ReactPlayer from "react-player/youtube";
+
+import Skeleton from "@mui/material/Skeleton";
+import PlayIcon from "../../svgs/PlayIcon";
+
+import { YouTubeSearchItem } from "../../../types/ytApi";
+
+interface ArticleVideoProps {
+  video?: YouTubeSearchItem;
+  loading?: boolean;
+}
+
+export const ArticleVideo: React.FC<ArticleVideoProps> = ({
+  video,
+  loading = false,
+}) => {
+  const videoUrl = `https://www.youtube.com/watch?v=${video?.id?.videoId}`;
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+
+  if (loading || !video) {
+    return (
+      <div className="h-full group flex-1 flex flex-col h-64 relative mr-4 p-4 rounded-[12px] overflow-hidden bg-gray-100">
+        <div className="absolute inset-0">
+          <Skeleton variant="rectangular" width="100%" height="100%" />
+        </div>
+
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10 rounded-[12px]" />
+
+        <div className="absolute bottom-16 left-4 right-4 z-20">
+          <Skeleton variant="text" width="70%" height={32} />
+        </div>
+
+        <div className="absolute bottom-4 left-4 flex items-center space-x-2 z-20">
+          <Skeleton variant="circular" width={30} height={30} />
+          <Skeleton variant="text" width={60} height={20} />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className="w-full h-full relative rounded-[12px] mr-4 overflow-hidden"
+      onClick={() => {
+        if (!isPlaying) setIsPlaying(true);
+      }}
+    >
+      <ReactPlayer
+        url={videoUrl}
+        controls={false}
+        playing={isPlaying}
+        light={true} // Shows thumbnail with play button
+        width="100%"
+        height="100%"
+        style={{ position: "absolute", top: 0, left: 0, borderRadius: "24px" }}
+        config={{
+          // @ts-expect-error PlayerVars not in ReactPlayer types
+          youtube: {
+            playerVars: {
+              modestbranding: 1,
+              rel: 0,
+              showinfo: 0,
+              fs: 0,
+            },
+          },
+        }}
+        playIcon={
+          <div
+            className={`flex items-center justify-center w-[64px] h-[64px] rounded-full bg-black/70 hover:bg-[var(--secondary-light)] transition-colors`}
+          >
+            <PlayIcon className="w-[32px] h-[32px] text-white" />
+          </div>
+        }
+      />
+    </div>
+  );
+};
+
+export default ArticleVideo;

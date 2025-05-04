@@ -7,7 +7,6 @@ import TrendsButton, {
   TrendsButtonSkeleton,
 } from "../../components/trends/TrendsButton";
 import ArticleCard from "../../components/articles/ArticleCard";
-import LargeArticleCard from "../../components/articles/LargeArticleCard";
 import MediumArticleCard from "../../components/articles/MediumArticleCard";
 import ResetPassword from "../../components/login/forgotPassword/ResetPassword";
 import NewsCategoryButtonList from "../../components/new-categories/NewsCategoryButtonList";
@@ -17,10 +16,14 @@ import { authStore } from "../../stores/authStore";
 import { useGetNews } from "../../react-query/queries/news";
 import { useGetTrends } from "../../react-query/queries/trends";
 import { useSearchNews } from "../../react-query/mutations/news";
-import { useYouTubeSearchQuery } from "../../react-query/queries/yt";
+import { useGetBreakingNewsVideo } from "../../react-query/queries/yt";
 
 import { NewsCategoriesEnum } from "./home-page.helpers";
-import { getRandomArticles } from "../../components/articles/article.helpers";
+import {
+  getRandomArticles,
+  getRandomVideos,
+} from "../../components/articles/article.helpers";
+import ArticleVideo from "../../components/articles/media/ArticleVideo";
 
 export const Home: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -28,6 +31,13 @@ export const Home: React.FC = () => {
   const showResetPasswordModal = searchParams.get("resetPassword") ?? false;
 
   const [showModal, setShowModal] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (token && showResetPasswordModal) {
+      authStore.set("resetToken", token);
+      setShowModal(Boolean(showResetPasswordModal));
+    }
+  }, [showResetPasswordModal, token]);
 
   const { data: mostTrendingNews, isPending: mostTrendingNewsPending } =
     useGetNews({
@@ -58,16 +68,8 @@ export const Home: React.FC = () => {
   const { data: trends, isPending } = useGetTrends();
   const { mutate: searchNews } = useSearchNews();
 
-  const { data: youtubeSearch } = useYouTubeSearchQuery();
-
-  console.log(youtubeSearch);
-
-  useEffect(() => {
-    if (token && showResetPasswordModal) {
-      authStore.set("resetToken", token);
-      setShowModal(Boolean(showResetPasswordModal));
-    }
-  }, [showResetPasswordModal, token]);
+  const { data: youtubeSearch, isPending: youtubeSearchPending } =
+    useGetBreakingNewsVideo();
 
   const mostTrendingNewsArticles = getRandomArticles(
     mostTrendingNews?.articles ?? [],
@@ -79,6 +81,8 @@ export const Home: React.FC = () => {
     4
   );
   const sportsArticles = getRandomArticles(sports?.articles ?? [], 3);
+
+  const [randomVideo] = getRandomVideos(youtubeSearch?.items ?? [], 1);
 
   return (
     <div className="relative w-full h-full">
@@ -98,14 +102,18 @@ export const Home: React.FC = () => {
               </div>
               <div className="w-full h-full flex items-center justify-center">
                 <div className="flex w-full h-full">
-                  <LargeArticleCard
-                    article={mostTrendingNewsArticles?.[0]}
-                    loading={mostTrendingNewsPending}
+                  {/* <LargeArticleCard
+                      article={mostTrendingNewsArticles?.[0]}
+                      loading={mostTrendingNewsPending}
+                    /> */}
+                  <ArticleVideo
+                    video={randomVideo}
+                    loading={youtubeSearchPending}
                   />
                 </div>
 
                 <div className="flex flex-col w-full items-center justify-between h-full">
-                  {mostTrendingNewsArticles?.slice(1, 4)?.map((a, i) => {
+                  {mostTrendingNewsArticles?.slice(0, 3)?.map((a, i) => {
                     return (
                       <ArticleCard
                         key={a?.url ?? i}
