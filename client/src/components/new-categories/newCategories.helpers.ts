@@ -1,4 +1,4 @@
-import { NewsCategoriesEnum } from "../../pages/home/news.helpers";
+import { NewsCategoriesEnum } from "../../react-query/helpers/news.helpers";
 
 export enum GeneralCategoryEnum {
   breakingNews = "Breaking News",

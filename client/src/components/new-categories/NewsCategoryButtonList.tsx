@@ -6,7 +6,7 @@ import { FreeMode } from "swiper/modules";
 
 import "swiper/swiper-bundle.css";
 
-import { newsCategories } from "../../pages/home/news.helpers";
+import { newsCategories } from "../../react-query/helpers/news.helpers";
 import { getActiveCategory } from "./newCategories.helpers";
 
 export const NewsCategorySwiper: React.FC = () => {

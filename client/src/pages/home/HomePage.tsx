@@ -19,7 +19,7 @@ import { useGetTrends } from "../../react-query/queries/trends";
 import { useSearchNews } from "../../react-query/mutations/news";
 import { useGetBreakingNewsVideo } from "../../react-query/queries/yt";
 
-import { NewsCategoriesEnum } from "./news.helpers";
+import { NewsCategoriesEnum } from "../../react-query/helpers/news.helpers";
 import {
   getRandomArticles,
   getRandomVideos,
