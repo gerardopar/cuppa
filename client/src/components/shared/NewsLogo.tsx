@@ -11,7 +11,7 @@ export const NewsLogo: React.FC<{
 
   return (
     <div
-      className={`bg-white rounded-full flex items-center justify-center h-[40px] w-[40px] overflow-hidden text-center mr-4 ${className}`}
+      className={`bg-white rounded-full flex items-center justify-center h-[30px] w-[30px] min-h-[30px] min-w-[30px] overflow-hidden text-center mr-4 ${className}`}
     >
       <img
         src={logo!}

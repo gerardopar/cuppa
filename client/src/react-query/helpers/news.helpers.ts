@@ -34,6 +34,12 @@ export enum NewsCategoriesEnum {
   food = "Food & Drink",
 }
 
+export enum YtChannelIDsEnum {
+  CNN = "UCupvZG-5ko_eiXAupbDfxWw", // CNN
+  BBC = "UC16niRr50-MSBwiO3YDb3RA", // BBC
+  NBC = "UCeY0bbntWzzVIaj2z3QigXg", // NBC
+}
+
 export const newsCategories: NewsCategoriesEnum[] = Object.values(
   NewsCategoriesEnum
 ) as NewsCategoriesEnum[];
@@ -48,10 +54,12 @@ export const getNewsLogo = (source: string | null | undefined) => {
     case "axios":
       return AxiosLogo;
     case "cnn":
+    case YtChannelIDsEnum.CNN:
       return CNNLogo;
     case "fox-news":
       return FoxNewsLogo;
     case "nbc-news":
+    case YtChannelIDsEnum.NBC:
       return NBCNewsLogo;
     case "usa-today":
       return USATodayLogo;

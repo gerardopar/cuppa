@@ -3,6 +3,7 @@ import ReactPlayer from "react-player/youtube";
 
 import Skeleton from "@mui/material/Skeleton";
 import PlayIcon from "../../svgs/PlayIcon";
+import NewsLogo from "../../shared/NewsLogo";
 
 import { YouTubeSearchItem } from "../../../types/ytApi";
 
@@ -89,7 +90,11 @@ export const ArticleVideo: React.FC<ArticleVideoProps> = ({
 
       {showDetails && (
         <div className="w-full mt-2">
-          <h3 className="line-clamp-2 font-montserrat text-lg font-bold text-left text-gray-900">
+          <h3 className="line-clamp-2 font-montserrat text-lg font-bold text-left text-gray-900 flex items-center">
+            <NewsLogo
+              newsSource={video?.snippet?.channelId}
+              className="!h-[40px] !w-[40px] !min-h-[40px] !min-w-[40px] !mr-2"
+            />
             {video?.snippet?.title}
           </h3>
         </div>
