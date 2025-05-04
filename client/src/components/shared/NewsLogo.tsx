@@ -1,5 +1,5 @@
 import React from "react";
-import { getNewsLogo } from "../../pages/home/home-page.helpers";
+import { getNewsLogo } from "../../pages/home/news.helpers";
 
 export const NewsLogo: React.FC<{
   newsSource: string | null | undefined;

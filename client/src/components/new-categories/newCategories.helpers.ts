@@ -1,4 +1,4 @@
-import { NewsCategoriesEnum } from "../../pages/home/home-page.helpers";
+import { NewsCategoriesEnum } from "../../pages/home/news.helpers";
 
 export enum GeneralCategoryEnum {
   breakingNews = "Breaking News",
