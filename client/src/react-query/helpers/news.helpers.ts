@@ -53,9 +53,14 @@ export enum NewsCategoriesEnum {
 }
 
 export enum YtChannelIDsEnum {
-  CNN = "UCupvZG-5ko_eiXAupbDfxWw", // CNN
-  BBC = "UC16niRr50-MSBwiO3YDb3RA", // BBC
-  NBC = "UCeY0bbntWzzVIaj2z3QigXg", // NBC
+  cnn = "UCupvZG-5ko_eiXAupbDfxWw", // most trending news
+  theHill = "UCPWXiRWZ29zrxPFIQT7eHSA", // politics
+  doctorMike = "UC0QHWhjbe5fGJEPz3sVb6nw", // health & lifestyle
+  espn = "UCiWLfSweyRNmLpgEHekhoAg", // sports
+  bloombergTelevision = "UCIALMKvObZNtJ6AmdCLP7Lg", // business & finance
+  unboxTherapy = "UCsTcErHg8oDvUnTzoqsYeNw", // technology
+  BuzzFeedVideo = "UCpko_-a4wgz2u_DgDgd9fqA", // entertainment
+  veritasium = "UCHnyfMqiRRG1u-2MsSQLbXA", // science & environment
 }
 
 export const newsCategories: NewsCategoriesEnum[] = Object.values(
