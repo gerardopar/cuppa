@@ -1,21 +1,18 @@
 import { Request, Response } from "express";
 import redisClient from "../cache/redis/redisClient";
 
-import {
-  getYoutubeVideosByChannelID,
-  ytChannelIDs,
-} from "../services/ytApi-service";
+import { getYoutubeVideosByChannelID } from "../services/ytApi-service";
 
 import { YouTubeSearchResponse } from "../types/ytApi";
 
-export const getBreakingNewsVideo = async (
-  _req: Request,
+export const getYtVideosByChannelID = async (
+  req: Request,
   res: Response
 ): Promise<void> => {
   try {
-    const [cnnChannelID] = ytChannelIDs;
+    const { channelID } = req.query;
 
-    const cacheKey = `yt:videos:${cnnChannelID}`;
+    const cacheKey = `yt:videos:${channelID}`;
     const cached = await redisClient.get(cacheKey);
 
     if (cached) {
@@ -23,7 +20,7 @@ export const getBreakingNewsVideo = async (
       res.json(ytVideos);
     } else {
       const response: YouTubeSearchResponse = await getYoutubeVideosByChannelID(
-        cnnChannelID
+        channelID as string
       );
 
       await redisClient.setEx(cacheKey, 86400, JSON.stringify(response));

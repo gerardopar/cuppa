@@ -5,12 +5,6 @@ import { YouTubeSearchResponse } from "../types/ytApi";
 
 dotenv.config();
 
-export const ytChannelIDs: string[] = [
-  "UCupvZG-5ko_eiXAupbDfxWw", // CNN
-  "UC16niRr50-MSBwiO3YDb3RA", // BBC
-  "UCeY0bbntWzzVIaj2z3QigXg", // NBC
-];
-
 export const getYoutubeVideosByChannelID = async (channelID: string) => {
   const response = await axios.get(
     "https://youtube-v31.p.rapidapi.com/search",
@@ -27,8 +21,6 @@ export const getYoutubeVideosByChannelID = async (channelID: string) => {
       },
     }
   );
-
-  console.log("🚀🚀 youTubeSearchQuery 🚀🚀", response);
 
   return response.data as YouTubeSearchResponse;
 };

@@ -17,9 +17,12 @@ import { authStore } from "../../stores/authStore";
 import { useGetNews } from "../../react-query/queries/news";
 import { useGetTrends } from "../../react-query/queries/trends";
 import { useSearchNews } from "../../react-query/mutations/news";
-import { useGetBreakingNewsVideo } from "../../react-query/queries/yt";
+import { useGetYoutubeVideosByChannelID } from "../../react-query/queries/yt";
 
-import { NewsCategoriesEnum } from "../../react-query/helpers/news.helpers";
+import {
+  NewsCategoriesEnum,
+  YtChannelIDsEnum,
+} from "../../react-query/helpers/news.helpers";
 import {
   getRandomArticles,
   getRandomVideos,
@@ -70,7 +73,7 @@ export const Home: React.FC = () => {
   const { mutate: searchNews } = useSearchNews();
 
   const { data: breakingNewsVideos, isPending: breakingNewsVideosPending } =
-    useGetBreakingNewsVideo();
+    useGetYoutubeVideosByChannelID(YtChannelIDsEnum.CNN);
 
   const [randomVideo] = useMemo(() => {
     return getRandomVideos(breakingNewsVideos?.items ?? [], 1);

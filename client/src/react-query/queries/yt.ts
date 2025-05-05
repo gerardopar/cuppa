@@ -3,12 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import axiosClient from "../../axios/axiosClient";
 import { YouTubeSearchResponse } from "../../types/ytApi";
 
-export const useGetBreakingNewsVideo = () => {
+export const useGetYoutubeVideosByChannelID = (channelID: string) => {
   return useQuery<YouTubeSearchResponse, Error>({
-    queryKey: ["youtubeSearch"],
+    queryKey: ["youtubeSearch", channelID],
     queryFn: async () => {
       const response = await axiosClient.get<YouTubeSearchResponse>(
-        `/yt/videos`
+        `/yt/videos?channelID=${channelID}`
       );
 
       return response.data;
