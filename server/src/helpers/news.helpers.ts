@@ -7,11 +7,6 @@ export enum NewsCategoriesEnum {
   technology = "Technology",
   entertainment = "Entertainment",
   scienceEnvironment = "Science & Environment",
-  world = "World News",
-  opinion = "Opinion & Editorial",
-  culture = "Culture & Arts",
-  travel = "Travel",
-  food = "Food & Drink",
 }
 
 export const newsCategoriesArray: NewsCategoriesEnum[] = Object.values(
@@ -71,30 +66,37 @@ export const newsCategories = {
     ],
   },
   [NewsCategoriesEnum.business]: {
-    sources: [],
+    sources: [
+      "bloomberg",
+      "business-insider",
+      "fortune",
+      "the-wall-street-journal",
+    ],
   },
   [NewsCategoriesEnum.technology]: {
-    sources: [],
+    sources: [
+      "ars-technica",
+      "crypto-coins-news",
+      "engadget",
+      "recode",
+      "techcrunch",
+      "techradar",
+      "the-next-web",
+      "the-verge",
+      "wired",
+    ],
   },
   [NewsCategoriesEnum.entertainment]: {
-    sources: [],
+    sources: [
+      "buzzfeed",
+      "entertainment-weekly",
+      "ign",
+      "mashable",
+      "mtv-news",
+      "polygon",
+    ],
   },
   [NewsCategoriesEnum.scienceEnvironment]: {
-    sources: [],
-  },
-  [NewsCategoriesEnum.world]: {
-    sources: [],
-  },
-  [NewsCategoriesEnum.opinion]: {
-    sources: [],
-  },
-  [NewsCategoriesEnum.culture]: {
-    sources: [],
-  },
-  [NewsCategoriesEnum.travel]: {
-    sources: [],
-  },
-  [NewsCategoriesEnum.food]: {
-    sources: [],
+    sources: ["national-geographic", "new-scientist", "next-big-future"],
   },
 };

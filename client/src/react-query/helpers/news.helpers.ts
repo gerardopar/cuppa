@@ -27,11 +27,6 @@ export enum NewsCategoriesEnum {
   technology = "Technology",
   entertainment = "Entertainment",
   scienceEnvironment = "Science & Environment",
-  world = "World News",
-  opinion = "Opinion & Editorial",
-  culture = "Culture & Arts",
-  travel = "Travel",
-  food = "Food & Drink",
 }
 
 export enum YtChannelIDsEnum {
