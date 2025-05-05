@@ -17,6 +17,29 @@ import ESPNLogo from "../../assets/images/espn-logo.webp";
 import ESPNCricketLogo from "../../assets/images/espn-ci-logo.png";
 import NFLNewsLogo from "../../assets/images/nfl-logo.jpg";
 import NHLNewsLogo from "../../assets/images/nhl-logo.jpg";
+import MedicalNewsTodayLogo from "../../assets/images/mnt-logo.jpg";
+import BloombergLogo from "../../assets/images/bloomberg-logo.jpg";
+import BusinessInsiderLogo from "../../assets/images/business-insider-logo.png";
+import FortuneLogo from "../../assets/images/fortune-logo.webp";
+import WallStreetJournalLogo from "../../assets/images/wsj-logo.jpg";
+import ArsTechnicaLogo from "../../assets/images/ars-logo.jpg";
+import CryptoCoinsNewsLogo from "../../assets/images/crypto-coin-logo.webp";
+import EngadgetLogo from "../../assets/images/engadget-logo.jpeg";
+import RecodeLogo from "../../assets/images/recode-news-logo.png";
+import TechCrunchLogo from "../../assets/images/tech-crunch-logo.png";
+import TechRadarLogo from "../../assets/images/tech-radar-logo.jpeg";
+import TheNextWebLogo from "../../assets/images/tnw-logo.webp";
+import TheVergeLogo from "../../assets/images/the-verge-logo.webp";
+import WiredLogo from "../../assets/images/wired-news-logo.webp";
+import BuzzFeedLogo from "../../assets/images/buzzfeed-logo.svg";
+import MTVNewsLogo from "../../assets/images/mtv-news-logo.svg";
+import EntertainmentWeeklyLogo from "../../assets/images/ew-logo.jpeg";
+import IGNLogo from "../../assets/images/ign-logo.webp";
+import MashableLogo from "../../assets/images/mashable-logo.jpeg";
+import PolygonLogo from "../../assets/images/polygon-logo.jpeg";
+import NationalGeographicLogo from "../../assets/images/natgeo-logo.png";
+import NewScientistLogo from "../../assets/images/new-scientist-logo.jpeg";
+import NextBigFutureLogo from "../../assets/images/nbg-logo.png";
 
 export enum NewsCategoriesEnum {
   mostTrendingNews = "Most Trending News",
@@ -82,6 +105,52 @@ export const getNewsLogo = (source: string | null | undefined) => {
       return NHLNewsLogo;
     case "abc-news":
       return ABCNewsLogo;
+    case "bloomberg":
+      return BloombergLogo;
+    case "business-insider":
+      return BusinessInsiderLogo;
+    case "fortune":
+      return FortuneLogo;
+    case "the-wall-street-journal":
+      return WallStreetJournalLogo;
+    case "ars-technica":
+      return ArsTechnicaLogo;
+    case "crypto-coins-news":
+      return CryptoCoinsNewsLogo;
+    case "engadget":
+      return EngadgetLogo;
+    case "recode":
+      return RecodeLogo;
+    case "techcrunch":
+      return TechCrunchLogo;
+    case "techradar":
+      return TechRadarLogo;
+    case "the-next-web":
+      return TheNextWebLogo;
+    case "the-verge":
+      return TheVergeLogo;
+    case "wired":
+      return WiredLogo;
+    case "buzzfeed":
+      return BuzzFeedLogo;
+    case "entertainment-weekly":
+      return EntertainmentWeeklyLogo;
+    case "ign":
+      return IGNLogo;
+    case "mashable":
+      return MashableLogo;
+    case "mtv-news":
+      return MTVNewsLogo;
+    case "polygon":
+      return PolygonLogo;
+    case "national-geographic":
+      return NationalGeographicLogo;
+    case "new-scientist":
+      return NewScientistLogo;
+    case "next-big-future":
+      return NextBigFutureLogo;
+    case "medical-news-today":
+      return MedicalNewsTodayLogo;
     default:
       return null;
   }
