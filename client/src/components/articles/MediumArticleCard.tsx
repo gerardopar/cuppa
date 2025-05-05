@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 
 import NewsEmptyPlaceholder from "../../assets/images/news-empty-placeholder.jpg";
-import { CalendarMonthOutlined } from "@mui/icons-material";
+import {
+  CalendarMonthOutlined,
+  MoreVert as MoreVertIcon,
+} from "@mui/icons-material";
 import NewsLogo from "../shared/NewsLogo";
 
 import { Article } from "../../types/article";
@@ -86,6 +89,13 @@ export const MediumArticleCard: React.FC<{
           </div>
         </div>
       </div>
+
+      <button
+        type="button"
+        className="absolute top-[10px] right-[10px] cursor-pointer"
+      >
+        <MoreVertIcon className="text-white" />
+      </button>
     </a>
   );
 };

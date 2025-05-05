@@ -82,7 +82,7 @@ export const ArticleVideo: React.FC<ArticleVideoProps> = ({
           }}
           playIcon={
             <div
-              className={`flex items-center justify-center w-[64px] h-[64px] rounded-full bg-black/70 hover:bg-[var(--secondary-light)] transition-colors z-20`}
+              className={`flex items-center justify-center w-[64px] h-[64px] rounded-full bg-black/70 hover:bg-[var(--secondary-light)] transition-colors z-20 cursor-pointer`}
             >
               <PlayIcon className="w-[32px] h-[32px] text-white" />
             </div>
@@ -90,7 +90,15 @@ export const ArticleVideo: React.FC<ArticleVideoProps> = ({
         />
 
         {!isPlaying && (
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10 rounded-[12px]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10 rounded-[12px]">
+            <div className="h-full w-full flex items-center justify-center cursor-pointer">
+              <div
+                className={`flex items-center justify-center w-[64px] h-[64px] rounded-full bg-black/70 hover:bg-[var(--secondary-light)] transition-colors z-20`}
+              >
+                <PlayIcon className="w-[32px] h-[32px] text-white" />
+              </div>
+            </div>
+          </div>
         )}
       </div>
 

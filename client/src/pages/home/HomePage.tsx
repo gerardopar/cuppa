@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useSearchParams } from "react-router";
 
 import { Backdrop, Modal } from "@mui/material";
@@ -24,6 +24,7 @@ import {
   getRandomArticles,
   getRandomVideos,
 } from "../../components/articles/article.helpers";
+import { getRandomTrends } from "../../components/trends/trends.helpers";
 
 export const Home: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -65,24 +66,35 @@ export const Home: React.FC = () => {
     pageSize: 20,
   });
 
-  const { data: trends, isPending } = useGetTrends();
+  const { data: trendsData, isPending } = useGetTrends();
   const { mutate: searchNews } = useSearchNews();
 
-  const { data: youtubeSearch, isPending: youtubeSearchPending } =
+  const { data: breakingNewsVideos, isPending: breakingNewsVideosPending } =
     useGetBreakingNewsVideo();
 
-  const mostTrendingNewsArticles = getRandomArticles(
-    mostTrendingNews?.articles ?? [],
-    4
-  );
-  const politicsArticles = getRandomArticles(politics?.articles ?? [], 4);
-  const healthLifestyleArticles = getRandomArticles(
-    healthLifestyle?.articles ?? [],
-    4
-  );
-  const sportsArticles = getRandomArticles(sports?.articles ?? [], 3);
+  const [randomVideo] = useMemo(() => {
+    return getRandomVideos(breakingNewsVideos?.items ?? [], 1);
+  }, [breakingNewsVideos]);
 
-  const [randomVideo] = getRandomVideos(youtubeSearch?.items ?? [], 1);
+  const mostTrendingNewsArticles = useMemo(() => {
+    return getRandomArticles(mostTrendingNews?.articles ?? [], 4);
+  }, [mostTrendingNews]);
+
+  const politicsArticles = useMemo(() => {
+    return getRandomArticles(politics?.articles ?? [], 4);
+  }, [politics]);
+
+  const healthLifestyleArticles = useMemo(() => {
+    return getRandomArticles(healthLifestyle?.articles ?? [], 4);
+  }, [healthLifestyle]);
+
+  const sportsArticles = useMemo(() => {
+    return getRandomArticles(sports?.articles ?? [], 3);
+  }, [sports]);
+
+  const trends = useMemo(() => {
+    return getRandomTrends(trendsData?.slice(0, 10), 10);
+  }, [trendsData]);
 
   return (
     <div className="relative w-full h-full">
@@ -104,7 +116,7 @@ export const Home: React.FC = () => {
                 <div className="flex w-full h-full flex-col mr-4">
                   <ArticleVideo
                     video={randomVideo}
-                    loading={youtubeSearchPending}
+                    loading={breakingNewsVideosPending}
                     showDetails
                   />
                 </div>
@@ -149,7 +161,7 @@ export const Home: React.FC = () => {
                 <h2 className="font-bold text-xl">Trendy Topics</h2>
               </div>
               {!isPending ? (
-                trends?.slice(0, 10)?.map((trend, i) => {
+                trends?.map((trend, i) => {
                   return (
                     <TrendsButton
                       key={i}
