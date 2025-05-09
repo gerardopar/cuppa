@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from "react";
-import moment from "moment";
 import Skeleton from "@mui/material/Skeleton";
 
 import NewsLogo from "../shared/NewsLogo";
+import PublishedDate from "../shared/PublishedDate";
 import NewsEmptyPlaceholder from "../../assets/images/news-empty-placeholder.jpg";
-import { CalendarMonthOutlined } from "@mui/icons-material";
 
 import { Article } from "../../types/article";
 
 interface LargeArticleCardProps {
   article?: Article;
   loading?: boolean;
+  className?: string;
 }
 
 export const LargeArticleCard: React.FC<LargeArticleCardProps> = ({
   article,
   loading = false,
+  className,
 }) => {
-  const publishedDate = article
-    ? moment(article?.publishedAt)?.format("MMM Do, YYYY")
-    : "";
   const [bgUrl, setBgUrl] = useState<string>(
     article?.urlToImage ?? NewsEmptyPlaceholder
   );
@@ -54,7 +52,7 @@ export const LargeArticleCard: React.FC<LargeArticleCardProps> = ({
       href={article?.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex-1 flex items-end justify-start h-full relative mr-4 p-4 rounded-[12px] cursor-pointer overflow-hidden"
+      className={`group flex-1 flex items-end justify-start h-full relative mr-4 p-4 rounded-[12px] cursor-pointer overflow-hidden ${className}`}
     >
       <img
         src={article?.urlToImage ?? ""}
@@ -75,10 +73,12 @@ export const LargeArticleCard: React.FC<LargeArticleCardProps> = ({
         <h3 className="line-clamp-2 font-montserrat text-2xl font-bold text-white">
           {article?.title}
         </h3>
-        <div className="flex items-center justify-start mt-2 text-gray-100">
+        <div className="flex items-center justify-between mt-2 text-gray-100">
           <NewsLogo newsSource={article?.source?.id ?? ""} className="mr-2" />
-          <CalendarMonthOutlined className="mr-1 text-gray-100" />
-          <p className="text-xs">{publishedDate}</p>
+          <PublishedDate
+            publishedAt={article?.publishedAt ?? ""}
+            className="!text-gray-100"
+          />
         </div>
       </div>
     </a>

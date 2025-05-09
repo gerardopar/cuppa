@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 
 import NewsLogo from "../shared/NewsLogo";
+import Skeleton from "@mui/material/Skeleton";
+import PublishedDate from "../shared/PublishedDate";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import NewsEmptyPlaceholder from "../../assets/images/news-empty-placeholder.jpg";
-import Skeleton from "@mui/material/Skeleton";
 
 import { Article } from "../../types/article";
 
@@ -56,14 +57,18 @@ const ArticleCard: React.FC<{
           onError={() => setImgSrc(NewsEmptyPlaceholder)}
         />
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col w-full">
         <p className="line-clamp-2 font-montserrat text-base font-medium">
           {article?.title}
         </p>
-        <div className="relative flex items-center mt-1">
+        <div className="relative flex items-center justify-between mt-1">
           <NewsLogo
             newsSource={article?.source?.id}
             className="mr-2 !h-[30px] !w-[30px]"
+          />
+          <PublishedDate
+            publishedAt={article?.publishedAt ?? ""}
+            className="text-xs"
           />
         </div>
       </div>

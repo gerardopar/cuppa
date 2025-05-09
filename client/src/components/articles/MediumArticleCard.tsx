@@ -1,24 +1,18 @@
 import React, { useEffect, useState } from "react";
-import moment from "moment";
 
-import NewsEmptyPlaceholder from "../../assets/images/news-empty-placeholder.jpg";
-import {
-  CalendarMonthOutlined,
-  MoreVert as MoreVertIcon,
-} from "@mui/icons-material";
 import NewsLogo from "../shared/NewsLogo";
+import Skeleton from "@mui/material/Skeleton";
+import PublishedDate from "../shared/PublishedDate";
+import { MoreVert as MoreVertIcon } from "@mui/icons-material";
+import NewsEmptyPlaceholder from "../../assets/images/news-empty-placeholder.jpg";
 
 import { Article } from "../../types/article";
-
-import Skeleton from "@mui/material/Skeleton";
 
 export const MediumArticleCard: React.FC<{
   article: Article;
   containerClassName?: string;
   loading?: boolean;
 }> = ({ article, containerClassName = "", loading = false }) => {
-  const publishedDate = moment(article.publishedAt).format("MMM Do, YYYY");
-
   const [bgUrl, setBgUrl] = useState<string>(
     article?.urlToImage ?? NewsEmptyPlaceholder
   );
@@ -81,11 +75,13 @@ export const MediumArticleCard: React.FC<{
         <h3 className="line-clamp-2 font-montserrat text-lg font-bold text-white text-left">
           {article?.title}
         </h3>
-        <div className="flex mt-2">
+        <div className="flex mt-2 items-center justify-between">
           <NewsLogo newsSource={article?.source?.id} />
           <div className="flex items-center justify-start text-gray-100">
-            <CalendarMonthOutlined className="text-gray-100" />
-            <p className="ml-1 text-xs">{publishedDate}</p>
+            <PublishedDate
+              className="!text-gray-100"
+              publishedAt={article?.publishedAt ?? ""}
+            />
           </div>
         </div>
       </div>

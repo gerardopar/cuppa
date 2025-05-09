@@ -5,6 +5,7 @@ import { Backdrop, Modal } from "@mui/material";
 import Skeleton from "@mui/material/Skeleton";
 import PlayIcon from "../../svgs/PlayIcon";
 import NewsLogo from "../../shared/NewsLogo";
+import PublishedDate from "../../shared/PublishedDate";
 
 import { YouTubeSearchItem } from "../../../types/ytApi";
 
@@ -103,14 +104,20 @@ export const ArticleVideo: React.FC<ArticleVideoProps> = ({
       </div>
 
       {showDetails && (
-        <div className="w-full mt-2">
-          <h3 className="line-clamp-2 font-montserrat text-lg font-bold text-left text-gray-900 flex items-center">
-            <NewsLogo
-              newsSource={video?.snippet?.channelId}
-              className="!h-[40px] !w-[40px] !min-h-[40px] !min-w-[40px] !mr-2"
+        <div className="w-full mt-2 flex items-center">
+          <NewsLogo
+            newsSource={video?.snippet?.channelId}
+            className="!h-[40px] !w-[40px] !min-h-[40px] !min-w-[40px] !mr-2"
+          />
+          <div className="flex flex-col items-start justify-center">
+            <h3 className="line-clamp-1 font-montserrat text-lg font-bold text-left text-gray-900 ">
+              {video?.snippet?.title}
+            </h3>
+            <PublishedDate
+              publishedAt={video?.snippet?.publishedAt ?? ""}
+              className="text-xs"
             />
-            {video?.snippet?.title}
-          </h3>
+          </div>
         </div>
       )}
 
