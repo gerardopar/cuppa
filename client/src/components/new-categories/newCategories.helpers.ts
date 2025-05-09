@@ -18,6 +18,8 @@ export const getActiveCategory = (
     return NewsCategoriesEnum.sports;
   } else if (pathname === "/entertainment") {
     return NewsCategoriesEnum.entertainment;
+  } else if (pathname === "/science-environment") {
+    return NewsCategoriesEnum.scienceEnvironment;
   }
 
   return category;
@@ -38,6 +40,8 @@ export const getCategoryRoute = (category: NewsCategoriesEnum) => {
     return "/sports";
   } else if (category === NewsCategoriesEnum.entertainment) {
     return "/entertainment";
+  } else if (category === NewsCategoriesEnum.scienceEnvironment) {
+    return "/science-environment";
   }
 
   return "/";

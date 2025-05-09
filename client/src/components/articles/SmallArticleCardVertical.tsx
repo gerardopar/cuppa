@@ -27,9 +27,6 @@ export const SmallArticleCard: React.FC<{
         target="_blank"
         rel="noopener noreferrer"
         className={`group overflow-hidden h-full w-full relative bg-center bg-cover rounded-[12px] cursor-pointer`}
-        style={{
-          backgroundImage: `url(${bgUrl})`,
-        }}
       >
         <img
           src={article?.urlToImage ?? ""}
