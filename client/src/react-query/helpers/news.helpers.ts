@@ -55,12 +55,12 @@ export enum NewsCategoriesEnum {
 export enum YtChannelIDsEnum {
   cnn = "UCupvZG-5ko_eiXAupbDfxWw", // most trending news
   theHill = "UCPWXiRWZ29zrxPFIQT7eHSA", // politics
-  doctorMike = "UC0QHWhjbe5fGJEPz3sVb6nw", // health & lifestyle
+  doctorMike = "UC0QHWhjbe5fGJEPz3sVb6nw", // health & lifestyle ❓
   espn = "UCiWLfSweyRNmLpgEHekhoAg", // sports
   bloombergTelevision = "UCIALMKvObZNtJ6AmdCLP7Lg", // business & finance
-  unboxTherapy = "UCsTcErHg8oDvUnTzoqsYeNw", // technology
+  unboxTherapy = "UCsTcErHg8oDvUnTzoqsYeNw", // technology ❓
   BuzzFeedVideo = "UCpko_-a4wgz2u_DgDgd9fqA", // entertainment
-  veritasium = "UCHnyfMqiRRG1u-2MsSQLbXA", // science & environment
+  veritasium = "UCHnyfMqiRRG1u-2MsSQLbXA", // science & environment ❓
 }
 
 export const newsCategories: NewsCategoriesEnum[] = Object.values(
@@ -77,12 +77,11 @@ export const getNewsLogo = (source: string | null | undefined) => {
     case "axios":
       return AxiosLogo;
     case "cnn":
-    case YtChannelIDsEnum.CNN:
+    case YtChannelIDsEnum.cnn:
       return CNNLogo;
     case "fox-news":
       return FoxNewsLogo;
     case "nbc-news":
-    case YtChannelIDsEnum.NBC:
       return NBCNewsLogo;
     case "usa-today":
       return USATodayLogo;
@@ -97,10 +96,12 @@ export const getNewsLogo = (source: string | null | undefined) => {
     case "politico":
       return PoliticoLogo;
     case "the-hill":
+    case YtChannelIDsEnum.theHill:
       return TheHillLogo;
     case "fox-sports":
       return FoxSportsLogo;
     case "espn":
+    case YtChannelIDsEnum.espn:
       return ESPNLogo;
     case "espn-cric-info":
       return ESPNCricketLogo;
@@ -111,6 +112,7 @@ export const getNewsLogo = (source: string | null | undefined) => {
     case "abc-news":
       return ABCNewsLogo;
     case "bloomberg":
+    case YtChannelIDsEnum.bloombergTelevision:
       return BloombergLogo;
     case "business-insider":
       return BusinessInsiderLogo;
@@ -137,6 +139,7 @@ export const getNewsLogo = (source: string | null | undefined) => {
     case "wired":
       return WiredLogo;
     case "buzzfeed":
+    case YtChannelIDsEnum.BuzzFeedVideo:
       return BuzzFeedLogo;
     case "entertainment-weekly":
       return EntertainmentWeeklyLogo;
