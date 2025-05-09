@@ -8,6 +8,8 @@ export const getActiveCategory = (
     return NewsCategoriesEnum.mostTrendingNews;
   } else if (pathname === "/politics") {
     return NewsCategoriesEnum.politics;
+  } else if (pathname === "/health-life-style") {
+    return NewsCategoriesEnum.healthLifestyle;
   } else if (pathname === "/business") {
     return NewsCategoriesEnum.business;
   } else if (pathname === "/technology") {
@@ -26,6 +28,8 @@ export const getCategoryRoute = (category: NewsCategoriesEnum) => {
     return "/";
   } else if (category === NewsCategoriesEnum.politics) {
     return "/politics";
+  } else if (category === NewsCategoriesEnum.healthLifestyle) {
+    return "/health-life-style";
   } else if (category === NewsCategoriesEnum.business) {
     return "/business";
   } else if (category === NewsCategoriesEnum.technology) {

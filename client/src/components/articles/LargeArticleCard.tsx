@@ -73,7 +73,7 @@ export const LargeArticleCard: React.FC<LargeArticleCardProps> = ({
 
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent z-10 rounded-[12px]" />
 
-      <div className="flex flex-col z-20">
+      <div className="w-full flex flex-col z-20">
         <h3 className="line-clamp-2 font-montserrat text-2xl font-bold text-white">
           {article?.title}
         </h3>
