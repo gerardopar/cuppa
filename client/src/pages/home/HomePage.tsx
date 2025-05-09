@@ -73,7 +73,7 @@ export const Home: React.FC = () => {
   const { mutate: searchNews } = useSearchNews();
 
   const { data: breakingNewsVideos, isPending: breakingNewsVideosPending } =
-    useGetYoutubeVideosByChannelID(YtChannelIDsEnum.CNN);
+    useGetYoutubeVideosByChannelID(YtChannelIDsEnum.cnn);
 
   const [randomVideo] = useMemo(() => {
     return getRandomVideos(breakingNewsVideos?.items ?? [], 1);
@@ -101,7 +101,7 @@ export const Home: React.FC = () => {
 
   return (
     <div className="relative w-full h-full">
-      <TopBar />
+      <TopBar title="Trending News" />
       <div className="w-full h-full p-8 overflow-y-scroll flex flex-col">
         {/* left column */}
         <div className="w-full flex items-center justify-start">
