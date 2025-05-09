@@ -6,6 +6,16 @@ export const getActiveCategory = (
 ) => {
   if (pathname === "/" || pathname === "/home") {
     return NewsCategoriesEnum.mostTrendingNews;
+  } else if (pathname === "/politics") {
+    return NewsCategoriesEnum.politics;
+  } else if (pathname === "/business") {
+    return NewsCategoriesEnum.business;
+  } else if (pathname === "/technology") {
+    return NewsCategoriesEnum.technology;
+  } else if (pathname === "/sports") {
+    return NewsCategoriesEnum.sports;
+  } else if (pathname === "/entertainment") {
+    return NewsCategoriesEnum.entertainment;
   }
 
   return category;
