@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode } from "swiper/modules";
@@ -7,10 +7,17 @@ import { FreeMode } from "swiper/modules";
 import "swiper/swiper-bundle.css";
 
 import { newsCategories } from "../../react-query/helpers/news.helpers";
+import { NewsCategoriesEnum } from "../../react-query/helpers/news.helpers";
 import { getActiveCategory } from "./newCategories.helpers";
+import { getCategoryRoute } from "./newCategories.helpers";
 
 export const NewsCategorySwiper: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (category: NewsCategoriesEnum) => {
+    navigate(getCategoryRoute(category));
+  };
 
   return (
     <section className="w-full pt-[75px] overflow-x-hidden">
@@ -38,6 +45,7 @@ export const NewsCategorySwiper: React.FC = () => {
                     ? "bg-[var(--secondary-light)] border-[var(--secondary-light)] text-[var(--primary-light)]"
                     : ""
                 }`}
+                onClick={() => handleCategoryClick(category)}
               >
                 {category}
               </button>
