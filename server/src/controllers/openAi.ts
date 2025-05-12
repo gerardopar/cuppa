@@ -19,16 +19,20 @@ export const getPoliticalQuoteWithImage = async (
       const quoteWithImage = JSON.parse(cached) as string[];
       res.json({ quoteWithImage });
     } else {
-      const prompt = `
-      Give me a **single-sentence** quote related to law or justice that reflects today's political climate.
-      The quote should be from a well-known public figure in politics, law, or related fields.
-      Make sure it is nonpartisan and appropriate for all audiences. Include the name of the person and the year, if known.
-      `;
+      const promptTemplates = [
+        "Give me a quote about justice in today's world from a well-known political figure.",
+        "Give me a one-line quote on equality under the law from a famous public figure.",
+        "Give me a quote related to legal fairness or the role of law in democracy.",
+        "Share a modern quote that supports nonpartisan views of justice or rights.",
+      ];
+
+      const prompt =
+        promptTemplates[Math.floor(Math.random() * promptTemplates.length)];
 
       const response = await openAiClient.chat.completions.create({
         model: "gpt-3.5-turbo",
         messages: [{ role: "user", content: prompt }],
-        temperature: 0.4,
+        temperature: 0.6,
       });
 
       const content = response?.choices[0]?.message?.content;
