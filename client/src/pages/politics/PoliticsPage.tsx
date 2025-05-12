@@ -7,6 +7,7 @@ import SmallArticleCardVertical from "../../components/articles/SmallArticleCard
 import NewsCategoryButtonList from "../../components/new-categories/NewsCategoryButtonList";
 
 import { useGetNews } from "../../react-query/queries/news";
+import { useGetPoliticalQuoteWithImage } from "../../react-query/queries/openAi";
 
 import { getRandomArticles } from "../../components/articles/article.helpers";
 
@@ -22,6 +23,10 @@ export const PoliticsPage: React.FC = () => {
     language: "en",
     pageSize: 20,
   });
+
+  const { data: quoteWithImage } = useGetPoliticalQuoteWithImage();
+
+  console.log(quoteWithImage);
 
   const articles = useMemo(
     () => getRandomArticles(politics?.articles ?? [], 20),
