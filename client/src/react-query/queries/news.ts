@@ -1,6 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 import axiosClient from "../../axios/axiosClient";
+
+import { newsCategories } from "../helpers/news.helpers";
 
 import {
   NewsEverythingParams,
@@ -52,4 +55,39 @@ export const useGetTopHeadlines = (options: TopHeadlinesParams) => {
     },
     enabled: !!options.q, // Optional: only run if `q` is defined
   });
+};
+
+const fetchNews = async (params: NewsEverythingParams) => {
+  const queryString = new URLSearchParams(
+    Object.entries(params).reduce((acc, [key, value]) => {
+      if (value !== undefined && value !== null) {
+        acc[key] = String(value);
+      }
+      return acc;
+    }, {} as Record<string, string>)
+  ).toString();
+
+  const response = await axiosClient.get<NewsEverythingSuccessResponse>(
+    `/news/search?${queryString}`
+  );
+  return response.data;
+};
+
+export const usePrefetchNewsCategories = () => {
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    newsCategories.forEach((category) => {
+      const params: NewsEverythingParams = {
+        q: category,
+        language: "en",
+        pageSize: 20,
+      };
+
+      queryClient.prefetchQuery({
+        queryKey: ["getNews", params],
+        queryFn: () => fetchNews(params),
+      });
+    });
+  }, [queryClient]);
 };

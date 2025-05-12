@@ -10,7 +10,11 @@ import EntertainmentPage from "../pages/entertainment/EntertainmentPage";
 import HealthLifeStylePage from "../pages/healthLifeStyle/HealthLifeStylePage";
 import ScienceEnvironmentPage from "../pages/scienceEnvironment/ScienceEnvironmentPage";
 
+import { usePrefetchNewsCategories } from "../react-query/queries/news";
+
 const AppRouter = () => {
+  usePrefetchNewsCategories();
+
   return (
     <AppLayout>
       <Routes>

@@ -52,6 +52,10 @@ export enum NewsCategoriesEnum {
   scienceEnvironment = "Science & Environment",
 }
 
+export const newsCategories: NewsCategoriesEnum[] = Object.values(
+  NewsCategoriesEnum
+) as NewsCategoriesEnum[];
+
 export enum YtChannelIDsEnum {
   cnn = "UCupvZG-5ko_eiXAupbDfxWw", // most trending news
   theHill = "UCPWXiRWZ29zrxPFIQT7eHSA", // politics
@@ -62,10 +66,6 @@ export enum YtChannelIDsEnum {
   BuzzFeedVideo = "UCpko_-a4wgz2u_DgDgd9fqA", // entertainment
   veritasium = "UCHnyfMqiRRG1u-2MsSQLbXA", // science & environment ❓
 }
-
-export const newsCategories: NewsCategoriesEnum[] = Object.values(
-  NewsCategoriesEnum
-) as NewsCategoriesEnum[];
 
 export const getNewsLogo = (source: string | null | undefined) => {
   switch (source) {
