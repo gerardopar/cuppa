@@ -13,7 +13,11 @@ import { getRandomArticles } from "../../components/articles/article.helpers";
 import { NewsCategoriesEnum } from "../../react-query/helpers/news.helpers";
 
 export const EntertainmentPage: React.FC = () => {
-  const { data: entertainment, isPending: entertainmentPending } = useGetNews({
+  const {
+    data: entertainment,
+    isPending: entertainmentPending,
+    isLoading: entertainmentLoading,
+  } = useGetNews({
     q: NewsCategoriesEnum.entertainment,
     language: "en",
     pageSize: 20,
@@ -23,6 +27,8 @@ export const EntertainmentPage: React.FC = () => {
     () => getRandomArticles(entertainment?.articles ?? [], 20),
     [entertainment]
   );
+
+  const isLoading = entertainmentLoading || entertainmentPending;
 
   return (
     <div className="relative w-full h-full">
@@ -35,10 +41,7 @@ export const EntertainmentPage: React.FC = () => {
         <div className="flex flex-col w-full mt-4">
           <div className="w-full h-[400px] flex items-center justify-center max-h-[400px] p-4 border-solid border-[1px] border-gray-100 rounded-[20px]">
             <div className="w-[50%] h-full">
-              <LargeArticleCard
-                article={articles[0]}
-                loading={entertainmentPending}
-              />
+              <LargeArticleCard article={articles[0]} loading={isLoading} />
             </div>
 
             <div className="w-[50%] h-full flex flex-col items-center justify-between">
@@ -48,7 +51,7 @@ export const EntertainmentPage: React.FC = () => {
                     key={a?.url ?? i}
                     article={a}
                     className="w-full !m-0"
-                    loading={entertainmentPending}
+                    loading={isLoading}
                   />
                 );
               })}
@@ -57,7 +60,13 @@ export const EntertainmentPage: React.FC = () => {
 
           <div className="w-full h-[400px] flex items-center justify-center max-h-[400px] p-4 border-solid border-[1px] border-gray-100 rounded-[20px] mt-4">
             {articles?.slice(4, 9)?.map((a, i) => {
-              return <SmallArticleCardVertical key={a?.url ?? i} article={a} />;
+              return (
+                <SmallArticleCardVertical
+                  key={a?.url ?? i}
+                  article={a}
+                  loading={isLoading}
+                />
+              );
             })}
           </div>
         </div>

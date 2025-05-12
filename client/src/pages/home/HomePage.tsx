@@ -43,37 +43,58 @@ export const Home: React.FC = () => {
     }
   }, [showResetPasswordModal, token]);
 
-  const { data: mostTrendingNews, isPending: mostTrendingNewsPending } =
-    useGetNews({
-      q: NewsCategoriesEnum.mostTrendingNews,
-      language: "en",
-      pageSize: 20,
-    });
+  const {
+    data: mostTrendingNews,
+    isPending: mostTrendingNewsPending,
+    isLoading: mostTrendingNewsLoading,
+  } = useGetNews({
+    q: NewsCategoriesEnum.mostTrendingNews,
+    language: "en",
+    pageSize: 20,
+  });
 
-  const { data: politics, isPending: politicsPending } = useGetNews({
+  const {
+    data: politics,
+    isPending: politicsPending,
+    isLoading: politicsLoading,
+  } = useGetNews({
     q: NewsCategoriesEnum.politics,
     language: "en",
     pageSize: 20,
   });
 
-  const { data: healthLifestyle, isPending: healthLifestylePending } =
-    useGetNews({
-      q: NewsCategoriesEnum.healthLifestyle,
-      language: "en",
-      pageSize: 20,
-    });
+  const {
+    data: healthLifestyle,
+    isPending: healthLifestylePending,
+    isLoading: healthLifestyleLoading,
+  } = useGetNews({
+    q: NewsCategoriesEnum.healthLifestyle,
+    language: "en",
+    pageSize: 20,
+  });
 
-  const { data: sports, isPending: sportsPending } = useGetNews({
+  const {
+    data: sports,
+    isPending: sportsPending,
+    isLoading: sportsLoading,
+  } = useGetNews({
     q: NewsCategoriesEnum.sports,
     language: "en",
     pageSize: 20,
   });
 
-  const { data: trendsData, isPending } = useGetTrends();
+  const {
+    data: trendsData,
+    isPending: trendsPending,
+    isLoading: trendsLoading,
+  } = useGetTrends();
   const { mutate: searchNews } = useSearchNews();
 
-  const { data: breakingNewsVideos, isPending: breakingNewsVideosPending } =
-    useGetYoutubeVideosByChannelID(YtChannelIDsEnum.cnn);
+  const {
+    data: breakingNewsVideos,
+    isLoading: breakingNewsVideosLoading,
+    isPending: breakingNewsVideosPending,
+  } = useGetYoutubeVideosByChannelID(YtChannelIDsEnum.cnn);
 
   const [randomVideo] = useMemo(() => {
     return getRandomVideos(breakingNewsVideos?.items ?? [], 1);
@@ -119,7 +140,9 @@ export const Home: React.FC = () => {
                 <div className="flex w-full h-full flex-col mr-4">
                   <ArticleVideo
                     video={randomVideo}
-                    loading={breakingNewsVideosPending}
+                    loading={
+                      breakingNewsVideosLoading || breakingNewsVideosPending
+                    }
                     showDetails
                   />
                 </div>
@@ -131,7 +154,9 @@ export const Home: React.FC = () => {
                         key={a?.url ?? i}
                         article={a}
                         className="w-full !m-0"
-                        loading={mostTrendingNewsPending}
+                        loading={
+                          mostTrendingNewsLoading || mostTrendingNewsPending
+                        }
                       />
                     );
                   })}
@@ -150,7 +175,7 @@ export const Home: React.FC = () => {
                     key={a?.url ?? i}
                     article={a}
                     containerClassName="!w-[49%] even:mr-4"
-                    loading={politicsPending}
+                    loading={politicsLoading || politicsPending}
                   />
                 );
               })}
@@ -163,7 +188,7 @@ export const Home: React.FC = () => {
               <div className="flex items-center justify-items-start w-full mb-2">
                 <h2 className="font-bold text-xl">Trendy Topics</h2>
               </div>
-              {!isPending ? (
+              {!trendsLoading && !trendsPending ? (
                 trends?.map((trend, i) => {
                   return (
                     <TrendsButton
@@ -191,7 +216,7 @@ export const Home: React.FC = () => {
                     key={a?.url ?? i}
                     article={a}
                     className="w-full mb-1"
-                    loading={healthLifestylePending}
+                    loading={healthLifestyleLoading || healthLifestylePending}
                   />
                 );
               })}
@@ -206,7 +231,7 @@ export const Home: React.FC = () => {
                     key={a?.url ?? i}
                     article={a}
                     className="w-full mb-1"
-                    loading={sportsPending}
+                    loading={sportsLoading || sportsPending}
                   />
                 );
               })}

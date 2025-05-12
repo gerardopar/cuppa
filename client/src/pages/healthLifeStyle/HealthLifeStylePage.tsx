@@ -13,17 +13,22 @@ import { getRandomArticles } from "../../components/articles/article.helpers";
 import { NewsCategoriesEnum } from "../../react-query/helpers/news.helpers";
 
 export const HealthLifeStylePage: React.FC = () => {
-  const { data: healthLifeStyle, isPending: healthLifeStylePending } =
-    useGetNews({
-      q: NewsCategoriesEnum.healthLifestyle,
-      language: "en",
-      pageSize: 20,
-    });
+  const {
+    data: healthLifeStyle,
+    isLoading: healthLifeStyleLoading,
+    isPending: healthLifeStylePending,
+  } = useGetNews({
+    q: NewsCategoriesEnum.healthLifestyle,
+    language: "en",
+    pageSize: 20,
+  });
 
   const articles = useMemo(
     () => getRandomArticles(healthLifeStyle?.articles ?? [], 20),
     [healthLifeStyle]
   );
+
+  const isLoading = healthLifeStyleLoading || healthLifeStylePending;
 
   return (
     <div className="relative w-full h-full">
@@ -36,10 +41,7 @@ export const HealthLifeStylePage: React.FC = () => {
         <div className="flex flex-col w-full mt-4">
           <div className="w-full h-[400px] flex items-center justify-center max-h-[400px] p-4 border-solid border-[1px] border-gray-100 rounded-[20px]">
             <div className="w-[50%] h-full">
-              <LargeArticleCard
-                article={articles[0]}
-                loading={healthLifeStylePending}
-              />
+              <LargeArticleCard article={articles[0]} loading={isLoading} />
             </div>
 
             <div className="w-[50%] h-full flex flex-col items-center justify-between">
@@ -49,7 +51,7 @@ export const HealthLifeStylePage: React.FC = () => {
                     key={a?.url ?? i}
                     article={a}
                     className="w-full !m-0"
-                    loading={healthLifeStylePending}
+                    loading={isLoading}
                   />
                 );
               })}
@@ -58,7 +60,13 @@ export const HealthLifeStylePage: React.FC = () => {
 
           <div className="w-full h-[400px] flex items-center justify-center max-h-[400px] p-4 border-solid border-[1px] border-gray-100 rounded-[20px] mt-4">
             {articles?.slice(4, 9)?.map((a, i) => {
-              return <SmallArticleCardVertical key={a?.url ?? i} article={a} />;
+              return (
+                <SmallArticleCardVertical
+                  key={a?.url ?? i}
+                  article={a}
+                  loading={isLoading}
+                />
+              );
             })}
           </div>
         </div>
