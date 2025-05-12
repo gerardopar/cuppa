@@ -11,6 +11,7 @@ export const getTrends = async (req: Request, res: Response): Promise<void> => {
     if (cached) {
       const trends = JSON.parse(cached) as string[];
       res.json({ trends });
+      return;
     } else {
       const allTrends = await fetchDailyTrends();
       const trends = allTrends.slice(0, 25);

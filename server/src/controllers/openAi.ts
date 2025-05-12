@@ -18,6 +18,7 @@ export const getPoliticalQuoteWithImage = async (
     if (cached) {
       const quoteWithImage = JSON.parse(cached);
       res.json({ quoteWithImage });
+      return;
     }
 
     const promptTemplates = [

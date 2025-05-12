@@ -34,6 +34,7 @@ export const getNews = async (req: Request, res: Response): Promise<void> => {
 
       if (cached) {
         res.json(JSON.parse(cached));
+        return;
       } else {
         const category = newsCategories[q as NewsCategoriesEnum];
         const news = await getNewsEverything({
