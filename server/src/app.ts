@@ -10,6 +10,7 @@ import userRouter from "./routes/user";
 import newsRouter from "./routes/news";
 import trendsRouter from "./routes/trends";
 import ytRouter from "./routes/yt";
+import openAiRouter from "./routes/openAi";
 
 import { userContextMiddleware } from "./context/userContext";
 
@@ -38,6 +39,7 @@ app.use("/user", userRouter);
 app.use("/news", newsRouter);
 app.use("/trends", trendsRouter);
 app.use("/yt", ytRouter);
+app.use("/openAi", openAiRouter);
 
 const startServer = async () => {
   try {
