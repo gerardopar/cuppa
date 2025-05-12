@@ -33,7 +33,6 @@ export const getPoliticalQuoteWithImage = async (
 
       const content = response?.choices[0]?.message?.content;
 
-      // Step 2: Parse response into quote and name
       const match = content?.match(/\"(.+?)\"\s+[-—]\s+(.+?)(?:,\s*(\d{4}))?$/);
       if (!match) throw new Error("Failed to parse quote");
 
