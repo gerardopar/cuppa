@@ -1,10 +1,9 @@
 import { Request, Response } from "express";
 import redisClient from "../cache/redis/redisClient";
+
 import { openAiClient } from "../services/openAiApi-service";
-
 import { fetchWikiData } from "../services/wikiApi-service";
-
-import { QuoteSchema, QuoteResponse } from "../types/openAi";
+import { QuoteResponse, QuoteSchema } from "../types/openAi";
 
 const CACHE_TTL = 86400; // 1 day
 
@@ -18,7 +17,7 @@ export const getPoliticalQuoteWithImage = async (
     const cached = await redisClient.get(cacheKey);
     if (cached) {
       const quoteWithImage = JSON.parse(cached);
-      return res.json({ quoteWithImage });
+      res.json({ quoteWithImage });
     }
 
     const promptTemplates = [
