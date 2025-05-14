@@ -17,7 +17,7 @@ export const PoliticsPage: React.FC = () => {
   const {
     data: politics,
     isLoading: politicsLoading,
-    isPending: politicsPending,
+    isFetching: politicsFetching,
   } = useGetNews({
     q: NewsCategoriesEnum.politics,
     language: "en",
@@ -33,7 +33,7 @@ export const PoliticsPage: React.FC = () => {
     [politics]
   );
 
-  const isLoading = politicsLoading || politicsPending;
+  const isLoading = politicsLoading || politicsFetching;
 
   return (
     <div className="relative w-full h-full">

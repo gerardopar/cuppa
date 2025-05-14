@@ -15,8 +15,8 @@ import { NewsCategoriesEnum } from "../../react-query/helpers/news.helpers";
 export const TechnologyPage: React.FC = () => {
   const {
     data: technology,
-    isPending: technologyPending,
     isLoading: technologyLoading,
+    isFetching: technologyFetching,
   } = useGetNews({
     q: NewsCategoriesEnum.technology,
     language: "en",
@@ -28,7 +28,7 @@ export const TechnologyPage: React.FC = () => {
     [technology]
   );
 
-  const isLoading = technologyLoading || technologyPending;
+  const isLoading = technologyLoading || technologyFetching;
 
   return (
     <div className="relative w-full h-full">

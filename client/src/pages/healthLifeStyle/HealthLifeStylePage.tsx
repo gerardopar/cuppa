@@ -16,7 +16,7 @@ export const HealthLifeStylePage: React.FC = () => {
   const {
     data: healthLifeStyle,
     isLoading: healthLifeStyleLoading,
-    isPending: healthLifeStylePending,
+    isFetching: healthLifeStyleFetching,
   } = useGetNews({
     q: NewsCategoriesEnum.healthLifestyle,
     language: "en",
@@ -28,7 +28,7 @@ export const HealthLifeStylePage: React.FC = () => {
     [healthLifeStyle]
   );
 
-  const isLoading = healthLifeStyleLoading || healthLifeStylePending;
+  const isLoading = healthLifeStyleLoading || healthLifeStyleFetching;
 
   return (
     <div className="relative w-full h-full">

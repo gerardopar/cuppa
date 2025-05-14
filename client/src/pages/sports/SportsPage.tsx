@@ -16,7 +16,7 @@ export const SportsPage: React.FC = () => {
   const {
     data: sports,
     isLoading: sportsLoading,
-    isPending: sportsPending,
+    isFetching: sportsFetching,
   } = useGetNews({
     q: NewsCategoriesEnum.sports,
     language: "en",
@@ -28,7 +28,7 @@ export const SportsPage: React.FC = () => {
     [sports]
   );
 
-  const isLoading = sportsLoading || sportsPending;
+  const isLoading = sportsLoading || sportsFetching;
 
   return (
     <div className="relative w-full h-full">

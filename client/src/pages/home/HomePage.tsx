@@ -45,7 +45,7 @@ export const Home: React.FC = () => {
 
   const {
     data: mostTrendingNews,
-    isPending: mostTrendingNewsPending,
+    isFetching: mostTrendingNewsFetching,
     isLoading: mostTrendingNewsLoading,
   } = useGetNews({
     q: NewsCategoriesEnum.mostTrendingNews,
@@ -55,7 +55,7 @@ export const Home: React.FC = () => {
 
   const {
     data: politics,
-    isPending: politicsPending,
+    isFetching: politicsFetching,
     isLoading: politicsLoading,
   } = useGetNews({
     q: NewsCategoriesEnum.politics,
@@ -65,7 +65,7 @@ export const Home: React.FC = () => {
 
   const {
     data: healthLifestyle,
-    isPending: healthLifestylePending,
+    isFetching: healthLifestyleFetching,
     isLoading: healthLifestyleLoading,
   } = useGetNews({
     q: NewsCategoriesEnum.healthLifestyle,
@@ -75,7 +75,7 @@ export const Home: React.FC = () => {
 
   const {
     data: sports,
-    isPending: sportsPending,
+    isFetching: sportsFetching,
     isLoading: sportsLoading,
   } = useGetNews({
     q: NewsCategoriesEnum.sports,
@@ -85,7 +85,7 @@ export const Home: React.FC = () => {
 
   const {
     data: trendsData,
-    isPending: trendsPending,
+    isFetching: trendsFetching,
     isLoading: trendsLoading,
   } = useGetTrends();
   const { mutate: searchNews } = useSearchNews();
@@ -93,7 +93,7 @@ export const Home: React.FC = () => {
   const {
     data: breakingNewsVideos,
     isLoading: breakingNewsVideosLoading,
-    isPending: breakingNewsVideosPending,
+    isFetching: breakingNewsVideosFetching,
   } = useGetYoutubeVideosByChannelID(YtChannelIDsEnum.cnn);
 
   const [randomVideo] = useMemo(() => {
@@ -141,7 +141,7 @@ export const Home: React.FC = () => {
                   <ArticleVideo
                     video={randomVideo}
                     loading={
-                      breakingNewsVideosLoading || breakingNewsVideosPending
+                      breakingNewsVideosLoading || breakingNewsVideosFetching
                     }
                     showDetails
                   />
@@ -155,7 +155,7 @@ export const Home: React.FC = () => {
                         article={a}
                         className="w-full !m-0"
                         loading={
-                          mostTrendingNewsLoading || mostTrendingNewsPending
+                          mostTrendingNewsLoading || mostTrendingNewsFetching
                         }
                       />
                     );
@@ -175,7 +175,7 @@ export const Home: React.FC = () => {
                     key={a?.url ?? i}
                     article={a}
                     containerClassName="!w-[49%] even:mr-4"
-                    loading={politicsLoading || politicsPending}
+                    loading={politicsLoading || politicsFetching}
                   />
                 );
               })}
@@ -188,7 +188,7 @@ export const Home: React.FC = () => {
               <div className="flex items-center justify-items-start w-full mb-2">
                 <h2 className="font-bold text-xl">Trendy Topics</h2>
               </div>
-              {!trendsLoading && !trendsPending ? (
+              {!trendsLoading && !trendsFetching ? (
                 trends?.map((trend, i) => {
                   return (
                     <TrendsButton
@@ -216,7 +216,7 @@ export const Home: React.FC = () => {
                     key={a?.url ?? i}
                     article={a}
                     className="w-full mb-1"
-                    loading={healthLifestyleLoading || healthLifestylePending}
+                    loading={healthLifestyleLoading || healthLifestyleFetching}
                   />
                 );
               })}
@@ -231,7 +231,7 @@ export const Home: React.FC = () => {
                     key={a?.url ?? i}
                     article={a}
                     className="w-full mb-1"
-                    loading={sportsLoading || sportsPending}
+                    loading={sportsLoading || sportsFetching}
                   />
                 );
               })}
