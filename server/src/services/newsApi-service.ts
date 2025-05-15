@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import {
   NewsEverythingParams,
-  NewsEverythingResponse,
+  NewsEverythingSuccessResponse,
   TopHeadlinesParams,
   TopHeadlinesResponse,
 } from "../types/newsApi";
@@ -27,7 +27,7 @@ const newsApiDefaults = {
 
 export const getNewsEverything = async (
   options: NewsEverythingParams
-): Promise<NewsEverythingResponse> => {
+): Promise<NewsEverythingSuccessResponse> => {
   try {
     const {
       defaultFrom,
@@ -56,7 +56,7 @@ export const getNewsEverything = async (
     url.searchParams.append("apiKey", process.env.NEWS_API_KEY as string);
 
     const response = await fetch(url);
-    const data: NewsEverythingResponse = await response.json();
+    const data: NewsEverythingSuccessResponse = await response.json();
 
     return data;
   } catch (err) {

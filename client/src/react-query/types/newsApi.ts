@@ -68,6 +68,7 @@ export interface NewsEverythingSuccessResponse {
   status: "ok";
   totalResults: number;
   articles: NewsArticle[];
+  hasMore?: boolean;
 }
 
 export interface NewsEverythingErrorResponse {

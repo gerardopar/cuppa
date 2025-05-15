@@ -6,7 +6,7 @@ import {
   getNewsTopHeadlines,
 } from "../services/newsApi-service";
 
-import { NewsSortBy } from "../types/newsApi";
+import { NewsEverythingSuccessResponse, NewsSortBy } from "../types/newsApi";
 
 import { newsCategories, NewsCategoriesEnum } from "../helpers/news.helpers";
 
@@ -20,20 +20,35 @@ export const getNews = async (req: Request, res: Response): Promise<void> => {
       sortBy = "popularity",
       language = "en",
       pageSize = "20",
+      page = "1",
     } = req.query;
+
+    const parsedPageSize = parseInt(pageSize as string);
+    const parsedPage = parseInt(page as string);
 
     const cacheableCategories = Object.values(
       NewsCategoriesEnum
     ) as NewsCategoriesEnum[];
 
     const shouldCache = cacheableCategories.includes(q as NewsCategoriesEnum);
-    const cacheKey = `news:category:${q}`;
+    const cacheKey = `news:category:${q}:page:${pageSize}:p:${page}`;
+
+    const buildResponse = (news: NewsEverythingSuccessResponse) => {
+      const totalResults = news.totalResults || 0;
+      const hasMore = parsedPage * parsedPageSize < totalResults;
+
+      return {
+        ...news,
+        hasMore,
+      };
+    };
 
     if (shouldCache) {
       const cached = await redisClient.get(cacheKey);
 
       if (cached) {
-        res.json(JSON.parse(cached));
+        const news = JSON.parse(cached);
+        res.json(buildResponse(news));
         return;
       } else {
         const category = newsCategories[q as NewsCategoriesEnum];
@@ -42,7 +57,8 @@ export const getNews = async (req: Request, res: Response): Promise<void> => {
           from: from as string,
           sortBy: sortBy as NewsSortBy,
           language: language as string,
-          pageSize: parseInt(pageSize as string),
+          pageSize: parsedPageSize,
+          page: parsedPage,
           sources: category?.sources?.join(","),
         });
 
@@ -52,7 +68,7 @@ export const getNews = async (req: Request, res: Response): Promise<void> => {
           });
         }
 
-        res.json(news);
+        res.json(buildResponse(news));
       }
     } else {
       const news = await getNewsEverything({
@@ -60,10 +76,11 @@ export const getNews = async (req: Request, res: Response): Promise<void> => {
         from: from as string,
         sortBy: sortBy as NewsSortBy,
         language: language as string,
-        pageSize: parseInt(pageSize as string),
+        pageSize: parsedPageSize,
+        page: parsedPage,
       });
 
-      res.json(news);
+      res.json(buildResponse(news));
     }
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch news" });

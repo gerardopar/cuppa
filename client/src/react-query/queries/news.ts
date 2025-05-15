@@ -1,4 +1,8 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useQuery,
+  useQueryClient,
+  keepPreviousData,
+} from "@tanstack/react-query";
 import { useEffect } from "react";
 
 import axiosClient from "../../axios/axiosClient";
@@ -28,13 +32,12 @@ export const useGetNews = (options: NewsEverythingParams) => {
       const response = await axiosClient.get<NewsEverythingSuccessResponse>(
         `/news/search?${queryString}`
       );
-
       return response.data;
     },
-    enabled: !!options.q, // Optional: only run if `q` is defined
+    placeholderData: (oldData) => oldData,
+    enabled: !!options.q,
   });
 };
-
 export const useGetTopHeadlines = (options: TopHeadlinesParams) => {
   const queryString = new URLSearchParams(
     Object.entries(options).reduce((acc, [key, value]) => {
