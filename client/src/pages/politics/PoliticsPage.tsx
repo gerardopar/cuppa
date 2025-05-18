@@ -10,7 +10,10 @@ import NewsCategoryButtonList from "../../components/new-categories/NewsCategory
 import { usePaginatedNews } from "../../react-query/queries/news";
 import { useGetPoliticalQuoteWithImage } from "../../react-query/queries/openAi";
 
-import { NewsCategoriesEnum } from "../../react-query/helpers/news.helpers";
+import {
+  NewsCategoriesEnum,
+  dedupeArticles,
+} from "../../react-query/helpers/news.helpers";
 
 import "swiper/swiper-bundle.css";
 
@@ -38,13 +41,8 @@ export const PoliticsPage: React.FC = () => {
   );
 
   const articles = useMemo(() => {
-    const seen = new Set<string>();
-    return rawArticles.filter((a) => {
-      if (!a?.url) return false;
-      if (seen.has(a.url)) return false;
-      seen.add(a.url);
-      return true;
-    });
+    const dedupedArticles = dedupeArticles(rawArticles);
+    return dedupedArticles;
   }, [rawArticles]);
 
   const isLoading =

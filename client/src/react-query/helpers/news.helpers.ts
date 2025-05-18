@@ -41,6 +41,8 @@ import NationalGeographicLogo from "../../assets/images/natgeo-logo.png";
 import NewScientistLogo from "../../assets/images/new-scientist-logo.jpeg";
 import NextBigFutureLogo from "../../assets/images/nbg-logo.png";
 
+import { Article } from "../../types/article";
+
 export enum NewsCategoriesEnum {
   mostTrendingNews = "Most Trending News",
   politics = "Politics",
@@ -162,4 +164,14 @@ export const getNewsLogo = (source: string | null | undefined) => {
     default:
       return null;
   }
+};
+
+export const dedupeArticles = (articles: Article[]): Article[] => {
+  const seen = new Set<string>();
+  return articles.filter((a: Article) => {
+    if (!a?.url) return false;
+    if (seen.has(a.url)) return false;
+    seen.add(a.url);
+    return true;
+  });
 };

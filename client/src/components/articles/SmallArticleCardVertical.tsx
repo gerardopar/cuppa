@@ -54,7 +54,7 @@ export const SmallArticleCardVertical: React.FC<{
         href={article?.url}
         target="_blank"
         rel="noopener noreferrer"
-        className={`group overflow-hidden h-full w-full relative bg-center bg-cover rounded-[12px] cursor-pointer max-h-[266px]`}
+        className={`group overflow-hidden h-full w-full relative bg-center bg-cover rounded-[12px] cursor-pointer max-h-[240px]`}
       >
         <img
           src={article?.urlToImage ?? ""}
@@ -69,7 +69,7 @@ export const SmallArticleCardVertical: React.FC<{
           style={{ backgroundImage: `url(${bgUrl})` }}
         />
       </a>
-      <div className="flex flex-col z-10 mt-4">
+      <div className="w-full flex flex-col z-10 mt-4">
         <h3 className="line-clamp-2 font-montserrat text-base font-bold text-gray-900">
           {article.title}
         </h3>
