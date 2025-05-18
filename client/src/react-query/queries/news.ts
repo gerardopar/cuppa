@@ -1,7 +1,7 @@
 import {
   useQuery,
   useQueryClient,
-  keepPreviousData,
+  useInfiniteQuery,
 } from "@tanstack/react-query";
 import { useEffect } from "react";
 
@@ -38,6 +38,40 @@ export const useGetNews = (options: NewsEverythingParams) => {
     enabled: !!options.q,
   });
 };
+
+export const usePaginatedNews = (
+  options: Omit<NewsEverythingParams, "page">
+) => {
+  return useInfiniteQuery<NewsEverythingSuccessResponse, Error>({
+    queryKey: ["paginatedNews", options],
+    queryFn: async ({ pageParam = 1 }) => {
+      const queryString = new URLSearchParams(
+        Object.entries({
+          ...options,
+          page: String(pageParam),
+        }).reduce((acc, [key, value]) => {
+          if (value !== undefined && value !== null) {
+            acc[key] = String(value);
+          }
+          return acc;
+        }, {} as Record<string, string>)
+      ).toString();
+
+      const response = await axiosClient.get<NewsEverythingSuccessResponse>(
+        `/news/search?${queryString}`
+      );
+
+      return response.data;
+    },
+    getNextPageParam: (lastPage, allPages) => {
+      const nextPage = allPages.length + 1;
+      return lastPage.hasMore ? nextPage : undefined;
+    },
+    initialPageParam: 1,
+    enabled: !!options.q,
+  });
+};
+
 export const useGetTopHeadlines = (options: TopHeadlinesParams) => {
   const queryString = new URLSearchParams(
     Object.entries(options).reduce((acc, [key, value]) => {
@@ -56,7 +90,7 @@ export const useGetTopHeadlines = (options: TopHeadlinesParams) => {
       );
       return response.data;
     },
-    enabled: !!options.q, // Optional: only run if `q` is defined
+    enabled: !!options.q,
   });
 };
 
