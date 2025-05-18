@@ -8,7 +8,7 @@ import { Article } from "../../types/article";
 import { Skeleton } from "@mui/material";
 
 export const SmallArticleCardVertical: React.FC<{
-  article: Article;
+  article?: Article;
   containerClassName?: string;
   loading?: boolean;
 }> = ({ article, containerClassName = "", loading = false }) => {

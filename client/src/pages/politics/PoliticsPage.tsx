@@ -17,8 +17,8 @@ import "swiper/swiper-bundle.css";
 export const PoliticsPage: React.FC = () => {
   const {
     data: paginatedNews,
-    isLoading: paginatedNewsLoading,
-    isFetching: paginatedNewsFetching,
+    isLoading: isInitialLoading,
+    isFetching: isFetchingInitial,
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
@@ -32,12 +32,23 @@ export const PoliticsPage: React.FC = () => {
 
   console.log(quoteWithImage);
 
-  const articles = useMemo(
+  const rawArticles = useMemo(
     () => paginatedNews?.pages.flatMap((page) => page.articles) ?? [],
     [paginatedNews]
   );
 
-  const isLoading = paginatedNewsLoading || paginatedNewsFetching;
+  const articles = useMemo(() => {
+    const seen = new Set<string>();
+    return rawArticles.filter((a) => {
+      if (!a?.url) return false;
+      if (seen.has(a.url)) return false;
+      seen.add(a.url);
+      return true;
+    });
+  }, [rawArticles]);
+
+  const isLoading =
+    isInitialLoading || (isFetchingInitial && !isFetchingNextPage);
 
   return (
     <div className="relative w-full h-full">
@@ -50,10 +61,7 @@ export const PoliticsPage: React.FC = () => {
         <div className="flex flex-col w-full mt-4">
           <div className="w-full h-[400px] flex items-center justify-center max-h-[400px] p-4 border-solid border-[1px] border-gray-100 rounded-[20px]">
             <div className="w-[50%] h-full">
-              <LargeArticleCard
-                article={articles[0]}
-                loading={paginatedNewsLoading}
-              />
+              <LargeArticleCard article={articles[0]} loading={isLoading} />
             </div>
 
             <div className="w-[50%] h-full flex flex-col items-center justify-between">
@@ -63,7 +71,7 @@ export const PoliticsPage: React.FC = () => {
                     key={a?.url ?? i}
                     article={a}
                     className="w-full !m-0"
-                    loading={paginatedNewsLoading}
+                    loading={isLoading}
                   />
                 );
               })}
@@ -83,6 +91,11 @@ export const PoliticsPage: React.FC = () => {
                     <SmallArticleCardVertical article={a} loading={isLoading} />
                   </SwiperSlide>
                 ))}
+                {isFetchingNextPage && (
+                  <SwiperSlide>
+                    <SmallArticleCardVertical loading />
+                  </SwiperSlide>
+                )}
               </Swiper>
             </div>
           </div>
