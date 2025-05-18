@@ -14,8 +14,6 @@ import {
   dedupeArticles,
 } from "../../react-query/helpers/news.helpers";
 
-import "swiper/swiper-bundle.css";
-
 export const PoliticsPage: React.FC = () => {
   const {
     data: paginatedNews,

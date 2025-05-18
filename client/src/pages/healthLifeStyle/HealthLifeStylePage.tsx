@@ -3,32 +3,42 @@ import React, { useMemo } from "react";
 import TopBar from "../../components/top-bar/TopBar";
 import ArticleCard from "../../components/articles/ArticleCard";
 import LargeArticleCard from "../../components/articles/LargeArticleCard";
-import SmallArticleCardVertical from "../../components/articles/SmallArticleCardVertical";
 import NewsCategoryButtonList from "../../components/new-categories/NewsCategoryButtonList";
+import PaginatedArticlesList from "../../components/articles/paginatedArticles/PaginatedArticlesList";
 
-import { useGetNews } from "../../react-query/queries/news";
+import { usePaginatedNews } from "../../react-query/queries/news";
 
-import { getRandomArticles } from "../../components/articles/article.helpers";
-
-import { NewsCategoriesEnum } from "../../react-query/helpers/news.helpers";
+import {
+  NewsCategoriesEnum,
+  dedupeArticles,
+} from "../../react-query/helpers/news.helpers";
 
 export const HealthLifeStylePage: React.FC = () => {
   const {
-    data: healthLifeStyle,
-    isLoading: healthLifeStyleLoading,
-    isFetching: healthLifeStyleFetching,
-  } = useGetNews({
+    data: paginatedNews,
+    isLoading: isInitialLoading,
+    isFetching: isFetchingInitial,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+  } = usePaginatedNews({
     q: NewsCategoriesEnum.healthLifestyle,
     language: "en",
     pageSize: 20,
   });
 
-  const articles = useMemo(
-    () => getRandomArticles(healthLifeStyle?.articles ?? [], 20),
-    [healthLifeStyle]
+  const rawArticles = useMemo(
+    () => paginatedNews?.pages.flatMap((page) => page.articles) ?? [],
+    [paginatedNews]
   );
 
-  const isLoading = healthLifeStyleLoading || healthLifeStyleFetching;
+  const articles = useMemo(() => {
+    const dedupedArticles = dedupeArticles(rawArticles);
+    return dedupedArticles;
+  }, [rawArticles]);
+
+  const isLoading =
+    isInitialLoading || (isFetchingInitial && !isFetchingNextPage);
 
   return (
     <div className="relative w-full h-full">
@@ -58,17 +68,13 @@ export const HealthLifeStylePage: React.FC = () => {
             </div>
           </div>
 
-          <div className="w-full h-[400px] flex items-center justify-center max-h-[400px] p-4 border-solid border-[1px] border-gray-100 rounded-[20px] mt-4">
-            {articles?.slice(4, 9)?.map((a, i) => {
-              return (
-                <SmallArticleCardVertical
-                  key={a?.url ?? i}
-                  article={a}
-                  loading={isLoading}
-                />
-              );
-            })}
-          </div>
+          <PaginatedArticlesList
+            articles={articles}
+            isLoading={isLoading}
+            isFetchingNextPage={isFetchingNextPage}
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+          />
         </div>
       </div>
     </div>
