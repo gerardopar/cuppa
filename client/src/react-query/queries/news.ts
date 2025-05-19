@@ -16,15 +16,13 @@ import {
   TopHeadlinesSuccessResponse,
 } from "../types/newsApi";
 
+import {
+  constructQueryParams,
+  constructQueryParamsPaginated,
+} from "../helpers/query.helpers";
+
 export const useGetNews = (options: NewsEverythingParams) => {
-  const queryString = new URLSearchParams(
-    Object.entries(options).reduce((acc, [key, value]) => {
-      if (value !== undefined && value !== null) {
-        acc[key] = String(value);
-      }
-      return acc;
-    }, {} as Record<string, string>)
-  ).toString();
+  const queryString = constructQueryParams(options);
 
   return useQuery<NewsEverythingSuccessResponse | null, Error>({
     queryKey: ["getNews", options],
@@ -45,17 +43,10 @@ export const usePaginatedNews = (
   return useInfiniteQuery<NewsEverythingSuccessResponse, Error>({
     queryKey: ["paginatedNews", options],
     queryFn: async ({ pageParam = 1 }) => {
-      const queryString = new URLSearchParams(
-        Object.entries({
-          ...options,
-          page: String(pageParam),
-        }).reduce((acc, [key, value]) => {
-          if (value !== undefined && value !== null) {
-            acc[key] = String(value);
-          }
-          return acc;
-        }, {} as Record<string, string>)
-      ).toString();
+      const queryString = constructQueryParamsPaginated(
+        options,
+        pageParam as number
+      );
 
       const response = await axiosClient.get<NewsEverythingSuccessResponse>(
         `/news/search?${queryString}`
@@ -73,14 +64,7 @@ export const usePaginatedNews = (
 };
 
 export const useGetTopHeadlines = (options: TopHeadlinesParams) => {
-  const queryString = new URLSearchParams(
-    Object.entries(options).reduce((acc, [key, value]) => {
-      if (value !== undefined && value !== null) {
-        acc[key] = String(value);
-      }
-      return acc;
-    }, {} as Record<string, string>)
-  ).toString();
+  const queryString = constructQueryParams(options);
 
   return useQuery<TopHeadlinesSuccessResponse | null, Error>({
     queryKey: ["getTopHeadlines", options],
@@ -95,15 +79,7 @@ export const useGetTopHeadlines = (options: TopHeadlinesParams) => {
 };
 
 const fetchNews = async (params: NewsEverythingParams) => {
-  const queryString = new URLSearchParams(
-    Object.entries(params).reduce((acc, [key, value]) => {
-      if (value !== undefined && value !== null) {
-        acc[key] = String(value);
-      }
-      return acc;
-    }, {} as Record<string, string>)
-  ).toString();
-
+  const queryString = constructQueryParams(params);
   const response = await axiosClient.get<NewsEverythingSuccessResponse>(
     `/news/search?${queryString}`
   );
