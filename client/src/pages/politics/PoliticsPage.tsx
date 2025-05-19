@@ -13,6 +13,7 @@ import {
   NewsCategoriesEnum,
   dedupeArticles,
 } from "../../react-query/helpers/news.helpers";
+import { useGetPolls } from "../../react-query/queries/polls";
 
 export const PoliticsPage: React.FC = () => {
   const {
@@ -28,9 +29,14 @@ export const PoliticsPage: React.FC = () => {
     pageSize: 20,
   });
 
+  const { data: polls } = useGetPolls({
+    poll_type: "approval",
+  });
+
   const { data: quoteWithImage } = useGetPoliticalQuoteWithImage();
 
   console.log(quoteWithImage);
+  console.log(polls);
 
   const rawArticles = useMemo(
     () => paginatedNews?.pages.flatMap((page) => page.articles) ?? [],
