@@ -11,6 +11,7 @@ import newsRouter from "./routes/news";
 import trendsRouter from "./routes/trends";
 import ytRouter from "./routes/yt";
 import openAiRouter from "./routes/openAi";
+import pollsRouter from "./routes/polls";
 
 import { userContextMiddleware } from "./context/userContext";
 
@@ -40,6 +41,7 @@ app.use("/news", newsRouter);
 app.use("/trends", trendsRouter);
 app.use("/yt", ytRouter);
 app.use("/openAi", openAiRouter);
+app.use("/polls", pollsRouter);
 
 const startServer = async () => {
   try {
