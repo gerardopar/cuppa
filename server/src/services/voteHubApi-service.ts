@@ -3,14 +3,20 @@ import { PollFilterOptions, PollResponse } from "../types/voteHubApi";
 
 const voteHubApiUrl = `https://api.votehub.com/polls`;
 
+const voteHubApiDefaults = {
+  defaultPollType: "approval",
+  defaultFromDate: moment().startOf("month").format("YYYY-MM-DD"),
+  defaultToDate: moment().format("YYYY-MM-DD"),
+};
+
 export const getPollsData = async (voteHubApiOptions: PollFilterOptions) => {
   try {
     const {
-      poll_type,
+      poll_type = voteHubApiDefaults.defaultPollType,
       pollster,
       subject,
-      from_date,
-      to_date,
+      from_date = voteHubApiDefaults.defaultFromDate,
+      to_date = voteHubApiDefaults.defaultToDate,
       min_sample_size,
       population,
     } = voteHubApiOptions;

@@ -24,7 +24,14 @@ export const getPolls = async (req: Request, res: Response): Promise<void> => {
       population: population as PopulationType,
     });
 
-    res.json(polls);
+    const sortedPolls = polls.sort(
+      (a, b) =>
+        new Date(b.start_date).getTime() - new Date(a.start_date).getTime()
+    );
+
+    const limitedPolls = sortedPolls.slice(0, 20);
+
+    res.json(limitedPolls);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch polls" });
   }
