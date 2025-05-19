@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import TopBar from "../../components/top-bar/TopBar";
 import ArticleCard from "../../components/articles/ArticleCard";
 import LargeArticleCard from "../../components/articles/LargeArticleCard";
-import QuoteOfTheDay from "../../components/quote-of-the-day/QuoteOfTheDay";
+import QuoteOfTheDayWidget from "../../components/widgets/quote-of-the-day/QuoteOfTheDayWidget";
 import NewsCategoryButtonList from "../../components/new-categories/NewsCategoryButtonList";
 import PaginatedArticlesList from "../../components/articles/paginatedArticles/PaginatedArticlesList";
 
@@ -78,8 +78,8 @@ export const PoliticsPage: React.FC = () => {
             </div>
 
             <div className="w-[20%] h-full flex flex-col items-center justify-between p-4 border-solid border-[1px] border-gray-100 rounded-[20px]">
-              <QuoteOfTheDay containerClassName="mb-2 flex-1" />
-              <QuoteOfTheDay containerClassName="flex-1" />
+              <QuoteOfTheDayWidget containerClassName="mb-2 flex-1" />
+              <QuoteOfTheDayWidget containerClassName="flex-1" />
             </div>
           </div>
 

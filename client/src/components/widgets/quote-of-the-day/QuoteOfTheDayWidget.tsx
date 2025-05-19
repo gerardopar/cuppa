@@ -1,10 +1,11 @@
 import React from "react";
 
-import { useGetPoliticalQuoteWithImage } from "../../react-query/queries/openAi";
 import { GavelOutlined } from "@mui/icons-material";
 import { Skeleton } from "@mui/material";
 
-export const QuoteOfTheDay: React.FC<{ containerClassName?: string }> = ({
+import { useGetPoliticalQuoteWithImage } from "../../../react-query/queries/openAi";
+
+export const QuoteOfTheDayWidget: React.FC<{ containerClassName?: string }> = ({
   containerClassName,
 }) => {
   const {
@@ -87,4 +88,4 @@ export const QuoteOfTheDay: React.FC<{ containerClassName?: string }> = ({
   );
 };
 
-export default QuoteOfTheDay;
+export default QuoteOfTheDayWidget;
