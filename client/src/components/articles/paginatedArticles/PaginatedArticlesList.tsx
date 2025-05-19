@@ -42,6 +42,7 @@ export const PaginatedArticlesList: React.FC<{
       </button>
 
       <button
+        disabled={isLoading || isFetchingNextPage}
         className={`btn-swiper-next absolute right-[10px] top-[30%] z-[9999] bg-[var(--secondary-light)]/50 hover:bg-[var(--secondary-light)]/70 transition-all rounded-full h-[50px] w-[50px] max-h-[50px] max-w-[50px] min-h-[50px] min-w-[50px] flex items-center justify-center cursor-pointer text-white duration-500 ${
           canShowNext ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
