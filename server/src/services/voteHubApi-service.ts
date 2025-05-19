@@ -1,5 +1,5 @@
 import moment from "moment";
-import { PollFilterOptions } from "../types/voteHubApi";
+import { PollFilterOptions, PollResponse } from "../types/voteHubApi";
 
 const voteHubApiUrl = `https://api.votehub.com/polls`;
 
@@ -17,21 +17,30 @@ export const getPollsData = async (voteHubApiOptions: PollFilterOptions) => {
 
     const url = new URL(voteHubApiUrl);
     url.searchParams.append("poll_type", poll_type || "");
-    url.searchParams.append("pollster", pollster || "");
-    url.searchParams.append("subject", subject || "");
-    url.searchParams.append(
-      "from_date",
-      moment(from_date).format("YYYY-MM-DD") || ""
-    );
-    url.searchParams.append(
-      "to_date",
-      moment(to_date).format("YYYY-MM-DD") || ""
-    );
-    url.searchParams.append(
-      "min_sample_size",
-      min_sample_size?.toString() || ""
-    );
-    url.searchParams.append("population", population || "");
+    if (pollster) url.searchParams.append("pollster", pollster || "");
+    if (subject) url.searchParams.append("subject", subject || "");
+    if (from_date) {
+      url.searchParams.append(
+        "from_date",
+        moment(from_date).format("YYYY-MM-DD") || ""
+      );
+    }
+
+    if (to_date) {
+      url.searchParams.append(
+        "to_date",
+        moment(to_date).format("YYYY-MM-DD") || ""
+      );
+    }
+    if (min_sample_size) {
+      url.searchParams.append(
+        "min_sample_size",
+        min_sample_size?.toString() || ""
+      );
+    }
+    if (population) {
+      url.searchParams.append("population", population || "");
+    }
 
     const response = await fetch(url);
 
@@ -39,7 +48,7 @@ export const getPollsData = async (voteHubApiOptions: PollFilterOptions) => {
       throw new Error("Failed to fetch polls");
     }
 
-    const data = await response.json();
+    const data: PollResponse[] = await response.json();
 
     return data;
   } catch (e) {

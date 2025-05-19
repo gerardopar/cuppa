@@ -38,3 +38,26 @@ export interface PollFilterOptions {
    */
   population?: PopulationType;
 }
+
+export interface PollAnswer {
+  choice: string;
+  pct: number;
+}
+
+export interface PollResponse {
+  id: string;
+  poll_type: "approval" | "generic-ballot" | "favorability" | string;
+  sample_size: number;
+  population: "a" | "rv" | "lv" | string; // a = all adults, rv = registered voters, lv = likely voters
+  url: string;
+  created_at: string; // ISO date string
+  start_date: string; // ISO date string
+  end_date: string; // ISO date string
+  pollster: string;
+  answers: PollAnswer[];
+  seat_name: string | null;
+  sponsors: string[];
+  internal: boolean;
+  partisan: string | null;
+  subject: string;
+}
