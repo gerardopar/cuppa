@@ -5,22 +5,17 @@ import { YouTubeSearchResponse } from "../types/ytApi";
 
 dotenv.config();
 
-export const getYoutubeVideosByChannelID = async (channelID: string) => {
-  const response = await axios.get(
-    "https://youtube-v31.p.rapidapi.com/search",
-    {
-      params: {
-        channelId: channelID,
-        part: "snippet,id",
-        order: "date",
-        maxResults: "10",
-      },
-      headers: {
-        "x-rapidapi-key": process.env.YOUTUBE_API_KEY!,
-        "x-rapidapi-host": "youtube-v31.p.rapidapi.com",
-      },
-    }
-  );
+const ytApiV3Url = "https://www.googleapis.com/youtube/v3";
+const apiKey = process.env.YOUTUBE_API_KEY;
 
-  return response.data as YouTubeSearchResponse;
+export const getYoutubeVideosByChannelID = async (channelId: string) => {
+  const url = `${ytApiV3Url}/search?key=${apiKey}&channelId=${channelId}&part=snippet&order=date&maxResults=5&type=video`;
+
+  try {
+    const response = await axios.get<YouTubeSearchResponse | null>(url);
+    return response?.data;
+  } catch (error) {
+    console.error("Error fetching videos", error);
+    return null;
+  }
 };

@@ -19,16 +19,17 @@ export const getYtVideosByChannelID = async (
       const ytVideos = JSON.parse(cached) as YouTubeSearchResponse;
       res.json(ytVideos);
     } else {
-      const response: YouTubeSearchResponse = await getYoutubeVideosByChannelID(
-        channelID as string
-      );
+      const response: YouTubeSearchResponse | null =
+        await getYoutubeVideosByChannelID(channelID as string);
 
-      await redisClient.setEx(cacheKey, 86400, JSON.stringify(response));
+      if (response) {
+        await redisClient.setEx(cacheKey, 86400, JSON.stringify(response));
 
-      res.json(response);
+        res.json(response);
+      }
     }
   } catch (error) {
-    console.error("Error fetching breaking news video", error);
-    res.status(500).json({ error: "Failed to fetch breaking news video" });
+    console.error("Error fetching yt channel", error);
+    res.status(500).json({ error: "Failed to fetch yt channel" });
   }
 };

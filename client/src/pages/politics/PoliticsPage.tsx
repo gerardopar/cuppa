@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 
 import TopBar from "../../components/top-bar/TopBar";
+import PollsWidget from "../../components/widgets/polls/PollsWidget";
 import ArticleCard from "../../components/articles/ArticleCard";
 import LargeArticleCard from "../../components/articles/LargeArticleCard";
 import QuoteOfTheDayWidget from "../../components/widgets/quote-of-the-day/QuoteOfTheDayWidget";
@@ -8,7 +9,6 @@ import NewsCategoryButtonList from "../../components/new-categories/NewsCategory
 import PaginatedArticlesList from "../../components/articles/paginatedArticles/PaginatedArticlesList";
 
 import { usePaginatedNews } from "../../react-query/queries/news";
-import { useGetPolls } from "../../react-query/queries/polls";
 
 import {
   NewsCategoriesEnum,
@@ -28,12 +28,6 @@ export const PoliticsPage: React.FC = () => {
     language: "en",
     pageSize: 20,
   });
-
-  const { data: polls } = useGetPolls({
-    poll_type: "approval",
-  });
-
-  console.log("polls", polls);
 
   const rawArticles = useMemo(
     () => paginatedNews?.pages.flatMap((page) => page.articles) ?? [],
@@ -79,7 +73,7 @@ export const PoliticsPage: React.FC = () => {
 
             <div className="w-[20%] h-full flex flex-col items-center justify-between p-4 border-solid border-[1px] border-gray-100 rounded-[20px]">
               <QuoteOfTheDayWidget containerClassName="mb-2 flex-1" />
-              <QuoteOfTheDayWidget containerClassName="flex-1" />
+              <PollsWidget containerClassName="flex-1" />
             </div>
           </div>
 
