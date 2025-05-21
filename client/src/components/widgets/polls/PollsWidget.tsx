@@ -8,9 +8,12 @@ import {
   TrendingDownOutlined,
   TrendingUpOutlined,
 } from "@mui/icons-material";
-import { Skeleton, Slider } from "@mui/material";
+import { Skeleton } from "@mui/material";
 
 import { useGetPolls } from "../../../react-query/queries/polls";
+
+// TODOS:
+// # 1. add paginated list of polls
 
 export const PollsWidget: React.FC<{ containerClassName?: string }> = ({
   containerClassName,
@@ -93,42 +96,31 @@ export const PollsWidget: React.FC<{ containerClassName?: string }> = ({
           href={poll?.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center rounded-[20px] h-[40px] w-[40px] min-h-[40px] min-w-[40px] overflow-hidden border-solid border-[1px] border-white text-white hover:bg-white hover:text-[var(--primary-dark)] cursor-pointer"
+          className="flex items-center justify-center rounded-[20px] h-[40px] w-[40px] min-h-[40px] min-w-[40px] overflow-hidden border-solid border-[1px] border-white text-white hover:bg-white hover:text-[var(--primary-dark)] cursor-pointer transition-all duration-300 ease-in-out"
         >
           <ArrowForward />
         </a>
       </div>
 
-      <div className="w-full flex flex-col items-center justify-start mt-4">
+      <div className="w-full flex flex-col items-center justify-start pb-4">
         <div className="w-full">
           <div className="flex items-center justify-between text-xs font-medium text-white">
             <span className="flex items-center">
-              <TrendingUpOutlined className="mr-1" />
+              <TrendingUpOutlined className="mr-1" fontSize="small" />
               {approve}%
             </span>
             <span className="flex items-center">
-              <TrendingDownOutlined className="mr-1" />
+              <TrendingDownOutlined className="mr-1" fontSize="small" />
               {disapprove}%
             </span>
           </div>
 
-          {/* 
-          // TODO:
-          // # swap out for custom slider 
-          */}
-          <Slider
-            value={approve}
-            disabled
-            min={0}
-            max={100}
-            step={1}
-            sx={{
-              color: "#4ade80", // green for approval
-              "& .MuiSlider-thumb": { display: "none" },
-              "& .MuiSlider-track": { backgroundColor: "#4ade80" },
-              "& .MuiSlider-rail": { backgroundColor: "#f87171" }, // red for disapprove
-            }}
-          />
+          <div className="relative w-full h-1 mt-2 rounded-full bg-[var(--secondary-light)]/50 overflow-hidden shadow-sm">
+            <div
+              className="absolute left-0 top-0 h-full rounded-full bg-[#1ABC9C]"
+              style={{ width: `${approve}%` }}
+            />
+          </div>
         </div>
       </div>
     </div>

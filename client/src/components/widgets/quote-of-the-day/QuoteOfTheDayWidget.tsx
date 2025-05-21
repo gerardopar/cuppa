@@ -5,6 +5,9 @@ import { Skeleton } from "@mui/material";
 
 import { useGetPoliticalQuoteWithImage } from "../../../react-query/queries/openAi";
 
+// TODOS:
+// # 1. add paginated list of quotes
+
 export const QuoteOfTheDayWidget: React.FC<{ containerClassName?: string }> = ({
   containerClassName,
 }) => {
