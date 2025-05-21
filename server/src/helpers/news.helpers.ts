@@ -13,7 +13,10 @@ export const newsCategoriesArray: NewsCategoriesEnum[] = Object.values(
   NewsCategoriesEnum
 ) as NewsCategoriesEnum[];
 
-export const newsCategories = {
+export const newsCategories: Record<
+  NewsCategoriesEnum,
+  { sources: string[]; advancedQuery?: string }
+> = {
   [NewsCategoriesEnum.mostTrendingNews]: {
     sources: [
       "abc-news",
@@ -54,6 +57,8 @@ export const newsCategories = {
       "time",
       "the-washington-post",
     ],
+    advancedQuery:
+      '("mental health" OR wellness OR nutrition OR fitness) AND (habits OR tips OR lifestyle) NOT gaming',
   },
   [NewsCategoriesEnum.sports]: {
     sources: [

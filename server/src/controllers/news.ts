@@ -53,7 +53,7 @@ export const getNews = async (req: Request, res: Response): Promise<void> => {
       } else {
         const category = newsCategories[q as NewsCategoriesEnum];
         const news = await getNewsEverything({
-          q: q as string,
+          q: category?.advancedQuery || (q as string),
           from: from as string,
           sortBy: sortBy as NewsSortBy,
           language: language as string,
