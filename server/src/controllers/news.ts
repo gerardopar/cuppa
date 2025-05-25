@@ -6,7 +6,10 @@ import {
   getNewsTopHeadlines,
 } from "../services/newsApi-service";
 
-import { NewsEverythingSuccessResponse, NewsSortBy } from "../types/newsApi";
+import {
+  NewsEverythingSuccessResponse,
+  NewsSortBy,
+} from "@shared/types/newsApi";
 
 import { newsCategories, NewsCategoriesEnum } from "../helpers/news.helpers";
 

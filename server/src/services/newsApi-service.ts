@@ -4,7 +4,7 @@ import {
   NewsEverythingSuccessResponse,
   TopHeadlinesParams,
   TopHeadlinesResponse,
-} from "../types/newsApi";
+} from "@shared/types/newsApi";
 
 dotenv.config();
 

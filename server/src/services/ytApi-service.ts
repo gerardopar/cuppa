@@ -1,7 +1,7 @@
 import axios from "axios";
 import dotenv from "dotenv";
 
-import { YouTubePlaylistItemsResponse } from "../types/ytApi";
+import { YouTubePlaylistItemsResponse } from "@shared/types/ytApi";
 
 dotenv.config();
 

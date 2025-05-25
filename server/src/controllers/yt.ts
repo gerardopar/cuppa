@@ -3,7 +3,7 @@ import redisClient from "../cache/redis/redisClient";
 
 import { getYoutubeVideosByChannelID } from "../services/ytApi-service";
 
-import { YouTubePlaylistItemsResponse } from "../types/ytApi";
+import { YouTubePlaylistItemsResponse } from "@shared/types/ytApi";
 
 export const getYtVideosByChannelID = async (
   req: Request,
