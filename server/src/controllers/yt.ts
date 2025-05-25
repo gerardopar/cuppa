@@ -3,7 +3,7 @@ import redisClient from "../cache/redis/redisClient";
 
 import { getYoutubeVideosByChannelID } from "../services/ytApi-service";
 
-import { YouTubeSearchResponse } from "../types/ytApi";
+import { YouTubePlaylistItemsResponse } from "../types/ytApi";
 
 export const getYtVideosByChannelID = async (
   req: Request,
@@ -16,10 +16,10 @@ export const getYtVideosByChannelID = async (
     const cached = await redisClient.get(cacheKey);
 
     if (cached) {
-      const ytVideos = JSON.parse(cached) as YouTubeSearchResponse;
+      const ytVideos = JSON.parse(cached) as YouTubePlaylistItemsResponse;
       res.json(ytVideos);
     } else {
-      const response: YouTubeSearchResponse | null =
+      const response: YouTubePlaylistItemsResponse | null =
         await getYoutubeVideosByChannelID(channelID as string);
 
       if (response) {

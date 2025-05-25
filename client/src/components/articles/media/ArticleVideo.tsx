@@ -7,10 +7,10 @@ import PlayIcon from "../../svgs/PlayIcon";
 import NewsLogo from "../../shared/NewsLogo";
 import PublishedDate from "../../shared/PublishedDate";
 
-import { YouTubeSearchItem } from "../../../types/ytApi";
+import { YouTubePlaylistItem } from "../../../types/ytApi";
 
 interface ArticleVideoProps {
-  video?: YouTubeSearchItem;
+  video?: YouTubePlaylistItem;
   loading?: boolean;
   showDetails?: boolean;
 }
@@ -20,7 +20,7 @@ export const ArticleVideo: React.FC<ArticleVideoProps> = ({
   loading = false,
   showDetails = false,
 }) => {
-  const videoUrl = `https://www.youtube.com/watch?v=${video?.id?.videoId}`;
+  const videoUrl = `https://www.youtube.com/watch?v=${video?.snippet?.resourceId?.videoId}`;
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   const [showModal, setShowModal] = useState<boolean>(false);

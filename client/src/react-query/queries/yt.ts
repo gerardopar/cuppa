@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 
 import axiosClient from "../../axios/axiosClient";
-import { YouTubeSearchResponse } from "../../types/ytApi";
+import { YouTubePlaylistItemsResponse } from "../../types/ytApi";
 
 export const useGetYoutubeVideosByChannelID = (channelID: string) => {
-  return useQuery<YouTubeSearchResponse, Error>({
+  return useQuery<YouTubePlaylistItemsResponse, Error>({
     queryKey: ["youtubeSearch", channelID],
     queryFn: async () => {
-      const response = await axiosClient.get<YouTubeSearchResponse>(
+      const response = await axiosClient.get<YouTubePlaylistItemsResponse>(
         `/yt/videos?channelID=${channelID}`
       );
 

@@ -1,32 +1,45 @@
-export interface YouTubeSearchResponse {
-  kind: string;
-  items: YouTubeSearchItem[];
-}
-
-export interface YouTubeSearchItem {
-  kind: "youtube#searchResult";
-  id: {
-    kind: "youtube#video";
-    videoId: string;
-  };
+export interface YouTubePlaylistItem {
+  kind: "youtube#playlistItem";
+  etag: string;
+  id: string;
   snippet: {
     publishedAt: string;
     channelId: string;
     title: string;
     description: string;
     thumbnails: {
-      default: YouTubeThumbnail;
-      medium: YouTubeThumbnail;
-      high: YouTubeThumbnail;
+      default: Thumbnail;
+      medium?: Thumbnail;
+      high?: Thumbnail;
+      standard?: Thumbnail;
+      maxres?: Thumbnail;
     };
     channelTitle: string;
-    liveBroadcastContent: string;
-    publishTime: string;
+    playlistId: string;
+    position: number;
+    resourceId: {
+      kind: "youtube#video";
+      videoId: string;
+    };
+    videoOwnerChannelTitle: string;
+    videoOwnerChannelId: string;
   };
 }
 
-export interface YouTubeThumbnail {
+interface Thumbnail {
   url: string;
   width: number;
   height: number;
+}
+
+export interface YouTubePlaylistItemsResponse {
+  kind: "youtube#playlistItemListResponse";
+  etag: string;
+  items: YouTubePlaylistItem[];
+  nextPageToken?: string;
+  prevPageToken?: string;
+  pageInfo: {
+    totalResults: number;
+    resultsPerPage: number;
+  };
 }
