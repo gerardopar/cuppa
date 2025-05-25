@@ -1,5 +1,5 @@
 import { NewsArticle } from "../../react-query/types/newsApi";
-import { YouTubeSearchItem } from "../../types/ytApi";
+import { YouTubePlaylistItem } from "../../types/ytApi";
 
 export const getRandomArticles = (
   articles: NewsArticle[] = [],
@@ -9,8 +9,8 @@ export const getRandomArticles = (
 };
 
 export const getRandomVideos = (
-  videos: YouTubeSearchItem[] = [],
+  videos: YouTubePlaylistItem[] = [],
   count: number
-): YouTubeSearchItem[] => {
+): YouTubePlaylistItem[] => {
   return [...videos].sort(() => 0.5 - Math.random()).slice(0, count);
 };

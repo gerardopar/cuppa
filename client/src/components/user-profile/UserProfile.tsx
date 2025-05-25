@@ -13,7 +13,7 @@ import { useUploadProfilePicture } from "../../react-query/mutations/user";
 export const UserProfile: React.FC<{ handleCloseModal: () => void }> = ({
   handleCloseModal,
 }) => {
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const user = userStore.useTracked("user");
 
   const { mutateAsync: uploadImage, isPending } = useUploadProfilePicture();
