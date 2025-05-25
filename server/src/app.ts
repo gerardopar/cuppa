@@ -13,6 +13,7 @@ import ytRouter from "./routes/yt";
 import openAiRouter from "./routes/openAi";
 import pollsRouter from "./routes/polls";
 import zenQuotesRouter from "./routes/zenQuotes";
+import eventsRouter from "./routes/events";
 
 import { userContextMiddleware } from "./context/userContext";
 
@@ -44,6 +45,7 @@ app.use("/yt", ytRouter);
 app.use("/openAi", openAiRouter);
 app.use("/polls", pollsRouter);
 app.use("/zenQuotes", zenQuotesRouter);
+app.use("/events", eventsRouter);
 
 const startServer = async () => {
   try {
