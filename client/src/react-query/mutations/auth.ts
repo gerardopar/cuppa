@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 
 import axiosClient from "../../axios/axiosClient";
 
-import { User } from "../../types/user";
+import { User } from "@shared/types/user";
 import { getErrorMessage } from "../helpers/getErrorMessage";
 
 type RegisterUserInput = { name: string; email: string; password: string };

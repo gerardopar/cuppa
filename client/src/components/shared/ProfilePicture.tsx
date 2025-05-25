@@ -1,5 +1,5 @@
 import React from "react";
-import { User } from "../../types/user";
+import { User } from "@shared/types/user";
 
 export const ProfilePicture: React.FC<{
   user: User | undefined | null;

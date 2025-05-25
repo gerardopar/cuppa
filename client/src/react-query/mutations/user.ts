@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 
 import axiosClient from "../../axios/axiosClient";
 
-import { User } from "../../types/user";
+import { User } from "@shared/types/user";
 
 export const useUploadProfilePicture = () => {
   return useMutation<{ user: User }, Error, FormData>({

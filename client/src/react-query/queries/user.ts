@@ -4,7 +4,7 @@ import axiosClient from "../../axios/axiosClient";
 
 import userStore from "../../stores/userStore";
 
-import { User } from "../../types/user";
+import { User } from "@shared/types/user";
 
 export const useGetUserById = (userId?: string) => {
   return useQuery<User | null, Error>({

@@ -1,6 +1,6 @@
 import { createStore } from "zustand-x";
 
-import { User } from "../types/user";
+import { User } from "@shared/types/user";
 
 export const userStore = createStore<{ user: User | null; token: string }>(
   { user: null, token: "" },
