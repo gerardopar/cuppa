@@ -48,23 +48,19 @@ export const LargeArticleCard: React.FC<LargeArticleCardProps> = ({
   }
 
   return (
-    <div
+    <a
+      href={article.url}
+      target="_blank"
+      rel="noopener noreferrer"
       className={`group flex-1 flex items-end justify-start h-full relative mr-4 p-4 rounded-[12px] cursor-pointer overflow-hidden ${className}`}
     >
-      <a
-        href={article?.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="h-full relative rounded-[12px] cursor-pointer overflow-hidden"
-      >
-        <img
-          src={article?.urlToImage ?? ""}
-          alt=""
-          className="hidden"
-          onLoad={() => setBgUrl(article?.urlToImage ?? "")}
-          onError={() => setBgUrl(NewsEmptyPlaceholder)}
-        />
-      </a>
+      <img
+        src={article.urlToImage ?? ""}
+        alt=""
+        className="hidden"
+        onLoad={() => setBgUrl(article.urlToImage ?? "")}
+        onError={() => setBgUrl(NewsEmptyPlaceholder)}
+      />
 
       <div
         className="absolute inset-0 bg-center bg-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
@@ -75,17 +71,17 @@ export const LargeArticleCard: React.FC<LargeArticleCardProps> = ({
 
       <div className="w-full flex flex-col z-20">
         <h3 className="line-clamp-2 font-montserrat text-2xl font-bold text-white">
-          {article?.title}
+          {article.title}
         </h3>
         <div className="flex items-center justify-between mt-2 text-gray-100">
-          <NewsLogo newsSource={article?.source?.id ?? ""} className="mr-2" />
+          <NewsLogo newsSource={article.source?.id ?? ""} className="mr-2" />
           <PublishedDate
-            publishedAt={article?.publishedAt ?? ""}
+            publishedAt={article.publishedAt ?? ""}
             className="!text-gray-100"
           />
         </div>
       </div>
-    </div>
+    </a>
   );
 };
 
