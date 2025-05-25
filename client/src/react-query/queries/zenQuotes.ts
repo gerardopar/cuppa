@@ -4,10 +4,10 @@ import axiosClient from "../../axios/axiosClient";
 import { ZenQuote } from "@shared/types/zenQuotesApi";
 
 export const useGetZenQuotes = () => {
-  return useQuery<ZenQuote[]>({
+  return useQuery<{ quotes: ZenQuote[] }>({
     queryKey: ["getZenQuotes"],
     queryFn: async () => {
-      const response = await axiosClient.get<ZenQuote[]>(
+      const response = await axiosClient.get<{ quotes: ZenQuote[] }>(
         `/zenQuotes/get-quotes`
       );
 

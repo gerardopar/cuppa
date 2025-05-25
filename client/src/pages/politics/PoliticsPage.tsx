@@ -72,8 +72,8 @@ export const PoliticsPage: React.FC = () => {
             </div>
 
             <div className="w-[20%] h-full flex flex-col items-center justify-between p-4 border-solid border-[1px] border-gray-100 rounded-[20px]">
-              <QuoteOfTheDayWidget containerClassName="mb-2 flex-1" />
-              <PollsWidget containerClassName="flex-1" />
+              <QuoteOfTheDayWidget containerClassName="mb-2 flex-1 w-full" />
+              <PollsWidget containerClassName="flex-1 w-full" />
             </div>
           </div>
 

@@ -1,28 +1,29 @@
 import React, { useEffect, useMemo, useState } from "react";
 
 import UserEmptyPlaceholder from "../../../assets/images/user-empty-placeholder.png";
-import { GavelOutlined } from "@mui/icons-material";
+import { SelfImprovementOutlined } from "@mui/icons-material";
 import { Skeleton } from "@mui/material";
 
-import { useGetPoliticalQuoteWithImage } from "../../../react-query/queries/openAi";
+import { useGetZenQuotes } from "../../../react-query/queries/zenQuotes";
+import { getRandomShortZenQuote } from "./quote.helpers";
 
 // TODOS:
-// # 1. add paginated list of quotes
+// # 1. add paginated list of zen quotes
 
-export const QuoteOfTheDayWidget: React.FC<{ containerClassName?: string }> = ({
+export const ZenQuotesWidget: React.FC<{ containerClassName?: string }> = ({
   containerClassName,
 }) => {
-  const { data, isLoading, isFetching } = useGetPoliticalQuoteWithImage();
+  const { data: zenQuotes, isLoading, isFetching } = useGetZenQuotes();
 
-  const quoteWithImage = useMemo(() => {
-    return data;
-  }, [data]);
+  const zenQuote = useMemo(() => {
+    return getRandomShortZenQuote(70, zenQuotes?.quotes ?? []);
+  }, [zenQuotes]);
 
-  const [imgSrc, setImgSrc] = useState(quoteWithImage?.image ?? "");
+  const [imgSrc, setImgSrc] = useState(zenQuote?.i ?? "");
 
   useEffect(() => {
-    setImgSrc(quoteWithImage?.image ?? "");
-  }, [quoteWithImage]);
+    setImgSrc(zenQuote?.i ?? "");
+  }, [zenQuote]);
 
   if (isLoading || isFetching) {
     return (
@@ -76,30 +77,27 @@ export const QuoteOfTheDayWidget: React.FC<{ containerClassName?: string }> = ({
     >
       <div className="w-full flex items-center justify-start">
         <div className="flex items-center justify-center rounded-[20px] h-[40px] w-[40px] overflow-hidden border-solid border-[1px] border-white">
-          <GavelOutlined className="text-white" />
+          <SelfImprovementOutlined className="text-white" />
         </div>
+
         <div className="flex items-center justify-center rounded-full h-[40px] w-[40px] overflow-hidden ml-[-12px] border-solid border-[1px] border-white">
           <img
             src={imgSrc}
-            alt=""
+            alt="article img"
             onError={() => setImgSrc(UserEmptyPlaceholder)}
           />
         </div>
       </div>
 
       <div className="w-full flex items-center justify-start mt-4">
-        <p className="text-[14px] font-bold text-white">
-          {quoteWithImage?.quote}
-        </p>
+        <p className="text-[14px] font-bold text-white">{zenQuote?.q ?? ""}</p>
       </div>
 
       <div className="w-full flex items-center justify-start mt-4">
-        <p className="text-xs font-bold text-gray-100">
-          {quoteWithImage?.author}
-        </p>
+        <p className="text-xs font-bold text-gray-100">{zenQuote?.a ?? ""}</p>
       </div>
     </div>
   );
 };
 
-export default QuoteOfTheDayWidget;
+export default ZenQuotesWidget;
