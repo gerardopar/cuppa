@@ -6,7 +6,7 @@ import PublishedDate from "../shared/PublishedDate";
 import { MoreVert as MoreVertIcon } from "@mui/icons-material";
 import NewsEmptyPlaceholder from "../../assets/images/news-empty-placeholder.jpg";
 
-import { Article } from "../../types/article";
+import { Article } from "@shared/types/article";
 
 export const MediumArticleCard: React.FC<{
   article: Article;

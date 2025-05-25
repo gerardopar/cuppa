@@ -41,7 +41,7 @@ import NationalGeographicLogo from "../../assets/images/natgeo-logo.png";
 import NewScientistLogo from "../../assets/images/new-scientist-logo.jpeg";
 import NextBigFutureLogo from "../../assets/images/nbg-logo.png";
 
-import { Article } from "../../types/article";
+import { Article } from "@shared/types/article";
 
 export enum NewsCategoriesEnum {
   mostTrendingNews = "Most Trending News",

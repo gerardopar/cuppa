@@ -3,7 +3,7 @@ import React from "react";
 import ArticleCard from "./ArticleCard";
 import DividerLine from "../shared/DividerLine";
 
-import { Article } from "../../types/article";
+import { Article } from "@shared/types/article";
 
 export const ArticleCardList: React.FC<{
   articles: Article[];

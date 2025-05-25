@@ -7,7 +7,7 @@ import PlayIcon from "../../svgs/PlayIcon";
 import NewsLogo from "../../shared/NewsLogo";
 import PublishedDate from "../../shared/PublishedDate";
 
-import { YouTubePlaylistItem } from "../../../types/ytApi";
+import { YouTubePlaylistItem } from "@shared/types/ytApi";
 
 interface ArticleVideoProps {
   video?: YouTubePlaylistItem;

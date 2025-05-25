@@ -4,7 +4,7 @@ import axiosClient from "../../axios/axiosClient";
 import {
   NewsEverythingParams,
   NewsEverythingSuccessResponse,
-} from "../types/newsApi";
+} from "@shared/types/newsApi";
 
 export const useSearchNews = () =>
   useMutation<

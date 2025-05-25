@@ -4,7 +4,7 @@ import moment from "moment";
 import NewsEmptyPlaceholder from "../../assets/images/news-empty-placeholder.jpg";
 import { AccountBoxOutlined, CalendarMonthOutlined } from "@mui/icons-material";
 
-import { Article } from "../../types/article";
+import { Article } from "@shared/types/article";
 
 export const SmallArticleCard: React.FC<{
   article: Article;

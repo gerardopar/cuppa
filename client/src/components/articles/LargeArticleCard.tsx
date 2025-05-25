@@ -5,7 +5,7 @@ import NewsLogo from "../shared/NewsLogo";
 import PublishedDate from "../shared/PublishedDate";
 import NewsEmptyPlaceholder from "../../assets/images/news-empty-placeholder.jpg";
 
-import { Article } from "../../types/article";
+import { Article } from "@shared/types/article";
 
 interface LargeArticleCardProps {
   article?: Article;

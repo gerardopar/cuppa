@@ -14,7 +14,7 @@ import {
   NewsEverythingSuccessResponse,
   TopHeadlinesParams,
   TopHeadlinesSuccessResponse,
-} from "../types/newsApi";
+} from "@shared/types/newsApi";
 
 import {
   constructQueryParams,

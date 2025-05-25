@@ -5,7 +5,7 @@ import { Navigation } from "swiper/modules";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@mui/icons-material";
 import SmallArticleCardVertical from "../../../components/articles/SmallArticleCardVertical";
 
-import { Article } from "../../../types/article";
+import { Article } from "@shared/types/article";
 
 import "swiper/swiper-bundle.css";
 
