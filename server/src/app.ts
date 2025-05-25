@@ -12,6 +12,7 @@ import trendsRouter from "./routes/trends";
 import ytRouter from "./routes/yt";
 import openAiRouter from "./routes/openAi";
 import pollsRouter from "./routes/polls";
+import zenQuotesRouter from "./routes/zenQuotes";
 
 import { userContextMiddleware } from "./context/userContext";
 
@@ -42,6 +43,7 @@ app.use("/trends", trendsRouter);
 app.use("/yt", ytRouter);
 app.use("/openAi", openAiRouter);
 app.use("/polls", pollsRouter);
+app.use("/zenQuotes", zenQuotesRouter);
 
 const startServer = async () => {
   try {
