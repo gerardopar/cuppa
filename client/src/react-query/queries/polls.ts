@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import axiosClient from "../../axios/axiosClient";
 
-import { PollFilterOptions, PollResponse } from "../../types/voteHubApi";
+import { PollFilterOptions, PollResponse } from "@shared/types/voteHubApi";
 import { constructQueryParams } from "../helpers/query.helpers";
 
 export const useGetPolls = (options: PollFilterOptions) => {
