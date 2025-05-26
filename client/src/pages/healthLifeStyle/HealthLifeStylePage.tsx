@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 
 import TopBar from "../../components/top-bar/TopBar";
 import ArticleCard from "../../components/articles/ArticleCard";
+import LocalEvents from "../../components/widgets/events/LocalEvents";
 import LargeArticleCard from "../../components/articles/LargeArticleCard";
 import ZenQuotesWidget from "../../components/widgets/quote-of-the-day/ZenQuotes";
 import NewsCategoryButtonList from "../../components/new-categories/NewsCategoryButtonList";
@@ -76,13 +77,21 @@ export const HealthLifeStylePage: React.FC = () => {
             </div>
           </div>
 
-          <PaginatedArticlesList
-            articles={articles}
-            isLoading={isLoading}
-            isFetchingNextPage={isFetchingNextPage}
-            fetchNextPage={fetchNextPage}
-            hasNextPage={hasNextPage}
-          />
+          <div className="w-full flex">
+            <div className="w-[20%] h-[400px] max-h-[400px] p-2 border-solid border-[1px] border-gray-100 rounded-[20px] mr-4 mt-4">
+              <LocalEvents />
+            </div>
+
+            <PaginatedArticlesList
+              slidesPerView={4}
+              articles={articles}
+              isLoading={isLoading}
+              isFetchingNextPage={isFetchingNextPage}
+              fetchNextPage={fetchNextPage}
+              hasNextPage={hasNextPage}
+              containerClassName="flex-1 !w-[80%] !p-0"
+            />
+          </div>
         </div>
       </div>
     </div>
