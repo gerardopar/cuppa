@@ -10,27 +10,33 @@ import { Article } from "@shared/types/article";
 import "swiper/swiper-bundle.css";
 
 export const PaginatedArticlesList: React.FC<{
+  slidesPerView?: number;
   articles: Article[];
   isLoading: boolean;
   isFetchingNextPage: boolean;
   fetchNextPage: () => void;
   hasNextPage: boolean;
+  containerClassName?: string;
 }> = ({
+  slidesPerView = 5,
   articles,
   isLoading,
   isFetchingNextPage,
   fetchNextPage,
   hasNextPage,
+  containerClassName,
 }) => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
 
-  const shouldShowNavigation = articles?.length > 5;
+  const shouldShowNavigation = articles?.length > slidesPerView;
   const canShowNext =
     shouldShowNavigation && (hasNextPage || isFetchingNextPage || !isEnd);
 
   return (
-    <div className="w-full border-solid border-[1px] border-gray-100 rounded-[20px] p-4 mt-4 relative">
+    <div
+      className={`w-full border-solid border-[1px] border-gray-100 rounded-[20px] p-4 mt-4 relative ${containerClassName}`}
+    >
       <button
         className={`btn-swiper-prev absolute left-[10px] top-[30%] z-[9999] bg-[var(--secondary-light)]/50 hover:bg-[var(--secondary-light)]/70 transition-all rounded-full h-[50px] w-[50px] max-h-[50px] max-w-[50px] min-h-[50px] min-w-[50px] flex items-center justify-center cursor-pointer text-white duration-500 ${
           !shouldShowNavigation || isBeginning
@@ -57,7 +63,7 @@ export const PaginatedArticlesList: React.FC<{
             nextEl: ".btn-swiper-next",
             prevEl: ".btn-swiper-prev",
           }}
-          slidesPerView={5}
+          slidesPerView={slidesPerView}
           spaceBetween={0}
           onReachEnd={() => hasNextPage && fetchNextPage()}
           onSlideChange={(swiper) => {
@@ -70,7 +76,7 @@ export const PaginatedArticlesList: React.FC<{
           }}
           className="h-full w-full px-4"
         >
-          {articles?.slice(5)?.map((a, i) => (
+          {articles?.slice(slidesPerView)?.map((a, i) => (
             <SwiperSlide key={a?.url ?? i}>
               <SmallArticleCardVertical article={a} loading={isLoading} />
             </SwiperSlide>
