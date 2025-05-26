@@ -4,7 +4,7 @@ import { IpApiResponse } from "../types/ipApi";
 
 export const ipInfoApiUrl = "http://ip-api.com/json";
 
-export const getUserLocationByIp = async (userIP: string) => {
+export const getUserLocationByIp = async (userIP?: string) => {
   try {
     const response = await axios.get<IpApiResponse>(
       `${ipInfoApiUrl}/${userIP}`
