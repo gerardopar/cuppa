@@ -26,6 +26,9 @@ export interface TicketmasterDiscoveryQueryParams {
 
   sort?: string; // e.g. "date,asc" or "name,desc"
   locale?: string; // e.g. "en-us"
+
+  unit?: "miles" | "km";
+  radius?: string;
 }
 
 export interface TicketmasterEventResponse {
@@ -53,6 +56,8 @@ export interface TicketmasterEvent {
       localDate: string;
       localTime?: string;
       dateTime?: string;
+      timeTBA?: boolean;
+      noSpecificTime?: boolean;
     };
     timezone?: string;
     status: {
@@ -79,6 +84,8 @@ export interface TicketmasterEvent {
     venues?: TicketmasterVenue[];
     attractions?: TicketmasterAttraction[];
   };
+
+  priceRanges?: { min: number; max: number; currency: string; type: string }[];
 }
 
 export interface TicketmasterVenue {

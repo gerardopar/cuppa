@@ -1,17 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
-
 import axiosClient from "../../axios/axiosClient";
 
-import { TicketmasterEventResponse } from "@shared/types/ticketMasterApi";
+import {
+  TicketmasterEventResponse,
+  TicketmasterDiscoveryQueryParams,
+} from "@shared/types/ticketMasterApi";
 
-export const useGetEvents = () => {
-  return useQuery<TicketmasterEventResponse>({
-    queryKey: ["getLocalEvents"],
+export const useGetLocalEvents = (
+  params?: Omit<TicketmasterDiscoveryQueryParams, "apikey">
+) => {
+  return useQuery<{ events: TicketmasterEventResponse }>({
+    queryKey: ["getLocalEvents", params],
     queryFn: async () => {
-      const response = await axiosClient.get<TicketmasterEventResponse>(
-        `/events/local`
-      );
+      const response = await axiosClient.get<{
+        events: TicketmasterEventResponse;
+      }>("/events/local", {
+        params,
+      });
       return response.data;
     },
+    enabled: true,
   });
 };
