@@ -139,7 +139,8 @@ export const LocalEvents: React.FC = () => {
                     </p>
                     <p className="mt-2 flex items-center text-sm text-white">
                       <EventOutlined className="text-white mr-2" />
-                      {eventMonth} {eventDay}, {eventYear} - @{formattedTime}
+                      {eventMonth} {eventDay}, {eventYear} &#183; @
+                      {formattedTime}
                     </p>
                     <p className="mt-2 flex items-center text-sm text-white line-clamp-1 w-full">
                       <LocationOnOutlined className="text-white mr-2" />
